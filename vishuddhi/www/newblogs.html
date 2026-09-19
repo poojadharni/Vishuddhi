@@ -1,0 +1,289 @@
+{% extends "templates/web.html" %}
+{% block page_content %}
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+    font-family:'Inter',sans-serif;
+    background:#f7f8f3;
+}
+
+/* Hero */
+.blog-hero{
+    background:linear-gradient(rgba(0,75,35,.88),rgba(0,75,35,.88)),
+    url("/assets/vishuddhi/images/blog-banner.jpg") center/cover;
+    padding:80px 20px;
+    text-align:center;
+    color:#fff;
+    margin-bottom:60px;
+}
+
+.blog-hero h1{
+    font-size:46px;
+    font-weight:700;
+    margin-bottom:15px;
+}
+
+.blog-hero p{
+    max-width:700px;
+    margin:auto;
+    font-size:18px;
+    color:#eef7ef;
+    line-height:1.8;
+}
+
+#blog-container .col-lg-4,
+#blog-container .col-md-6{
+    display:flex;
+}
+
+/* Card */
+
+.blog-card{
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    background:#fff;
+    border-radius:18px;
+    overflow:hidden;
+    border:1px solid #edf0e8;
+    box-shadow:0 8px 25px rgba(0,0,0,.08);
+    transition:.35s;
+}
+
+.blog-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 18px 40px rgba(0,0,0,.12);
+}
+
+.blog-header{
+    background:linear-gradient(135deg,#004b23,#0b6b3a);
+    min-height:200px;
+    position:relative;
+    padding:22px;
+}
+
+.blog-header h5{
+    color:#fff;
+    font-size:18px;
+    font-weight:700;
+    margin-bottom:12px;
+    max-width:190px;
+}
+
+.blog-header p{
+    color:#e7f5ea;
+    font-size:12px;
+    line-height:1.7;
+    max-width:190px;
+}
+
+.blog-img{
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    object-fit:cover;
+    position:absolute;
+    top:25px;
+    right:1px;
+    border:5px solid #fff;
+    background:#fff;
+}
+
+.blog-body{
+    padding:22px;
+    flex:1;
+}
+
+.blog-body h5{
+    color:#004b23;
+    font-size:20px;
+    font-weight:700;
+    margin-bottom:12px;
+}
+
+.blog-body p{
+    color:#666;
+    line-height:1.8;
+    margin-bottom:20px;
+
+    display:-webkit-box;
+    -webkit-line-clamp:3;
+    -webkit-box-orient:vertical;
+    overflow:hidden;
+}
+
+.read-more{
+    color:#0b6b3a;
+    font-weight:600;
+    text-decoration:none;
+}
+
+.read-more:hover{
+    color:#d28b00;
+}
+
+.blog-footer{
+    padding:15px 22px;
+    border-top:1px solid #ececec;
+    color:#777;
+    font-size:13px;
+    background:#fafcf8;
+}
+
+@media(max-width:768px){
+
+.blog-hero{
+    padding:60px 20px;
+}
+
+.blog-hero h1{
+    font-size:34px;
+}
+
+.blog-header{
+    min-height:180px;
+}
+
+.blog-img{
+    width:95px;
+    height:95px;
+}
+
+.blog-header h5,
+.blog-header p{
+    max-width:150px;
+}
+
+}
+
+</style>
+
+<div class="container py-5">
+
+    <div class="row g-4" id="blog-container">
+
+        <div class="col-12 text-center">
+            <h4>Loading Blogs...</h4>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+frappe.ready(function () {
+    loadBlogs();
+});
+
+// Remove HTML tags
+function stripHtml(html) {
+    var div = document.createElement("div");
+    div.innerHTML = html || "";
+    return div.textContent || div.innerText || "";
+}
+
+// Format Date
+function formatDate(date) {
+
+    if (!date) return "";
+
+    const d = new Date(date);
+
+    return d.toLocaleDateString("en-IN", {
+        day: "2-digit",
+        month: "long",
+        year: "numeric"
+    });
+
+}
+
+function loadBlogs() {
+
+    frappe.call({
+
+        method: "vishuddhi.api.blogs.get_blogs",
+
+        callback: function (r) {
+
+            if (!r.message || r.message.length === 0) {
+
+                $("#blog-container").html(`
+                    <div class="col-12 text-center">
+                        <h4>No Blogs Found</h4>
+                    </div>
+                `);
+
+                return;
+            }
+
+            let html = "";
+
+            r.message.forEach(function (blog) {
+
+                let shortDesc = stripHtml(blog.description_1 || "");
+
+                if (shortDesc.length > 120) {
+                    shortDesc = shortDesc.substring(0, 120) + "...";
+                }
+
+                html += `
+
+                    <div class="col-lg-4 col-md-6">
+
+                        <div class="blog-card">
+
+                            <div class="blog-header">
+
+                                <h5>${blog.description_heading_1 || ""}</h5>
+
+                                <p>${blog.sub_description_heading_1 || ""}</p>
+
+                                <img
+                                    src="${blog.thumbnail_image || blog.header_image || '/assets/frappe/images/ui/no-image.svg'}"
+                                    class="blog-img"
+                                    alt="${blog.description_heading_1 || ''}">
+
+                            </div>
+
+                            <div class="blog-body">
+
+                                <h5>${blog.description_heading_1 || ""}</h5>
+
+                                <p>${shortDesc}</p>
+
+                                <a href="/blog-details?url=${encodeURIComponent(blog.url)}"
+   class="read-more">
+    Read More >>
+</a>
+
+                            </div>
+
+                            <div class="blog-footer">
+
+                                📅 ${formatDate(blog.creation || blog.blog_date)}
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            });
+
+            $("#blog-container").html(html);
+
+        }
+
+    });
+
+}
+
+</script>
+
+{% endblock %}

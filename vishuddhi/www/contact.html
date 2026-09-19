@@ -1,0 +1,4190 @@
+{% extends "templates/web.html" %}
+
+{% block page_content %}
+
+<link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+>
+
+<link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    rel="stylesheet"
+>
+
+<style>
+
+/* =========================================================
+   VISHUDDHI CONTACT PAGE
+   MODERN + COMPACT BOTANICAL DESIGN
+========================================================= */
+
+:root {
+    --v-primary: #203b27;
+    --v-primary-dark: #13291b;
+    --v-green: #2f6b3d;
+    --v-light-green: #eef7ef;
+    --v-soft-green: #f5faf5;
+    --v-gold: #c99a3d;
+    --v-text: #183126;
+    --v-muted: #71817a;
+    --v-border: #dfe9e1;
+    --v-white: #ffffff;
+    --v-danger: #c53c3c;
+}
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+.v-contact-page {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background: #ffffff;
+    color: var(--v-text);
+    overflow: hidden;
+}
+
+.v-contact-page *,
+.v-contact-page *::before,
+.v-contact-page *::after {
+    box-sizing: border-box;
+}
+
+.v-contact-page input,
+.v-contact-page textarea,
+.v-contact-page select,
+.v-contact-page button {
+    font-family: inherit;
+}
+
+.v-contact-page a {
+    transition: all 0.2s ease;
+}
+
+
+/* =========================================================
+   FULL WIDTH HERO
+========================================================= */
+
+.v-contact-hero {
+    position: relative;
+
+    width: 100%;
+    min-height: 280px;
+
+    display: flex;
+    align-items: center;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(19, 41, 27, 0.97) 0%,
+            rgba(19, 41, 27, 0.86) 42%,
+            rgba(19, 41, 27, 0.45) 100%
+        ),
+        url("/files/plants.jpg") center center / cover no-repeat;
+
+    overflow: hidden;
+}
+
+
+/* IMPORTANT:
+   NO BOOTSTRAP  HERE
+*/
+
+.v-contact-hero-inner {
+    width: 100%;
+    max-width: none;
+
+    margin: 0;
+    padding: 0 6%;
+}
+
+
+/* HERO CONTENT */
+
+.v-contact-hero-content {
+    position: relative;
+    z-index: 2;
+
+    width: 100%;
+    max-width: 760px;
+
+    padding: 55px 0;
+}
+
+
+/* EYEBROW */
+
+.v-contact-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 9px;
+
+    color: #d9ebda;
+
+    font-size: 11px;
+    font-weight: 800;
+
+    letter-spacing: 2px;
+    text-transform: uppercase;
+
+    margin-bottom: 14px;
+}
+
+.v-contact-eyebrow::before {
+    content: "";
+
+    width: 28px;
+    height: 1px;
+
+    background: #d9ebda;
+}
+
+
+/* HEADING */
+
+.v-contact-hero h1 {
+    color: #ffffff;
+
+    font-size: clamp(36px, 5vw, 42px);
+
+    line-height: 1.04;
+
+    font-weight: 700;
+
+    letter-spacing: -2px;
+
+    margin: 0 0 16px;
+}
+
+.v-contact-hero h1 span {
+    color: #d5e9d5;
+}
+
+
+/* DESCRIPTION */
+
+.v-contact-hero p {
+    max-width: 650px;
+
+    color: rgba(255,255,255,0.82);
+
+    font-size: 16px;
+
+    line-height: 1.7;
+
+    margin: 0;
+}
+
+
+/* HERO DECORATION */
+
+.v-contact-hero::before {
+    content: "";
+
+    position: absolute;
+
+    width: 220px;
+    height: 220px;
+
+    right: 8%;
+    top: -130px;
+
+    border-radius: 50%;
+
+    border: 1px solid rgba(255,255,255,0.10);
+}
+
+.v-contact-hero::after {
+    content: "";
+
+    position: absolute;
+
+    width: 390px;
+    height: 390px;
+
+    right: -180px;
+    bottom: -220px;
+
+    border-radius: 50%;
+
+    border: 1px solid rgba(255,255,255,0.13);
+
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   GENERAL SECTION
+========================================================= */
+
+.v-section {
+    width: 100%;
+
+    padding: 68px 0;
+}
+
+.v-section-soft {
+    background: var(--v-soft-green);
+}
+
+.v-section-heading {
+    margin-bottom: 34px;
+}
+
+.v-section-heading.center {
+    text-align: center;
+}
+
+.v-section-kicker {
+    color: var(--v-green);
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 2px;
+
+    text-transform: uppercase;
+
+    margin-bottom: 8px;
+}
+
+.v-section-heading h2 {
+    color: var(--v-text);
+
+    font-size: clamp(29px, 4vw, 32px);
+
+    font-weight: 700;
+
+    letter-spacing: -1px;
+
+    margin: 0 0 10px;
+}
+
+.v-section-heading p {
+    color: var(--v-muted);
+
+    max-width: 620px;
+
+    font-size: 14px;
+
+    line-height: 1.7;
+
+    margin: 0;
+}
+
+.v-section-heading.center p {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+/* =========================================================
+   CONTACT INFORMATION CARD
+========================================================= */
+
+.v-info-card {
+    position: relative;
+
+    height: 100%;
+
+    padding: 30px;
+
+    background: #ffffff;
+
+    border: 1px solid var(--v-border);
+
+    border-radius: 24px;
+
+    box-shadow:
+        0 12px 35px rgba(25, 56, 34, 0.06);
+
+    overflow: hidden;
+}
+
+.v-info-card::before {
+    content: "";
+
+    position: absolute;
+
+    width: 100px;
+    height: 100px;
+
+    top: -35px;
+    right: -35px;
+
+    border-radius: 50%;
+
+    background: var(--v-light-green);
+}
+
+.v-info-card > * {
+    position: relative;
+    z-index: 1;
+}
+
+.v-info-card h3 {
+    color: var(--v-text);
+
+    font-size: 24px;
+
+    font-weight: 700;
+
+    margin: 0 0 8px;
+}
+
+.v-info-intro {
+    color: var(--v-muted);
+
+    font-size: 13px;
+
+    line-height: 1.65;
+
+    margin: 0 0 20px;
+}
+
+
+/* INFO ITEM */
+
+.v-info-item {
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 13px;
+
+    padding: 13px 0;
+
+    border-bottom: 1px solid #edf2ee;
+}
+
+.v-info-item:last-child {
+    border-bottom: 0;
+}
+
+
+/* ICON */
+
+.v-info-icon {
+    width: 42px;
+    height: 42px;
+
+    min-width: 42px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    background: var(--v-light-green);
+
+    color: var(--v-green);
+
+    font-size: 15px;
+}
+
+
+/* INFO TEXT */
+
+.v-info-item h5 {
+    color: var(--v-text);
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    margin: 1px 0 3px;
+}
+
+.v-info-item p {
+    color: var(--v-muted);
+
+    font-size: 13px;
+
+    line-height: 1.5;
+
+    margin: 0;
+}
+
+.v-info-item a {
+    color: var(--v-muted);
+
+    text-decoration: none;
+}
+
+.v-info-item a:hover {
+    color: var(--v-green);
+}
+
+
+/* =========================================================
+   CONTACT FORM CARD
+========================================================= */
+
+.v-form-card {
+    background: #ffffff;
+
+    border: 1px solid var(--v-border);
+
+    border-radius: 24px;
+
+    padding: 30px;
+
+    box-shadow:
+        0 12px 35px rgba(25, 56, 34, 0.06);
+}
+
+.v-form-card h3 {
+    color: var(--v-text);
+
+    font-size: 24px;
+
+    font-weight: 700;
+
+    margin: 0 0 6px;
+}
+
+.v-form-description {
+    color: var(--v-muted);
+
+    font-size: 13px;
+
+    line-height: 1.6;
+
+    margin: 0 0 22px;
+}
+
+
+/* =========================================================
+   FORM GRID
+========================================================= */
+
+.v-form-card .row {
+    --bs-gutter-x: 14px;
+    --bs-gutter-y: 0;
+}
+
+
+/* =========================================================
+   FIELD
+========================================================= */
+
+.v-field {
+    margin-bottom: 14px;
+}
+
+
+/* =========================================================
+   LABEL
+========================================================= */
+
+.v-label {
+    display: block;
+
+    color: var(--v-text);
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    margin-bottom: 6px;
+}
+
+.v-label .required {
+    color: var(--v-danger);
+}
+
+
+/* =========================================================
+   INPUT WRAPPER
+========================================================= */
+
+.v-input-wrap {
+    position: relative;
+}
+
+
+/* =========================================================
+   INPUT / TEXTAREA
+========================================================= */
+
+.v-input,
+.v-textarea {
+    width: 100%;
+
+    border: 1px solid var(--v-border);
+
+    background: #fbfdfb;
+
+    color: var(--v-text);
+
+    border-radius: 11px;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+}
+
+
+/* INPUT */
+
+.v-input {
+    height: 46px;
+
+    min-height: 46px;
+
+    padding: 0 13px 0 42px;
+
+    font-size: 13px;
+}
+
+
+/* INPUT WITHOUT ICON */
+
+.v-input[style*="padding-left:16px"] {
+    padding-left: 13px !important;
+}
+
+
+/* TEXTAREA */
+
+.v-textarea {
+    min-height: 105px;
+
+    padding: 12px 13px;
+
+    resize: vertical;
+
+    font-size: 13px;
+}
+
+
+/* PLACEHOLDER */
+
+.v-input::placeholder,
+.v-textarea::placeholder {
+    color: #a0aaa5;
+
+    font-size: 13px;
+}
+
+
+/* FOCUS */
+
+.v-input:focus,
+.v-textarea:focus {
+    border-color: var(--v-green);
+
+    background: #ffffff;
+
+    box-shadow:
+        0 0 0 3px rgba(47,107,61,0.07);
+}
+
+
+/* ICON */
+
+.v-input-icon {
+    position: absolute;
+
+    top: 50%;
+    left: 14px;
+
+    transform: translateY(-50%);
+
+    color: #84938b;
+
+    font-size: 13px;
+
+    pointer-events: none;
+}
+
+
+/* VALID */
+
+.v-input.valid,
+.v-textarea.valid {
+    border-color: #63a56f;
+}
+
+
+/* INVALID */
+
+.v-input.invalid,
+.v-textarea.invalid {
+    border-color: #d94c4c;
+
+    background: #fffafa;
+}
+
+
+/* ERROR */
+
+.v-error {
+    display: none;
+
+    color: var(--v-danger);
+
+    font-size: 11px;
+
+    line-height: 1.4;
+
+    margin-top: 4px;
+}
+
+.v-error.show {
+    display: block;
+}
+
+
+/* =========================================================
+   SUBMIT BUTTON
+========================================================= */
+
+.v-submit {
+    width: 100%;
+
+    height: 48px;
+
+    min-height: 48px;
+
+    border: 0;
+
+    border-radius: 26px;
+
+    background: var(--v-primary);
+
+    color: #ffffff;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 9px;
+
+    cursor: pointer;
+
+    transition: all 0.25s ease;
+
+    margin-top: 3px;
+}
+
+.v-submit:hover {
+    background: var(--v-primary-dark);
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 8px 20px rgba(32,59,39,0.18);
+}
+
+.v-submit:disabled {
+    opacity: 0.65;
+
+    cursor: not-allowed;
+
+    transform: none;
+
+    box-shadow: none;
+}
+
+
+/* =========================================================
+   ALERT
+========================================================= */
+
+.v-alert {
+    display: none;
+
+    padding: 12px 15px;
+
+    border-radius: 11px;
+
+    margin-bottom: 18px;
+
+    font-size: 13px;
+
+    line-height: 1.5;
+}
+
+.v-alert.success {
+    display: block;
+
+    color: #216b3a;
+
+    background: #edf8ef;
+
+    border: 1px solid #c9e7ce;
+}
+
+.v-alert.error {
+    display: block;
+
+    color: #a33737;
+
+    background: #fff1f1;
+
+    border: 1px solid #f0cccc;
+}
+
+
+/* =========================================================
+   APPOINTMENT SECTION
+========================================================= */
+
+.v-appointment-section {
+    background: var(--v-soft-green);
+}
+
+
+/* APPOINTMENT CARD */
+
+.v-appointment-card {
+    background: #ffffff;
+
+    border: 1px solid var(--v-border);
+
+    border-radius: 26px;
+
+    padding: 32px;
+
+    box-shadow:
+        0 14px 40px rgba(25,56,34,0.07);
+}
+
+
+/* =========================================================
+   APPOINTMENT STEP
+========================================================= */
+
+.v-step {
+    margin-bottom: 28px;
+}
+
+.v-step:last-child {
+    margin-bottom: 15px;
+}
+
+.v-step-heading {
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    margin-bottom: 12px;
+}
+
+.v-step-number {
+    width: 34px;
+    height: 34px;
+
+    min-width: 34px;
+
+    border-radius: 50%;
+
+    background: var(--v-primary);
+
+    color: #ffffff;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    font-size: 12px;
+
+    font-weight: 800;
+}
+
+.v-step-heading h4 {
+    color: var(--v-text);
+
+    font-size: 16px;
+
+    font-weight: 700;
+
+    margin: 0;
+}
+
+
+/* =========================================================
+   DATE INPUT
+========================================================= */
+
+.v-date-input {
+    width: 100%;
+
+    height: 46px;
+
+    min-height: 46px;
+
+    border: 1px solid var(--v-border);
+
+    border-radius: 11px;
+
+    background: #fbfdfb;
+
+    color: var(--v-text);
+
+    padding: 0 13px;
+
+    font-size: 13px;
+
+    outline: none;
+
+    transition: 0.2s ease;
+}
+
+.v-date-input:focus {
+    border-color: var(--v-green);
+
+    background: #ffffff;
+
+    box-shadow:
+        0 0 0 3px rgba(47,107,61,0.07);
+}
+
+
+/* =========================================================
+   AVAILABLE DAY
+========================================================= */
+
+.v-available-day {
+    display: none;
+
+    color: var(--v-muted);
+
+    font-size: 12px;
+
+    margin-bottom: 10px;
+}
+
+.v-available-day strong {
+    color: var(--v-green);
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.v-loading {
+    color: var(--v-muted);
+
+    padding: 10px 0;
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   SLOT GRID
+========================================================= */
+
+.v-slot-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, minmax(0, 1fr));
+
+    gap: 9px;
+}
+
+.v-slot {
+    min-height: 44px;
+
+    border: 1px solid var(--v-border);
+
+    border-radius: 10px;
+
+    background: #ffffff;
+
+    color: var(--v-text);
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: all 0.2s ease;
+}
+
+.v-slot:hover {
+    border-color: var(--v-green);
+
+    color: var(--v-green);
+
+    transform: translateY(-1px);
+}
+
+.v-slot.active {
+    background: var(--v-primary);
+
+    border-color: var(--v-primary);
+
+    color: #ffffff;
+
+    box-shadow:
+        0 6px 15px rgba(32,59,39,0.17);
+}
+
+
+/* =========================================================
+   EMPTY SLOTS
+========================================================= */
+
+.v-no-slots {
+    padding: 18px;
+
+    text-align: center;
+
+    border: 1px dashed #ccdace;
+
+    border-radius: 12px;
+
+    background: #fafcfb;
+
+    color: var(--v-muted);
+
+    font-size: 13px;
+}
+
+
+/* =========================================================
+   SELECTED SUMMARY
+========================================================= */
+
+.v-selected-summary {
+    display: none;
+
+    margin-top: 12px;
+
+    padding: 13px 15px;
+
+    border-radius: 11px;
+
+    background: var(--v-light-green);
+
+    border: 1px solid #d5e9d8;
+
+    color: var(--v-muted);
+
+    font-size: 13px;
+}
+
+.v-selected-summary i {
+    color: var(--v-green);
+}
+
+.v-selected-summary strong {
+    color: var(--v-green);
+}
+
+
+/* APPOINTMENT FORM */
+
+.v-appointment-card .v-field {
+    margin-bottom: 8px;
+}
+
+.v-appointment-card .v-label {
+    margin-bottom: 5px;
+}
+
+.v-appointment-card .v-textarea {
+    min-height: 90px;
+}
+
+
+/* BOOK BUTTON */
+
+.v-book-btn {
+    min-height: 48px;
+
+    padding: 0 28px;
+
+    border: 0;
+
+    border-radius: 26px;
+
+    background: var(--v-primary);
+
+    color: #ffffff;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 9px;
+
+    cursor: pointer;
+
+    transition: all 0.25s ease;
+}
+
+.v-book-btn:hover {
+    background: var(--v-primary-dark);
+
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 8px 20px rgba(32,59,39,0.18);
+}
+
+.v-book-btn:disabled {
+    opacity: 0.65;
+
+    cursor: not-allowed;
+
+    transform: none;
+
+    box-shadow: none;
+}
+
+
+/* =========================================================
+   CTA
+========================================================= */
+
+.v-contact-cta {
+    position: relative;
+    background: var(--v-primary);
+    padding: 30px 0;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.v-contact-cta::before,
+.v-contact-cta::after {
+    content: "";
+
+    position: absolute;
+
+    border: 1px solid rgba(255,255,255,0.08);
+
+    border-radius: 50%;
+}
+
+.v-contact-cta::before {
+    width: 320px;
+    height: 320px;
+
+    left: -170px;
+    top: -170px;
+}
+
+.v-contact-cta::after {
+    width: 240px;
+    height: 240px;
+
+    right: -110px;
+    bottom: -145px;
+}
+
+.v-contact-cta-content {
+    position: relative;
+
+    z-index: 2;
+
+    text-align: center;
+}
+
+.v-contact-cta h2 {
+    color: #ffffff;
+
+    font-size: 32px;
+
+    font-weight: 700;
+
+    margin: 0 0 8px;
+}
+
+.v-contact-cta p {
+    color: rgba(255,255,255,0.75);
+
+    font-size: 14px;
+
+    margin: 0 0 20px;
+}
+
+.v-cta-btn {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    padding: 12px 22px;
+
+    border-radius: 25px;
+
+    background: #ffffff;
+
+    color: var(--v-primary);
+
+    text-decoration: none;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    transition: 0.25s ease;
+}
+
+.v-cta-btn:hover {
+    color: var(--v-primary);
+
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 8px 20px rgba(0,0,0,0.15);
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 991px) {
+
+    .v-contact-hero {
+        min-height: 310px;
+    }
+
+    .v-contact-hero-inner {
+        padding: 0 35px;
+    }
+
+    .v-contact-hero-content {
+        padding: 50px 0;
+    }
+
+    .v-section {
+        padding: 58px 0;
+    }
+
+    .v-slot-grid {
+        grid-template-columns:
+            repeat(3, minmax(0, 1fr));
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+
+    .v-contact-hero {
+        min-height: 290px;
+    }
+
+    .v-contact-hero-inner {
+        padding: 0 22px;
+    }
+
+    .v-contact-hero-content {
+        padding: 45px 0;
+    }
+
+    .v-contact-hero h1 {
+        font-size: 40px;
+
+        letter-spacing: -1px;
+    }
+
+    .v-contact-hero p {
+        font-size: 14px;
+
+        line-height: 1.65;
+    }
+
+    .v-section {
+        padding: 50px 0;
+    }
+
+    .v-info-card,
+    .v-form-card,
+    .v-appointment-card {
+        padding: 22px;
+
+        border-radius: 20px;
+    }
+
+    .v-form-card .row {
+        --bs-gutter-x: 0;
+    }
+
+    .v-slot-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .v-book-btn {
+        width: 100%;
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+    .v-contact-hero {
+        min-height: 270px;
+    }
+
+    .v-contact-hero-inner {
+        padding: 0 18px;
+    }
+
+    .v-contact-hero-content {
+        padding: 40px 0;
+    }
+
+    .v-contact-hero h1 {
+        font-size: 36px;
+    }
+
+    .v-section-heading h2 {
+        font-size: 29px;
+    }
+
+    .v-info-card,
+    .v-form-card,
+    .v-appointment-card {
+        padding: 19px;
+    }
+
+    .v-slot-grid {
+        grid-template-columns:
+            repeat(2, minmax(0, 1fr));
+    }
+
+    .v-contact-cta {
+        padding: 45px 0;
+    }
+
+    .v-contact-cta h2 {
+        font-size: 27px;
+    }
+
+}
+
+</style>
+
+
+<div class="v-contact-page">
+
+
+<!-- =========================================================
+     FULL WIDTH HERO
+========================================================= -->
+
+<section class="v-contact-hero">
+
+    <div class="v-contact-hero-inner">
+
+        <div class="v-contact-hero-content">
+
+            <div class="v-contact-eyebrow">
+                Vishuddhi Plants
+            </div>
+
+            <h1>
+                Let's Grow
+                <span>Together.</span>
+            </h1>
+
+            <p>
+                Have a question about our plants, gardening essentials,
+                orders or plant care? Our team is here to help you create
+                a greener and healthier space.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     CONTACT SECTION
+========================================================= -->
+
+<section class="v-section">
+
+    <div class="">
+
+        <div class="v-section-heading center">
+
+            <div class="v-section-kicker">
+                Get In Touch
+            </div>
+
+            <h2>
+                We'd Love to Hear From You
+            </h2>
+
+            <p>
+                Whether you need help choosing a plant or simply want
+                to know more about our products, feel free to reach out.
+            </p>
+
+        </div>
+
+
+        <div class="row g-4">
+
+
+            <!-- =================================================
+                 CONTACT INFORMATION
+            ================================================= -->
+
+            <div class="col-lg-5">
+
+                <div class="v-info-card">
+
+                    <h3>
+                        Contact Information
+                    </h3>
+
+                    <p class="v-info-intro">
+                        Connect with the Vishuddhi team for plant
+                        recommendations, product information and support.
+                    </p>
+
+
+                    <!-- ADDRESS -->
+
+                    <div class="v-info-item">
+
+                        <div class="v-info-icon">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </div>
+
+                        <div>
+
+                            <h5>
+                                Visit Us
+                            </h5>
+
+                            <p>
+                                Your business address<br>
+                                Bengaluru, Karnataka, India
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PHONE -->
+
+                    <div class="v-info-item">
+
+                        <div class="v-info-icon">
+                            <i class="fa-solid fa-phone"></i>
+                        </div>
+
+                        <div>
+
+                            <h5>
+                                Call Us
+                            </h5>
+
+                            <p>
+                                <a href="tel:+910000000000">
+                                    +91 00000 00000
+                                </a>
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- EMAIL -->
+
+                    <div class="v-info-item">
+
+                        <div class="v-info-icon">
+                            <i class="fa-regular fa-envelope"></i>
+                        </div>
+
+                        <div>
+
+                            <h5>
+                                Email Us
+                            </h5>
+
+                            <p>
+                                <a href="mailto:info@example.com">
+                                    info@example.com
+                                </a>
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- HOURS -->
+
+                    <div class="v-info-item">
+
+                        <div class="v-info-icon">
+                            <i class="fa-regular fa-clock"></i>
+                        </div>
+
+                        <div>
+
+                            <h5>
+                                Working Hours
+                            </h5>
+
+                            <p>
+                                Monday - Saturday<br>
+                                8:00 AM - 7:00 PM
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 CONTACT FORM
+            ================================================= -->
+
+            <div class="col-lg-7">
+
+                <div class="v-form-card">
+
+                    <div
+                        id="contactMessage"
+                        class="v-alert">
+                    </div>
+
+
+                    <h3>
+                        Send Us a Message
+                    </h3>
+
+                    <p class="v-form-description">
+                        Fill in the details below and our team will
+                        get back to you.
+                    </p>
+
+
+                    <form
+                        id="contactForm"
+                        novalidate>
+
+
+                        <div class="row">
+
+
+                            <!-- NAME -->
+
+                            <div class="col-md-6">
+
+                                <div class="v-field">
+
+                                    <label
+                                        class="v-label"
+                                        for="contactName">
+
+                                        Full Name
+                                        <span class="required">*</span>
+
+                                    </label>
+
+                                    <div class="v-input-wrap">
+
+                                        <i
+                                            class="fa-regular fa-user v-input-icon">
+                                        </i>
+
+                                        <input
+                                            type="text"
+                                            id="contactName"
+                                            class="v-input"
+                                            placeholder="Enter your name"
+                                            autocomplete="name"
+                                            maxlength="80"
+                                        >
+
+                                    </div>
+
+                                    <div
+                                        id="contactNameError"
+                                        class="v-error">
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- EMAIL -->
+
+                            <div class="col-md-6">
+
+                                <div class="v-field">
+
+                                    <label
+                                        class="v-label"
+                                        for="contactEmail">
+
+                                        Email Address
+                                        <span class="required">*</span>
+
+                                    </label>
+
+                                    <div class="v-input-wrap">
+
+                                        <i
+                                            class="fa-regular fa-envelope v-input-icon">
+                                        </i>
+
+                                        <input
+                                            type="email"
+                                            id="contactEmail"
+                                            class="v-input"
+                                            placeholder="you@example.com"
+                                            autocomplete="email"
+                                            maxlength="120"
+                                        >
+
+                                    </div>
+
+                                    <div
+                                        id="contactEmailError"
+                                        class="v-error">
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- PHONE -->
+
+                            <div class="col-md-6">
+
+                                <div class="v-field">
+
+                                    <label
+                                        class="v-label"
+                                        for="contactPhone">
+
+                                        Phone Number
+
+                                    </label>
+
+                                    <div class="v-input-wrap">
+
+                                        <i
+                                            class="fa-solid fa-phone v-input-icon">
+                                        </i>
+
+                                        <input
+                                            type="tel"
+                                            id="contactPhone"
+                                            class="v-input"
+                                            placeholder="10-digit mobile number"
+                                            maxlength="10"
+                                            inputmode="numeric"
+                                            autocomplete="tel"
+                                        >
+
+                                    </div>
+
+                                    <div
+                                        id="contactPhoneError"
+                                        class="v-error">
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- SUBJECT -->
+
+                            <div class="col-md-6">
+
+                                <div class="v-field">
+
+                                    <label
+                                        class="v-label"
+                                        for="contactSubject">
+
+                                        Subject
+
+                                    </label>
+
+                                    <div class="v-input-wrap">
+
+                                        <i
+                                            class="fa-regular fa-comment-dots v-input-icon">
+                                        </i>
+
+                                        <input
+                                            type="text"
+                                            id="contactSubject"
+                                            class="v-input"
+                                            placeholder="How can we help?"
+                                            maxlength="150"
+                                        >
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- MESSAGE -->
+
+                            <div class="col-12">
+
+                                <div class="v-field">
+
+                                    <label
+                                        class="v-label"
+                                        for="contactText">
+
+                                        Message
+                                        <span class="required">*</span>
+
+                                    </label>
+
+                                    <textarea
+                                        id="contactText"
+                                        class="v-textarea"
+                                        placeholder="Tell us how we can help you..."
+                                        maxlength="1000"></textarea>
+
+                                    <div
+                                        id="contactTextError"
+                                        class="v-error">
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- SUBMIT -->
+
+                            <div class="col-12">
+
+                                <button
+                                    type="submit"
+                                    id="contactSubmitBtn"
+                                    class="v-submit">
+
+                                    <i class="fa-regular fa-paper-plane"></i>
+
+                                    Send Message
+
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     APPOINTMENT SECTION
+========================================================= -->
+
+<section class="v-section v-appointment-section">
+
+    <div class="">
+
+
+        <div class="v-section-heading center">
+
+            <div class="v-section-kicker">
+                Plant Consultation
+            </div>
+
+            <h2>
+                Book an Appointment
+            </h2>
+
+            <p>
+                Need personalised help choosing plants or planning
+                your green space? Schedule a convenient time with us.
+            </p>
+
+        </div>
+
+
+        <div class="row justify-content-center">
+
+            <div class="col-xl-9 col-lg-10">
+
+                <div class="v-appointment-card">
+                    <!-- =================================================
+                         STEP 1
+                    ================================================= -->
+
+                    <div class="v-step">
+
+                        <div class="v-step-heading">
+
+                            <span class="v-step-number">
+                                1
+                            </span>
+
+                            <h4>
+                                Select a Date
+                            </h4>
+
+                        </div>
+
+                        <input
+                            type="date"
+                            id="appointmentDate"
+                            class="v-date-input"
+                        >
+
+                    </div>
+
+
+                    <!-- =================================================
+                         STEP 2
+                    ================================================= -->
+
+                    <div class="v-step">
+
+                        <div class="v-step-heading">
+
+                            <span class="v-step-number">
+                                2
+                            </span>
+
+                            <h4>
+                                Choose a Time
+                            </h4>
+
+                        </div>
+
+
+                        <div
+                            id="selectedDayText"
+                            class="v-available-day">
+
+                            Available appointments for
+                            <strong id="weekdayText"></strong>
+
+                        </div>
+
+
+                        <div
+                            id="slotLoading"
+                            class="v-loading"
+                            style="display:none;">
+
+                            <i class="fa-solid fa-spinner fa-spin"></i>
+
+                            Checking available times...
+
+                        </div>
+
+
+                        <div id="slot">
+
+                            <div class="v-no-slots">
+
+                                <i class="fa-regular fa-calendar"></i>
+
+                                &nbsp;
+
+                                Please select a date to see
+                                available appointment times.
+
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            id="selectedSummary"
+                            class="v-selected-summary">
+
+                            <i class="fa-solid fa-circle-check"></i>
+
+                            &nbsp;
+
+                            Selected:
+
+                            <strong id="selectedDateText"></strong>
+
+                            at
+
+                            <strong id="selectedTimeText"></strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         STEP 3
+                    ================================================= -->
+
+                    <div class="v-step">
+
+                        <div class="v-step-heading">
+
+                            <span class="v-step-number">
+                                3
+                            </span>
+
+                            <h4>
+                                Your Details
+                            </h4>
+
+                        </div>
+
+
+                        <div class="row g-3">
+
+
+                            <!-- NAME -->
+
+                            <div class="col-md-6">
+
+                                <div class="v-field">
+
+                                    <label
+                                        class="v-label"
+                                        for="customerName">
+
+                                        Full Name
+                                        <span class="required">*</span>
+
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="customerName"
+                                        class="v-input"
+                                        style="padding-left:13px;"
+                                        placeholder="Enter your full name"
+                                        autocomplete="name"
+                                        maxlength="80"
+                                    >
+
+                                    <div
+                                        id="customerNameError"
+                                        class="v-error">
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- EMAIL -->
+
+                            <div class="col-md-6">
+
+                                <div class="v-field">
+
+                                    <label
+                                        class="v-label"
+                                        for="customerEmail">
+
+                                        Email
+                                        <span class="required">*</span>
+
+                                    </label>
+
+                                    <input
+                                        type="email"
+                                        id="customerEmail"
+                                        class="v-input"
+                                        style="padding-left:13px;"
+                                        placeholder="Enter your email"
+                                        autocomplete="email"
+                                        maxlength="120"
+                                    >
+
+                                    <div
+                                        id="customerEmailError"
+                                        class="v-error">
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- PHONE -->
+
+                            <div class="col-md-6">
+
+                                <div class="v-field">
+
+                                    <label
+                                        class="v-label"
+                                        for="customerPhone">
+
+                                        Phone
+                                        <span class="required">*</span>
+
+                                    </label>
+
+                                    <input
+                                        type="tel"
+                                        id="customerPhone"
+                                        class="v-input"
+                                        style="padding-left:13px;"
+                                        maxlength="10"
+                                        inputmode="numeric"
+                                        autocomplete="tel"
+                                        placeholder="10-digit mobile number"
+                                    >
+
+                                    <div
+                                        id="customerPhoneError"
+                                        class="v-error">
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- SUBJECT -->
+
+                            <div class="col-md-6">
+
+                                <div class="v-field">
+
+                                    <label
+                                        class="v-label"
+                                        for="appointmentSubject">
+
+                                        Subject
+
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="appointmentSubject"
+                                        class="v-input"
+                                        style="padding-left:13px;"
+                                        placeholder="Appointment subject"
+                                        maxlength="150"
+                                    >
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- MESSAGE -->
+
+                            <div class="col-12">
+
+                                <div class="v-field">
+
+                                    <label
+                                        class="v-label"
+                                        for="appointmentMessage">
+
+                                        Message
+
+                                    </label>
+
+                                    <textarea
+                                        id="appointmentMessage"
+                                        class="v-textarea"
+                                        placeholder="Tell us anything we should know..."
+                                        maxlength="1000"></textarea>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- BOOK BUTTON -->
+
+                    <div class="text-center">
+
+                        <button
+                            type="button"
+                            id="bookAppointmentBtn"
+                            class="v-book-btn">
+
+                            <i class="fa-regular fa-calendar-check"></i>
+
+                            Book Appointment
+
+                        </button>
+
+                    </div>
+
+<div
+    id="bookingMessage"
+    class="v-alert"
+    style="margin-top: 14px; margin-bottom: 0; text-align: center;">
+</div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     CTA
+========================================================= -->
+
+<section class="v-contact-cta">
+
+    <div class="">
+
+        <div class="v-contact-cta-content">
+
+            <h2>
+                Let's Make Your Space Greener
+            </h2>
+
+            <p>
+                Discover plants that bring freshness, beauty and life
+                closer to home.
+            </p>
+
+            <a
+                href="/all-products"
+                class="v-cta-btn">
+
+                Explore Plants
+
+                <i class="fa-solid fa-arrow-right"></i>
+
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   BASIC HELPERS
+========================================================= */
+
+function getElement(id) {
+    return document.getElementById(id);
+}
+
+
+/* =========================================================
+   ALERT
+========================================================= */
+
+function showMessage(id, message, type) {
+
+    const element = getElement(id);
+
+    if (!element) {
+        return;
+    }
+
+    element.className = "v-alert " + type;
+
+    element.textContent = message;
+
+}
+
+
+function hideMessage(id) {
+
+    const element = getElement(id);
+
+    if (!element) {
+        return;
+    }
+
+    element.className = "v-alert";
+
+    element.textContent = "";
+
+}
+
+
+/* =========================================================
+   FRAPPE API ERROR
+========================================================= */
+
+function getApiError(result, fallback) {
+
+    if (!result) {
+        return fallback;
+    }
+
+
+    if (result._server_messages) {
+
+        try {
+
+            const messages =
+                JSON.parse(result._server_messages);
+
+            if (
+                Array.isArray(messages) &&
+                messages.length
+            ) {
+
+                const firstMessage =
+                    JSON.parse(messages[0]);
+
+                if (
+                    firstMessage &&
+                    firstMessage.message
+                ) {
+
+                    return firstMessage.message;
+
+                }
+
+            }
+
+        }
+        catch (error) {
+
+            console.error(
+                "Unable to parse Frappe error:",
+                error
+            );
+
+        }
+
+    }
+
+
+    if (
+        typeof result.message === "string"
+    ) {
+
+        return result.message;
+
+    }
+
+
+    if (
+        result.message &&
+        typeof result.message.message === "string"
+    ) {
+
+        return result.message.message;
+
+    }
+
+
+    if (result.exc_type) {
+
+        return result.exc_type;
+
+    }
+
+
+    return fallback;
+
+}
+
+
+/* =========================================================
+   VALIDATION HELPERS
+========================================================= */
+
+function isValidEmail(email) {
+
+    return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
+
+}
+
+
+function isValidPhone(phone) {
+
+    return /^[6-9]\d{9}$/.test(phone);
+
+}
+
+
+function isValidName(name) {
+
+    return /^[\p{L}\p{M} .'-]+$/u.test(name);
+
+}
+
+
+/* =========================================================
+   FIELD STATE
+========================================================= */
+
+function setFieldError(
+    inputId,
+    errorId,
+    message
+) {
+
+    const input = getElement(inputId);
+    const error = getElement(errorId);
+
+    if (!input || !error) {
+        return false;
+    }
+
+    input.classList.add("invalid");
+    input.classList.remove("valid");
+
+    input.setAttribute(
+        "aria-invalid",
+        "true"
+    );
+
+    error.textContent = message;
+
+    error.classList.add("show");
+
+    return false;
+
+}
+
+
+function setFieldValid(
+    inputId,
+    errorId
+) {
+
+    const input = getElement(inputId);
+    const error = getElement(errorId);
+
+    if (!input || !error) {
+        return true;
+    }
+
+    input.classList.remove("invalid");
+    input.classList.add("valid");
+
+    input.setAttribute(
+        "aria-invalid",
+        "false"
+    );
+
+    error.textContent = "";
+
+    error.classList.remove("show");
+
+    return true;
+
+}
+
+
+function clearFieldState(
+    inputId,
+    errorId
+) {
+
+    const input = getElement(inputId);
+    const error = getElement(errorId);
+
+    if (!input || !error) {
+        return;
+    }
+
+    input.classList.remove(
+        "invalid",
+        "valid"
+    );
+
+    input.removeAttribute(
+        "aria-invalid"
+    );
+
+    error.textContent = "";
+
+    error.classList.remove("show");
+
+}
+
+
+/* =========================================================
+   LOCAL DATE
+========================================================= */
+
+function getLocalDateString(date) {
+
+    const year =
+        date.getFullYear();
+
+    const month =
+        String(
+            date.getMonth() + 1
+        ).padStart(2, "0");
+
+    const day =
+        String(
+            date.getDate()
+        ).padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
+
+}
+
+
+/* =========================================================
+   DATE
+========================================================= */
+
+const appointmentDate =
+    getElement("appointmentDate");
+
+const today =
+    new Date();
+
+const todayString =
+    getLocalDateString(today);
+
+appointmentDate.min =
+    todayString;
+
+
+/* =========================================================
+   WEEKDAY
+========================================================= */
+
+function getWeekdayFromDate(dateString) {
+
+    const date =
+        new Date(
+            dateString + "T00:00:00"
+        );
+
+    return date.toLocaleDateString(
+        "en-US",
+        {
+            weekday: "long"
+        }
+    );
+
+}
+
+
+/* =========================================================
+   FORMAT TIME
+========================================================= */
+
+function formatTime(time) {
+
+    if (!time) {
+        return "";
+    }
+
+    const parts =
+        String(time).split(":");
+
+    let hour =
+        parseInt(
+            parts[0],
+            10
+        );
+
+    const minute =
+        parts[1] || "00";
+
+    const suffix =
+        hour >= 12
+            ? "PM"
+            : "AM";
+
+    hour =
+        hour % 12 || 12;
+
+    return `${hour}:${minute} ${suffix}`;
+
+}
+
+
+/* =========================================================
+   FORMAT DATE
+========================================================= */
+
+function formatDate(dateString) {
+
+    const date =
+        new Date(
+            dateString + "T00:00:00"
+        );
+
+    return date.toLocaleDateString(
+        "en-IN",
+        {
+            day: "2-digit",
+            month: "short",
+            year: "numeric"
+        }
+    );
+
+}
+
+
+/* =========================================================
+   CLEAR SLOT
+========================================================= */
+
+function clearSelectedSlot() {
+
+    document
+        .querySelectorAll(".v-slot")
+        .forEach(function(button) {
+
+            button.classList.remove(
+                "active"
+            );
+
+        });
+
+
+    const summary =
+        getElement(
+            "selectedSummary"
+        );
+
+    if (summary) {
+
+        summary.style.display =
+            "none";
+
+    }
+
+}
+
+
+/* =========================================================
+   LOAD AVAILABLE SLOTS
+========================================================= */
+
+async function loadAvailableSlots() {
+
+    const date =
+        appointmentDate.value;
+
+    const slot =
+        getElement(
+            "slot"
+        );
+
+    const slotLoading =
+        getElement(
+            "slotLoading"
+        );
+
+    const selectedDayText =
+        getElement(
+            "selectedDayText"
+        );
+
+    const weekdayText =
+        getElement(
+            "weekdayText"
+        );
+
+
+    clearSelectedSlot();
+
+
+    selectedDayText.style.display =
+        "none";
+
+
+    if (!date) {
+
+        slot.innerHTML = `
+            <div class="v-no-slots">
+                Please select a date.
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    if (date < todayString) {
+
+        slot.innerHTML = `
+            <div class="v-no-slots">
+                Please select today or a future date.
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    const day =
+        getWeekdayFromDate(date);
+
+
+    weekdayText.textContent =
+        day;
+
+
+    selectedDayText.style.display =
+        "block";
+
+
+    slotLoading.style.display =
+        "block";
+
+
+    slot.innerHTML =
+        "";
+
+
+    try {
+
+        const url =
+            "/api/method/vishuddhi.api.appointment.get_available_slots"
+            + "?day="
+            + encodeURIComponent(day);
+
+
+        const response =
+            await fetch(
+                url,
+                {
+                    method: "GET",
+
+                    headers: {
+                        "Accept":
+                            "application/json"
+                    }
+                }
+            );
+
+
+        const result =
+            await response.json();
+
+
+        slotLoading.style.display =
+            "none";
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                getApiError(
+                    result,
+                    "Unable to load available slots."
+                )
+            );
+
+        }
+
+
+        let slots =
+            result.message;
+
+
+        if (!Array.isArray(slots)) {
+
+            slots =
+                slots?.slots || [];
+
+        }
+
+
+        if (!slots.length) {
+
+            slot.innerHTML = `
+                <div class="v-no-slots">
+
+                    <i class="fa-regular fa-calendar-xmark"></i>
+
+                    &nbsp;
+
+                    No appointments are available
+                    for ${day}.
+
+                </div>
+            `;
+
+            return;
+
+        }
+
+
+        const grid =
+            document.createElement(
+                "div"
+            );
+
+        grid.className =
+            "v-slot-grid";
+
+
+        slots.forEach(function(slot) {
+
+            const time =
+                typeof slot === "string"
+                    ? slot
+                    : slot.time;
+
+
+            if (!time) {
+                return;
+            }
+
+
+            const label =
+                typeof slot === "object" &&
+                slot.label
+                    ? slot.label
+                    : formatTime(time);
+
+
+            const button =
+                document.createElement(
+                    "button"
+                );
+
+
+            button.type =
+                "button";
+
+            button.className =
+                "v-slot";
+
+            button.textContent =
+                label;
+
+            button.dataset.time =
+                time;
+
+            button.dataset.day =
+                day;
+
+            button.dataset.date =
+                date;
+
+
+            button.addEventListener(
+                "click",
+                function() {
+
+
+                    document
+                        .querySelectorAll(
+                            ".v-slot"
+                        )
+                        .forEach(
+                            function(btn) {
+
+                                btn.classList.remove(
+                                    "active"
+                                );
+
+                            }
+                        );
+
+
+                    button.classList.add(
+                        "active"
+                    );
+
+
+                    getElement(
+                        "selectedDateText"
+                    ).textContent =
+                        formatDate(date);
+
+
+                    getElement(
+                        "selectedTimeText"
+                    ).textContent =
+                        label;
+
+
+                    getElement(
+                        "selectedSummary"
+                    ).style.display =
+                        "block";
+
+
+                    hideMessage(
+                        "bookingMessage"
+                    );
+
+                }
+            );
+
+
+            grid.appendChild(
+                button
+            );
+
+        });
+
+
+        slot.appendChild(
+            grid
+        );
+
+    }
+    catch (error) {
+
+        console.error(
+            "Slot loading error:",
+            error
+        );
+
+
+        slotLoading.style.display =
+            "none";
+
+
+        slot.innerHTML = `
+            <div class="v-no-slots">
+
+                <i class="fa-solid fa-triangle-exclamation"></i>
+
+                &nbsp;
+
+                ${String(
+                    error.message ||
+                    "Unable to load available slots."
+                )}
+
+            </div>
+        `;
+
+    }
+
+}
+
+
+/* =========================================================
+   DATE CHANGE
+========================================================= */
+
+appointmentDate.addEventListener(
+    "change",
+    function() {
+
+        hideMessage(
+            "bookingMessage"
+        );
+
+        loadAvailableSlots();
+
+    }
+);
+
+
+/* =========================================================
+   PHONE INPUT
+========================================================= */
+
+[
+    "contactPhone",
+    "customerPhone"
+].forEach(function(id) {
+
+    const input =
+        getElement(id);
+
+    if (!input) {
+        return;
+    }
+
+
+    input.addEventListener(
+        "input",
+        function() {
+
+            this.value =
+                this.value
+                    .replace(/\D/g, "")
+                    .slice(0, 10);
+
+        }
+    );
+
+});
+
+
+/* =========================================================
+   CONTACT VALIDATION
+========================================================= */
+
+function validateContactForm() {
+
+    let valid = true;
+
+
+    const name =
+        getElement("contactName")
+            .value
+            .trim();
+
+    const email =
+        getElement("contactEmail")
+            .value
+            .trim();
+
+    const phone =
+        getElement("contactPhone")
+            .value
+            .trim();
+
+    const message =
+        getElement("contactText")
+            .value
+            .trim();
+
+
+    clearFieldState(
+        "contactName",
+        "contactNameError"
+    );
+
+    clearFieldState(
+        "contactEmail",
+        "contactEmailError"
+    );
+
+    clearFieldState(
+        "contactPhone",
+        "contactPhoneError"
+    );
+
+    clearFieldState(
+        "contactText",
+        "contactTextError"
+    );
+
+
+    /* NAME */
+
+    if (!name) {
+
+        setFieldError(
+            "contactName",
+            "contactNameError",
+            "Please enter your name."
+        );
+
+        valid = false;
+
+    }
+    else if (name.length < 2) {
+
+        setFieldError(
+            "contactName",
+            "contactNameError",
+            "Name must contain at least 2 characters."
+        );
+
+        valid = false;
+
+    }
+    else if (!isValidName(name)) {
+
+        setFieldError(
+            "contactName",
+            "contactNameError",
+            "Please enter a valid name."
+        );
+
+        valid = false;
+
+    }
+    else {
+
+        setFieldValid(
+            "contactName",
+            "contactNameError"
+        );
+
+    }
+
+
+    /* EMAIL */
+
+    if (!email) {
+
+        setFieldError(
+            "contactEmail",
+            "contactEmailError",
+            "Please enter your email address."
+        );
+
+        valid = false;
+
+    }
+    else if (!isValidEmail(email)) {
+
+        setFieldError(
+            "contactEmail",
+            "contactEmailError",
+            "Please enter a valid email address."
+        );
+
+        valid = false;
+
+    }
+    else {
+
+        setFieldValid(
+            "contactEmail",
+            "contactEmailError"
+        );
+
+    }
+
+
+    /* PHONE */
+
+    if (
+        phone &&
+        !isValidPhone(phone)
+    ) {
+
+        setFieldError(
+            "contactPhone",
+            "contactPhoneError",
+            "Please enter a valid 10-digit Indian mobile number."
+        );
+
+        valid = false;
+
+    }
+    else if (phone) {
+
+        setFieldValid(
+            "contactPhone",
+            "contactPhoneError"
+        );
+
+    }
+
+
+    /* MESSAGE */
+
+    if (!message) {
+
+        setFieldError(
+            "contactText",
+            "contactTextError",
+            "Please enter your message."
+        );
+
+        valid = false;
+
+    }
+    else if (message.length < 5) {
+
+        setFieldError(
+            "contactText",
+            "contactTextError",
+            "Please enter at least 5 characters."
+        );
+
+        valid = false;
+
+    }
+    else {
+
+        setFieldValid(
+            "contactText",
+            "contactTextError"
+        );
+
+    }
+
+
+    return valid;
+
+}
+
+
+/* =========================================================
+   CONTACT FORM SUBMIT
+========================================================= */
+
+getElement("contactForm")
+    .addEventListener(
+        "submit",
+        sendContactMessage
+    );
+
+
+async function sendContactMessage(event) {
+
+    event.preventDefault();
+
+
+    hideMessage(
+        "contactMessage"
+    );
+
+
+    if (!validateContactForm()) {
+
+        const firstInvalid =
+            document.querySelector(
+                ".v-input.invalid, .v-textarea.invalid"
+            );
+
+
+        if (firstInvalid) {
+            firstInvalid.focus();
+        }
+
+
+        return;
+
+    }
+
+
+    const name =
+        getElement("contactName")
+            .value
+            .trim();
+
+    const email =
+        getElement("contactEmail")
+            .value
+            .trim();
+
+    const phone =
+        getElement("contactPhone")
+            .value
+            .trim();
+
+    const subject =
+        getElement("contactSubject")
+            .value
+            .trim();
+
+    const message =
+        getElement("contactText")
+            .value
+            .trim();
+
+
+    const button =
+        getElement(
+            "contactSubmitBtn"
+        );
+
+
+    button.disabled =
+        true;
+
+
+    button.innerHTML = `
+        <i class="fa-solid fa-spinner fa-spin"></i>
+        Sending...
+    `;
+
+
+    try {
+
+        const finalMessage =
+            subject
+                ? `Subject: ${subject}\n\n${message}`
+                : message;
+
+
+        const headers = {
+
+            "Content-Type":
+                "application/x-www-form-urlencoded; charset=UTF-8",
+
+            "Accept":
+                "application/json"
+
+        };
+
+
+        if (
+            window.frappe &&
+            window.frappe.csrf_token
+        ) {
+
+            headers[
+                "X-Frappe-CSRF-Token"
+            ] =
+                window.frappe.csrf_token;
+
+        }
+
+
+        const response =
+            await fetch(
+                "/api/method/vishuddhi.api.appointment.send_contact_message",
+                {
+                    method: "POST",
+
+                    headers: headers,
+
+                    body:
+                        new URLSearchParams({
+
+                            name:
+                                name,
+
+                            email:
+                                email,
+
+                            phone:
+                                phone,
+
+                            source:
+                                "Website Contact Form",
+
+                            message:
+                                finalMessage
+
+                        })
+
+                }
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                getApiError(
+                    result,
+                    "Unable to send your message."
+                )
+            );
+
+        }
+
+
+        const contactResult =
+            result.message;
+
+
+        if (
+            !contactResult ||
+            contactResult.success !== true
+        ) {
+
+            throw new Error(
+                getApiError(
+                    result,
+                    "Unable to send your message."
+                )
+            );
+
+        }
+
+
+        showMessage(
+            "contactMessage",
+            "Thank you! Your message has been sent successfully.",
+            "success"
+        );
+
+
+        getElement(
+            "contactForm"
+        ).reset();
+
+
+        [
+            "contactName",
+            "contactEmail",
+            "contactPhone",
+            "contactText"
+        ].forEach(function(id) {
+
+            const input =
+                getElement(id);
+
+            if (input) {
+
+                input.classList.remove(
+                    "valid",
+                    "invalid"
+                );
+
+                input.removeAttribute(
+                    "aria-invalid"
+                );
+
+            }
+
+        });
+
+
+        [
+            "contactNameError",
+            "contactEmailError",
+            "contactPhoneError",
+            "contactTextError"
+        ].forEach(function(id) {
+
+            const error =
+                getElement(id);
+
+            if (error) {
+
+                error.textContent =
+                    "";
+
+                error.classList.remove(
+                    "show"
+                );
+
+            }
+
+        });
+
+    }
+    catch (error) {
+
+        console.error(
+            "Contact error:",
+            error
+        );
+
+
+        showMessage(
+            "contactMessage",
+            error.message ||
+            "Unable to send your message.",
+            "error"
+        );
+
+    }
+    finally {
+
+        button.disabled =
+            false;
+
+
+        button.innerHTML = `
+            <i class="fa-regular fa-paper-plane"></i>
+            Send Message
+        `;
+
+    }
+
+}
+
+
+/* =========================================================
+   APPOINTMENT VALIDATION
+========================================================= */
+
+function validateAppointment() {
+
+    const date =
+        appointmentDate.value;
+
+    const selectedSlot =
+        document.querySelector(
+            ".v-slot.active"
+        );
+
+    const name =
+        getElement("customerName")
+            .value
+            .trim();
+
+    const email =
+        getElement("customerEmail")
+            .value
+            .trim();
+
+    const phone =
+        getElement("customerPhone")
+            .value
+            .trim();
+
+
+    clearFieldState(
+        "customerName",
+        "customerNameError"
+    );
+
+    clearFieldState(
+        "customerEmail",
+        "customerEmailError"
+    );
+
+    clearFieldState(
+        "customerPhone",
+        "customerPhoneError"
+    );
+
+
+    if (!date) {
+
+        showMessage(
+            "bookingMessage",
+            "Please select an appointment date.",
+            "error"
+        );
+
+        appointmentDate.focus();
+
+        return false;
+
+    }
+
+
+    if (date < todayString) {
+
+        showMessage(
+            "bookingMessage",
+            "Please select today or a future date.",
+            "error"
+        );
+
+        appointmentDate.focus();
+
+        return false;
+
+    }
+
+
+    if (!selectedSlot) {
+
+        showMessage(
+            "bookingMessage",
+            "Please select an available time slot.",
+            "error"
+        );
+
+        return false;
+
+    }
+
+
+    let valid = true;
+
+
+    /* NAME */
+
+    if (!name) {
+
+        setFieldError(
+            "customerName",
+            "customerNameError",
+            "Please enter your full name."
+        );
+
+        valid = false;
+
+    }
+    else if (name.length < 2) {
+
+        setFieldError(
+            "customerName",
+            "customerNameError",
+            "Name must contain at least 2 characters."
+        );
+
+        valid = false;
+
+    }
+    else if (!isValidName(name)) {
+
+        setFieldError(
+            "customerName",
+            "customerNameError",
+            "Please enter a valid name."
+        );
+
+        valid = false;
+
+    }
+    else {
+
+        setFieldValid(
+            "customerName",
+            "customerNameError"
+        );
+
+    }
+
+
+    /* EMAIL */
+
+    if (!email) {
+
+        setFieldError(
+            "customerEmail",
+            "customerEmailError",
+            "Please enter your email address."
+        );
+
+        valid = false;
+
+    }
+    else if (!isValidEmail(email)) {
+
+        setFieldError(
+            "customerEmail",
+            "customerEmailError",
+            "Please enter a valid email address."
+        );
+
+        valid = false;
+
+    }
+    else {
+
+        setFieldValid(
+            "customerEmail",
+            "customerEmailError"
+        );
+
+    }
+
+
+    /* PHONE */
+
+    if (!phone) {
+
+        setFieldError(
+            "customerPhone",
+            "customerPhoneError",
+            "Please enter your phone number."
+        );
+
+        valid = false;
+
+    }
+    else if (!isValidPhone(phone)) {
+
+        setFieldError(
+            "customerPhone",
+            "customerPhoneError",
+            "Please enter a valid 10-digit Indian mobile number."
+        );
+
+        valid = false;
+
+    }
+    else {
+
+        setFieldValid(
+            "customerPhone",
+            "customerPhoneError"
+        );
+
+    }
+
+
+    if (!valid) {
+
+        const firstInvalid =
+            document.querySelector(
+                "#customerName.invalid, #customerEmail.invalid, #customerPhone.invalid"
+            );
+
+
+        if (firstInvalid) {
+            firstInvalid.focus();
+        }
+
+    }
+
+
+    return valid;
+
+}
+
+
+/* =========================================================
+   BOOK APPOINTMENT
+========================================================= */
+
+getElement(
+    "bookAppointmentBtn"
+).addEventListener(
+    "click",
+    bookAppointment
+);
+
+
+async function bookAppointment() {
+
+    hideMessage(
+        "bookingMessage"
+    );
+
+
+    if (!validateAppointment()) {
+        return;
+    }
+
+
+    const date =
+        appointmentDate.value;
+
+
+    const selectedSlot =
+        document.querySelector(
+            ".v-slot.active"
+        );
+
+
+    const time =
+        selectedSlot.dataset.time;
+
+
+    const name =
+        getElement("customerName")
+            .value
+            .trim();
+
+    const email =
+        getElement("customerEmail")
+            .value
+            .trim();
+
+    const phone =
+        getElement("customerPhone")
+            .value
+            .trim();
+
+    const subject =
+        getElement("appointmentSubject")
+            .value
+            .trim();
+
+    const message =
+        getElement("appointmentMessage")
+            .value
+            .trim();
+
+
+    const button =
+        getElement(
+            "bookAppointmentBtn"
+        );
+
+
+    button.disabled =
+        true;
+
+
+    button.innerHTML = `
+        <i class="fa-solid fa-spinner fa-spin"></i>
+        Booking...
+    `;
+
+
+    try {
+
+        const headers = {
+
+            "Content-Type":
+                "application/x-www-form-urlencoded; charset=UTF-8",
+
+            "Accept":
+                "application/json"
+
+        };
+
+
+        if (
+            window.frappe &&
+            window.frappe.csrf_token
+        ) {
+
+            headers[
+                "X-Frappe-CSRF-Token"
+            ] =
+                window.frappe.csrf_token;
+
+        }
+
+
+        const response =
+            await fetch(
+                "/api/method/vishuddhi.api.appointment.book_appointment",
+                {
+                    method: "POST",
+
+                    headers: headers,
+
+                    body:
+                        new URLSearchParams({
+
+                            date:
+                                date,
+
+                            time:
+                                time,
+
+                            name:
+                                name,
+
+                            email:
+                                email,
+
+                            phone:
+                                phone,
+
+                            subject:
+                                subject,
+
+                            message:
+                                message
+
+                        })
+
+                }
+            );
+
+
+        const result =
+            await response.json();
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                getApiError(
+                    result,
+                    "Unable to book appointment."
+                )
+            );
+
+        }
+
+
+        const bookingResult =
+            result.message;
+
+
+        if (
+            !bookingResult ||
+            bookingResult.success !== true
+        ) {
+
+            throw new Error(
+                getApiError(
+                    result,
+                    "Appointment could not be created."
+                )
+            );
+
+        }
+
+
+        const appointmentId =
+            bookingResult.name
+                ? ` Appointment ID: ${bookingResult.name}`
+                : "";
+
+
+        showMessage(
+            "bookingMessage",
+            "Appointment booked successfully!" +
+            appointmentId,
+            "success"
+        );
+
+
+        /* CLEAR DETAILS */
+
+        getElement(
+            "customerName"
+        ).value = "";
+
+        getElement(
+            "customerEmail"
+        ).value = "";
+
+        getElement(
+            "customerPhone"
+        ).value = "";
+
+        getElement(
+            "appointmentSubject"
+        ).value = "";
+
+        getElement(
+            "appointmentMessage"
+        ).value = "";
+
+
+        [
+            "customerName",
+            "customerEmail",
+            "customerPhone"
+        ].forEach(function(id) {
+
+            const input =
+                getElement(id);
+
+            if (input) {
+
+                input.classList.remove(
+                    "valid",
+                    "invalid"
+                );
+
+                input.removeAttribute(
+                    "aria-invalid"
+                );
+
+            }
+
+        });
+
+
+        clearSelectedSlot();
+
+
+        /* REFRESH SLOTS */
+
+        await loadAvailableSlots();
+
+    }
+    catch (error) {
+
+        console.error(
+            "Booking error:",
+            error
+        );
+
+
+        showMessage(
+            "bookingMessage",
+            error.message ||
+            "Unable to book appointment.",
+            "error"
+        );
+
+    }
+    finally {
+
+        button.disabled =
+            false;
+
+
+        button.innerHTML = `
+            <i class="fa-regular fa-calendar-check"></i>
+            Book Appointment
+        `;
+
+    }
+
+}
+
+
+/* =========================================================
+   REAL-TIME VALIDATION
+========================================================= */
+
+function setupBlurValidation(
+    inputId,
+    errorId,
+    validator
+) {
+
+    const input =
+        getElement(inputId);
+
+    if (!input) {
+        return;
+    }
+
+
+    input.addEventListener(
+        "blur",
+        function() {
+
+            validator(
+                this.value.trim()
+            );
+
+        }
+    );
+
+}
+
+
+/* CONTACT NAME */
+
+setupBlurValidation(
+    "contactName",
+    "contactNameError",
+    function(value) {
+
+        if (!value) {
+
+            setFieldError(
+                "contactName",
+                "contactNameError",
+                "Please enter your name."
+            );
+
+        }
+        else if (
+            value.length < 2 ||
+            !isValidName(value)
+        ) {
+
+            setFieldError(
+                "contactName",
+                "contactNameError",
+                "Please enter a valid name."
+            );
+
+        }
+        else {
+
+            setFieldValid(
+                "contactName",
+                "contactNameError"
+            );
+
+        }
+
+    }
+);
+
+
+/* CONTACT EMAIL */
+
+setupBlurValidation(
+    "contactEmail",
+    "contactEmailError",
+    function(value) {
+
+        if (!value) {
+
+            setFieldError(
+                "contactEmail",
+                "contactEmailError",
+                "Please enter your email address."
+            );
+
+        }
+        else if (!isValidEmail(value)) {
+
+            setFieldError(
+                "contactEmail",
+                "contactEmailError",
+                "Please enter a valid email address."
+            );
+
+        }
+        else {
+
+            setFieldValid(
+                "contactEmail",
+                "contactEmailError"
+            );
+
+        }
+
+    }
+);
+
+
+/* CONTACT PHONE */
+
+setupBlurValidation(
+    "contactPhone",
+    "contactPhoneError",
+    function(value) {
+
+        if (
+            value &&
+            !isValidPhone(value)
+        ) {
+
+            setFieldError(
+                "contactPhone",
+                "contactPhoneError",
+                "Please enter a valid 10-digit Indian mobile number."
+            );
+
+        }
+        else if (value) {
+
+            setFieldValid(
+                "contactPhone",
+                "contactPhoneError"
+            );
+
+        }
+        else {
+
+            clearFieldState(
+                "contactPhone",
+                "contactPhoneError"
+            );
+
+        }
+
+    }
+);
+
+
+/* CONTACT MESSAGE */
+
+setupBlurValidation(
+    "contactText",
+    "contactTextError",
+    function(value) {
+
+        if (!value) {
+
+            setFieldError(
+                "contactText",
+                "contactTextError",
+                "Please enter your message."
+            );
+
+        }
+        else if (value.length < 5) {
+
+            setFieldError(
+                "contactText",
+                "contactTextError",
+                "Please enter at least 5 characters."
+            );
+
+        }
+        else {
+
+            setFieldValid(
+                "contactText",
+                "contactTextError"
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   APPOINTMENT REAL-TIME VALIDATION
+========================================================= */
+
+setupBlurValidation(
+    "customerName",
+    "customerNameError",
+    function(value) {
+
+        if (!value) {
+
+            setFieldError(
+                "customerName",
+                "customerNameError",
+                "Please enter your full name."
+            );
+
+        }
+        else if (
+            value.length < 2 ||
+            !isValidName(value)
+        ) {
+
+            setFieldError(
+                "customerName",
+                "customerNameError",
+                "Please enter a valid name."
+            );
+
+        }
+        else {
+
+            setFieldValid(
+                "customerName",
+                "customerNameError"
+            );
+
+        }
+
+    }
+);
+
+
+/* APPOINTMENT EMAIL */
+
+setupBlurValidation(
+    "customerEmail",
+    "customerEmailError",
+    function(value) {
+
+        if (!value) {
+
+            setFieldError(
+                "customerEmail",
+                "customerEmailError",
+                "Please enter your email address."
+            );
+
+        }
+        else if (!isValidEmail(value)) {
+
+            setFieldError(
+                "customerEmail",
+                "customerEmailError",
+                "Please enter a valid email address."
+            );
+
+        }
+        else {
+
+            setFieldValid(
+                "customerEmail",
+                "customerEmailError"
+            );
+
+        }
+
+    }
+);
+
+
+/* APPOINTMENT PHONE */
+
+setupBlurValidation(
+    "customerPhone",
+    "customerPhoneError",
+    function(value) {
+
+        if (!value) {
+
+            setFieldError(
+                "customerPhone",
+                "customerPhoneError",
+                "Please enter your phone number."
+            );
+
+        }
+        else if (!isValidPhone(value)) {
+
+            setFieldError(
+                "customerPhone",
+                "customerPhoneError",
+                "Please enter a valid 10-digit Indian mobile number."
+            );
+
+        }
+        else {
+
+            setFieldValid(
+                "customerPhone",
+                "customerPhoneError"
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================================
+   INITIAL DATE
+========================================================= */
+
+appointmentDate.value =
+    todayString;
+
+
+/* =========================================================
+   INITIAL SLOT LOAD
+========================================================= */
+
+loadAvailableSlots();
+
+</script>
+
+
+{% endblock %}

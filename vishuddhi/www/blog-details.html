@@ -1,0 +1,251 @@
+{% extends "templates/web.html" %}
+{% block page_content %}
+
+<style>
+
+.blog-container{
+    max-width:1200px;
+    margin:20px auto;
+}
+
+#loading{
+    text-align:center;
+    padding:80px;
+    font-size:20px;
+}
+
+.blog-title{
+    font-size:38px;
+    color:#004b23;
+    font-weight:700;
+    margin-bottom:10px;
+    margin-top:20px !important;
+}
+
+.blog-date{
+    color:#777;
+    margin-bottom:25px;
+}
+
+.blog-image{
+    width:100%;
+    height:450px;
+    object-fit:cover;
+    border-radius:12px;
+    margin-bottom:30px;
+}
+
+.blog-content h2{
+    color:#004b23;
+    margin-top:35px;
+    margin-bottom:15px;
+    font-weight:700;
+}
+
+.blog-content p{
+    font-size:17px;
+    line-height:1.9;
+    color:#555;
+}
+
+.blog-content img{
+    max-width:100%;
+}
+
+@media(max-width:768px){
+
+.blog-title{
+    font-size:28px;
+}
+
+.blog-image{
+    height:250px;
+}
+
+}
+
+</style>
+
+<div class=" blog-container">
+
+    <div id="loading">
+        Loading Blog...
+    </div>
+
+    <div id="blog-details" style="display:none;">
+
+        <h1 id="blog-title" class="blog-title"></h1>
+
+        <div id="blog-date" class="blog-date"></div>
+
+        <img id="blog-image"
+             class="blog-image"
+             src="">
+
+        <div id="blog-content"
+             class="blog-content">
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+frappe.ready(function () {
+
+    const params = new URLSearchParams(window.location.search);
+
+    const blogUrl = params.get("url");
+    const blogName = params.get("name");
+
+    if (!blogUrl && !blogName) {
+        $("#loading").html("<h3>Blog Not Found</h3>");
+        return;
+    }
+
+    loadBlog(blogUrl, blogName);
+
+});
+
+function formatDate(date) {
+
+    if (!date) return "";
+
+    return new Date(date).toLocaleDateString("en-IN", {
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+    });
+
+}
+
+function loadBlog(blogUrl, blogName) {
+
+    frappe.call({
+
+        method: "vishuddhi.api.blogs.get_blog",
+
+        args: {
+            url: blogUrl,
+            blog_name: blogName
+        },
+
+        callback: function (r) {
+
+            $("#loading").hide();
+
+            if (!r.message || Object.keys(r.message).length === 0) {
+
+                $("#loading")
+                    .show()
+                    .html("<h3>Blog Not Found</h3>");
+
+                return;
+            }
+
+            const blog = r.message;
+
+            $("#blog-details").show();
+
+            // Main Title
+            $("#blog-title").text(
+                blog.description_heading_1 || blog.name
+            );
+
+            // Date
+            if (blog.blog_date) {
+                $("#blog-date").html("📅 " + formatDate(blog.blog_date));
+            } else {
+                $("#blog-date").hide();
+            }
+
+            // Image
+            $("#blog-image").attr(
+                "src",
+                blog.header_image ||
+                blog.thumbnail_image ||
+                "/assets/frappe/images/ui/no-image.svg"
+            );
+
+            // Blog Content
+            let html = "";
+
+            // First Description (without repeating heading)
+            if (blog.description_1) {
+                html += `
+                    <div class="mb-4">
+                        ${blog.description_1}
+                    </div>
+                `;
+            }
+
+            // Remaining Sections
+            for (let i = 2; i <= 4; i++) {
+
+                const heading = blog["description_heading_" + i];
+                const desc = blog["description_" + i];
+
+                if (heading) {
+                    html += `
+                        <h2>${heading}</h2>
+                    `;
+                }
+
+                if (desc) {
+                    html += `
+                        <div class="mb-4">
+                            ${desc}
+                        </div>
+                    `;
+                }
+            }
+
+            // Custom HTML
+            if (blog.custom_html) {
+                html += `
+                    <div class="mt-4">
+                        ${blog.custom_html}
+                    </div>
+                `;
+            }
+
+            $("#blog-content").html(html);
+
+            // SEO Title
+            if (blog.meta_title) {
+                document.title = blog.meta_title;
+            }
+
+            // SEO Description
+            if (blog.meta_description) {
+
+                let meta = document.querySelector('meta[name="description"]');
+
+                if (!meta) {
+                    meta = document.createElement("meta");
+                    meta.name = "description";
+                    document.head.appendChild(meta);
+                }
+
+                meta.content = blog.meta_description;
+            }
+
+        },
+
+        error: function (err) {
+
+            $("#loading")
+                .show()
+                .html("<h3>Error loading blog.</h3>");
+
+            console.error(err);
+
+        }
+
+    });
+
+}
+
+</script>
+{% endblock %}

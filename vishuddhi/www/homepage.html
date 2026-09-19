@@ -1,0 +1,5083 @@
+<style>
+
+/* =========================================================
+   VISHUDDHI - COMPLETE FRAPPE WEB PAGE
+========================================================= */
+
+:root {
+    --green: #075c3c;
+    --green-dark: #063f2c;
+    --green-light: #eaf5ed;
+    --text: #173b32;
+    --muted: #687873;
+    --cream: #f7f5ed;
+    --border: #e4ebe6;
+    --white: #ffffff;
+    --pink: #c84f9b;
+}
+
+
+/* =========================================================
+   RESET
+========================================================= */
+
+.sanjay-page,
+.sanjay-page * {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #fff !important;
+    color: var(--text);
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body,
+html {
+    overflow-x: hidden;
+}
+
+.container,
+.page-container,
+.page_content,
+.page-content-wrapper,
+.web-page-content,
+.web-page {
+    max-width: 100% !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.page-header,
+.page-head {
+    display: none !important;
+}
+
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+.sanjay-page {
+    width: 100%;
+    overflow: hidden;
+    background: #fff;
+}
+
+.sanjay-container {
+    width: min(1200px, calc(100% - 80px));
+    margin: auto;
+}
+
+.sanjay-section {
+    padding: 30px 0;
+}
+
+.section-heading-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.section-heading h2 {
+    margin: 0;
+    font-size: 28px;
+    line-height: 1.2;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.section-heading p {
+    margin: 8px 0 0;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.view-all {
+    color: var(--text);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    gap: 7px;
+    align-items: center;
+}
+
+.view-all:hover {
+    color: var(--green);
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.sanjay-header {
+    height: 74px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #edf0ed;
+    position: relative;
+    z-index: 100;
+}
+
+.header-inner {
+    width: min(1200px, calc(100% - 80px));
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo-area {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.logo-icon {
+    width: 42px;
+    height: 42px;
+    margin-right: 9px;
+}
+
+.logo-text {
+    line-height: 1;
+}
+
+.logo-title {
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 19px;
+    font-weight: 700;
+    color: var(--green);
+}
+
+.logo-tagline {
+    display: block;
+    margin-top: 5px;
+    font-size: 8px;
+    letter-spacing: 1px;
+    color: #789087;
+}
+
+.main-nav {
+    display: flex;
+    align-items: center;
+    gap: 34px;
+}
+
+.main-nav a {
+    position: relative;
+    color: #364e46;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 28px 0;
+}
+
+.main-nav a.active {
+    color: var(--green);
+}
+
+.main-nav a.active:after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 17px;
+    height: 2px;
+    border-radius: 5px;
+    background: var(--green);
+}
+
+.nav-dropdown:after {
+    content: "⌄";
+    margin-left: 5px;
+    font-size: 11px;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+}
+
+.header-action {
+    width: 21px;
+    height: 21px;
+    color: #294c41;
+    cursor: pointer;
+    position: relative;
+}
+
+.cart-count,
+.wishlist-count {
+    position: absolute;
+    top: -9px;
+    right: -9px;
+    min-width: 15px;
+    height: 15px;
+    padding: 0 3px;
+    border-radius: 20px;
+    background: var(--green);
+    color: #fff;
+    font-size: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mobile-menu {
+    display: none;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+    min-height: 580px;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+}
+
+.hero:before {
+    content: "";
+    position: absolute;
+    width: 170px;
+    height: 170px;
+    left: -55px;
+    top: 40px;
+    background: rgba(40,110,58,.13);
+    border-radius: 50%;
+    filter: blur(20px);
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    width: min(1200px, calc(100% - 80px));
+    margin: auto;
+    padding: 55px 0;
+}
+
+.hero-copy {
+    width: 50%;
+}
+
+.hero-small {
+    color: #3e7864;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    margin-bottom: 18px;
+}
+
+.hero h1 {
+    font-family: Georgia, "Times New Roman", serif;
+    color: #123d32;
+    font-size: clamp(42px, 5vw, 67px);
+    line-height: .98;
+    margin: 0 0 22px;
+    font-weight: 500;
+}
+
+.hero-description {
+    width: 390px;
+    max-width: 100%;
+    font-size: 13px;
+    line-height: 1.7;
+    color: #61726c;
+    margin-bottom: 26px;
+}
+
+.primary-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(
+        135deg,
+        #2753d8 0%,
+        #147f78 55%,
+        #184921 100%
+    );
+    color: white !important;
+    border: 0;
+    text-decoration: none !important;
+    padding: 14px 22px;
+    border-radius: 28px;
+    font-size: 12px;
+    font-weight: 700;
+    transition: .25s;
+}
+
+.primary-btn:hover {
+    transform: translateY(-2px);
+}
+
+.hero-benefits {
+    display: flex;
+    gap: 30px;
+    margin-top: 48px;
+}
+
+.hero-benefit {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    color: #1d5243;
+    font-size: 12px;
+    line-height: 1.3;
+}
+
+.benefit-icon {
+    width: 29px;
+    height: 29px;
+    border-radius: 50%;
+    background: #e6f1e9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--green);
+}
+
+
+/* =========================================================
+   CATEGORY
+========================================================= */
+
+.category-section {
+    padding: 38px 0 20px;
+}
+
+.category-box {
+    background: #f2f8f3;
+    border-radius: 17px;
+    padding: 27px 28px 22px;
+}
+
+.category-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 22px;
+}
+
+.category-top h3 {
+    margin: 0;
+    font-size: 19px;
+    color: var(--text);
+}
+
+.category-items {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 18px;
+}
+
+.category-item {
+    text-align: center;
+    text-decoration: none;
+    color: var(--text);
+}
+
+.category-image {
+    width: 100px;
+    height: 100px;
+    margin: auto;
+    border-radius: 50%;
+    background: #e5f0e4;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.category-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: .3s;
+}
+
+.category-item:hover img {
+    transform: scale(1.08);
+}
+
+.category-name {
+    margin-top: 12px;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   POPULAR PICKS
+========================================================= */
+
+.shop-layout {
+    display: grid;
+    grid-template-columns: 30% 70%;
+    gap: 32px;
+    align-items: start;
+    width: 100%;
+}
+
+
+/* =========================================================
+   SMART DISCOVERY
+========================================================= */
+
+.plant-discovery {
+    width: 100%;
+    background: #f7f8f3;
+    border: 1px solid #e2e7dc;
+    border-radius: 22px;
+    padding: 26px;
+    position: sticky;
+    top: 25px;
+}
+
+.discovery-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 13px;
+    margin-bottom: 28px;
+}
+
+.discovery-icon {
+    width: 38px;
+    height: 38px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: linear-gradient(
+        135deg,
+        #2753d8 0%,
+        #147f78 55%,
+        #184921 100%
+    );
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+}
+
+.discovery-header h3 {
+    margin: 0 0 6px;
+    color: #203b27;
+    font-size: 21px;
+    line-height: 1.2;
+    font-weight: 700;
+}
+
+.discovery-header p {
+    margin: 0;
+    color: #687469;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.filter-group {
+    margin-bottom: 25px;
+}
+
+.filter-group label {
+    display: block;
+    margin-bottom: 11px;
+    color: #263c2b;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.filter-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.filter-option {
+    border: 1px solid #d6ded3;
+    background: #ffffff;
+    color: #506052;
+    padding: 9px 13px;
+    border-radius: 9px;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all .2s ease;
+}
+
+.filter-option:hover {
+    border-color: #315c3b;
+    color: #315c3b;
+    background: #f1f6ef;
+}
+
+.filter-option.active {
+    background: #315c3b;
+    color: #ffffff;
+    border-color: #315c3b;
+}
+
+.purpose-options .filter-option {
+    font-size: 11.5px;
+    padding: 8px 10px;
+}
+
+.discovery-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.reset-filters,
+.apply-filters {
+    border-radius: 10px;
+    padding: 12px 15px;
+    font-size: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all .2s ease;
+}
+
+.reset-filters {
+    background: #ffffff;
+    border: 1px solid #d4dbd1;
+    color: #526052;
+}
+
+.reset-filters:hover {
+    background: #eef2ec;
+}
+
+.apply-filters {
+    flex: 1;
+    background: linear-gradient(
+        135deg,
+        #2753d8 0%,
+        #147f78 55%,
+        #184921 100%
+    );
+    border: 1px solid #315c3b;
+    color: #ffffff;
+}
+
+.apply-filters:hover {
+    transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   PRODUCTS AREA
+========================================================= */
+
+.products-area {
+    width: 100%;
+    min-width: 0;
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(
+        3,
+        minmax(0, 1fr)
+    );
+    gap: 24px;
+    width: 100%;
+}
+
+
+/* =========================================================
+   PRODUCT CARD
+========================================================= */
+
+.product-card {
+    width: 100%;
+    min-width: 0;
+    position: relative;
+    background: #fff;
+    border: 1px solid #e4ebe6;
+    border-radius: 14px;
+    overflow: hidden;
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease;
+}
+
+.product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 28px rgba(0,0,0,.08);
+}
+
+.product-card.filter-hidden {
+    display: none !important;
+}
+
+
+/* =========================================================
+   PRODUCT IMAGE
+========================================================= */
+
+.product-image {
+    width: 100%;
+    height: 260px;
+    overflow: hidden;
+    background: #f3f6f3;
+    cursor: pointer;
+    position: relative;
+}
+
+.product-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform .4s ease;
+}
+
+.product-card:hover .product-image img {
+    transform: scale(1.04);
+}
+
+.product-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #a0aaa5;
+    font-size: 45px;
+}
+
+
+/* =========================================================
+   PRODUCT BADGE
+========================================================= */
+
+.product-badge {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 4;
+    background: #315c3b;
+    color: #fff;
+    padding: 6px 10px;
+    border-radius: 20px;
+    font-size: 10px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   PRODUCT WISHLIST
+========================================================= */
+
+.product-wishlist {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    z-index: 5;
+
+    width: 34px;
+    height: 34px;
+
+    border: 0;
+    border-radius: 50%;
+
+    background: #ffffff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 20px;
+    color: #315c3b;
+
+    cursor: pointer;
+
+    box-shadow: 0 4px 12px rgba(0,0,0,.08);
+
+    transition: all .2s ease;
+}
+
+.product-wishlist:hover {
+    transform: scale(1.08);
+}
+
+.product-wishlist.active {
+    color: #c8499a;
+}
+
+.product-wishlist:disabled {
+    opacity: .55;
+    cursor: wait;
+}
+
+
+/* =========================================================
+   PRODUCT INFO
+========================================================= */
+
+.product-info {
+    padding: 16px;
+}
+
+.product-name {
+    color: #203b27;
+    font-size: 16px;
+    font-weight: 700;
+    margin: 0 0 5px;
+    line-height: 1.3;
+}
+
+.product-type {
+    color: #788278;
+    font-size: 12px;
+    margin-bottom: 10px;
+}
+
+.price-row {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    margin-bottom: 13px;
+}
+
+.current-price {
+    color: #315c3b;
+    font-size: 17px;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   ADD CART
+========================================================= */
+
+.add-cart {
+    width: 100%;
+    border: 1px solid #315c3b;
+
+    background: linear-gradient(
+        135deg,
+        #2753d8 0%,
+        #147f78 55%,
+        #184921 100%
+    );
+
+    color: #ffffff;
+
+    padding: 11px 14px;
+
+    border-radius: 9px;
+
+    font-size: 12px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: all .2s ease;
+}
+
+.add-cart:hover {
+    transform: translateY(-1px);
+}
+
+.add-cart:disabled {
+    opacity: .65;
+    cursor: not-allowed;
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.products-loading {
+    grid-column: 1 / -1;
+
+    min-height: 280px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-direction: column;
+
+    gap: 12px;
+
+    color: #315c3b;
+
+    font-size: 13px;
+}
+
+.products-loading i {
+    font-size: 28px;
+}
+
+
+/* =========================================================
+   EMPTY
+========================================================= */
+
+.products-empty {
+    grid-column: 1 / -1;
+
+    min-height: 280px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    flex-direction: column;
+
+    text-align: center;
+
+    color: #687873;
+}
+
+.products-empty i {
+    font-size: 38px;
+    margin-bottom: 12px;
+    color: #315c3b;
+}
+
+.products-empty h4 {
+    margin: 0 0 7px;
+    color: #203b27;
+}
+
+
+/* =========================================================
+   NO FILTER RESULTS
+========================================================= */
+
+.no-plants-message {
+    display: none;
+
+    margin-top: 18px;
+
+    padding: 12px;
+
+    border-radius: 10px;
+
+    background: #fff4e7;
+
+    color: #8a5b20;
+
+    font-size: 12px;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   WHY CHOOSE US
+========================================================= */
+
+.why-section {
+    margin-top: 5px;
+    background: #f1f8f2;
+    padding: 70px 0;
+}
+
+.why-grid {
+    display: grid;
+    grid-template-columns: 42% 58%;
+    align-items: center;
+    gap: 45px;
+}
+
+.why-image-wrapper {
+    position: relative;
+    padding-left: 5px;
+}
+
+.why-image {
+    width: 100%;
+    height: 390px;
+    object-fit: cover;
+    border-radius: 0 80px 0 80px;
+}
+
+.why-floating {
+    position: absolute;
+    right: -15px;
+    top: 75px;
+    width: 125px;
+    height: 125px;
+    border-radius: 50%;
+    background: #f5fbf5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-family: Georgia, serif;
+    font-style: italic;
+    font-size: 14px;
+    line-height: 1.25;
+    color: var(--text);
+}
+
+.why-copy .eyebrow {
+    color: #548873;
+    letter-spacing: 2px;
+    font-size: 10px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.why-copy h2 {
+    font-family: Georgia, serif;
+    font-size: 34px;
+    line-height: 1.1;
+    margin: 0 0 13px;
+    color: #173f33;
+}
+
+.why-copy > p {
+    color: #667a72;
+    font-size: 13px;
+    line-height: 1.7;
+    max-width: 620px;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin: 30px 0;
+}
+
+.feature-item {
+    position: relative;
+}
+
+.feature-icon {
+    width: 35px;
+    height: 35px;
+    border: 1px solid #b8d4c0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--green);
+    margin-bottom: 10px;
+}
+
+.feature-title {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 5px;
+}
+
+.feature-text {
+    font-size: 9px;
+    line-height: 1.45;
+    color: #73827d;
+}
+
+
+/* =========================================================
+   HAPPY CUSTOMERS
+========================================================= */
+
+.customers-section {
+    padding: 30px 0;
+}
+
+.customer-slider {
+    position: relative;
+    overflow: hidden;
+}
+
+.customer-track {
+    display: flex;
+    gap: 16px;
+    transition: transform .5s ease;
+}
+
+.customer-slide {
+    min-width: calc((100% - 48px) / 4);
+    height: 240px;
+    overflow: hidden;
+    border-radius: 7px;
+    position: relative;
+    background: #eee;
+}
+
+.customer-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.slider-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 37px;
+    height: 37px;
+    border-radius: 50%;
+    border: 1px solid #d8e2dc;
+    background: #fff;
+    color: var(--green);
+    z-index: 5;
+    cursor: pointer;
+}
+
+.slider-prev {
+    left: -17px;
+}
+
+.slider-next {
+    right: -17px;
+}
+
+.slider-dots {
+    display: flex;
+    justify-content: center;
+    gap: 7px;
+    margin-top: 17px;
+}
+
+.slider-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #d6dfda;
+    cursor: pointer;
+}
+
+.slider-dot.active {
+    width: 18px;
+    border-radius: 10px;
+    background: var(--green);
+}
+
+
+/* =========================================================
+   TESTIMONIAL
+========================================================= */
+
+.testimonial-section {
+    background:
+        linear-gradient(
+            rgba(248,246,239,.93),
+            rgba(248,246,239,.93)
+        ),
+        url("https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=1600&q=80");
+
+    background-size: cover;
+
+    padding: 65px 0;
+
+    position: relative;
+}
+
+.testimonial-heading {
+    text-align: center;
+}
+
+.testimonial-heading .eyebrow {
+    color: #6c927f;
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 2px;
+}
+
+.testimonial-heading h2 {
+    margin: 8px 0;
+    font-family: Georgia, serif;
+    color: var(--text);
+    font-size: 30px;
+}
+
+.testimonial-heading p {
+    font-size: 11px;
+    color: #71817c;
+}
+
+.testimonial-card {
+    width: min(650px, calc(100% - 80px));
+    min-height: 240px;
+    background: rgba(255,255,255,.93);
+    margin: 30px auto 0;
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(25,65,45,.08);
+    padding: 28px;
+    text-align: center;
+}
+
+.testimonial-avatar {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 auto 6px;
+    border: 3px solid #fff;
+    box-shadow: 0 3px 10px rgba(0,0,0,.12);
+}
+
+.stars {
+    color: #e5a527;
+    font-size: 14px;
+    letter-spacing: 3px;
+    margin-bottom: 20px;
+}
+
+.testimonial-text {
+    max-width: 470px;
+    margin: auto;
+    font-family: Georgia, serif;
+    font-size: 13px;
+    line-height: 1.6;
+    color: #61726c;
+}
+
+.testimonial-name {
+    margin-top: 17px;
+    font-weight: 800;
+    color: var(--text);
+    font-size: 12px;
+}
+
+.testimonial-location {
+    font-size: 9px;
+    color: #89948f;
+    margin-top: 4px;
+}
+
+.testimonial-arrow {
+    position: absolute;
+    top: 52%;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: 1px solid #dce5df;
+    background: white;
+    color: var(--green);
+    cursor: pointer;
+}
+
+.testimonial-arrow.left {
+    left: calc(50% - 390px);
+}
+
+.testimonial-arrow.right {
+    right: calc(50% - 390px);
+}
+
+
+/* =========================================================
+   NEWSLETTER
+========================================================= */
+
+.newsletter {
+    margin: 35px auto;
+    width: min(1120px, calc(100% - 80px));
+    min-height: 70px;
+    border-radius: 10px;
+    padding: 12px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background:
+        linear-gradient(
+            90deg,
+            rgba(3,79,49,.98),
+            rgba(8,91,55,.95)
+        ),
+        url("https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=1200&q=70");
+
+    background-position: right;
+    background-size: cover;
+
+    color: #fff;
+}
+
+.newsletter-left {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.newsletter-icon {
+    width: 36px;
+    height: 36px;
+}
+
+.newsletter-title {
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.newsletter-text {
+    font-size: 9px;
+    opacity: .8;
+    margin-top: 3px;
+}
+
+.newsletter-form {
+    display: flex;
+    width: 340px;
+    height: 36px;
+}
+
+.newsletter-form input {
+    flex: 1;
+    border: 0;
+    outline: none;
+    padding: 0 15px;
+    font-size: 10px;
+    border-radius: 6px 0 0 6px;
+}
+
+.newsletter-form button {
+    width: 95px;
+    border: 0;
+    background: #d8eadc;
+    color: var(--green);
+    font-size: 10px;
+    font-weight: 800;
+    border-radius: 0 6px 6px 0;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1000px) {
+
+    .main-nav {
+        gap: 18px;
+    }
+
+    .products-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .category-items {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .why-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .why-image-wrapper {
+        max-width: 600px;
+        margin: auto;
+    }
+
+    .customer-slide {
+        min-width: calc((100% - 16px) / 2);
+    }
+}
+
+
+@media (max-width: 900px) {
+
+    .shop-layout {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .plant-discovery {
+        position: static;
+        width: 100%;
+        order: -1;
+    }
+
+    .products-grid {
+        grid-template-columns: repeat(
+            3,
+            minmax(0, 1fr)
+        );
+        gap: 18px;
+    }
+}
+
+
+@media (max-width: 700px) {
+
+    .sanjay-container,
+    .header-inner,
+    .hero-content {
+        width: calc(100% - 32px);
+    }
+
+    .sanjay-section {
+        padding: 45px 0;
+    }
+
+    .sanjay-header {
+        height: 65px;
+    }
+
+    .main-nav {
+        display: none;
+    }
+
+    .header-actions {
+        margin-left: auto;
+        margin-right: 12px;
+    }
+
+    .mobile-menu {
+        display: block;
+        width: 28px;
+        height: 28px;
+        border: 0;
+        background: none;
+        font-size: 22px;
+        color: var(--green);
+    }
+
+   
+
+    .hero-copy {
+        width: 100%;
+    }
+
+    .hero h1 {
+        font-size: 46px;
+    }
+
+    .hero-benefits {
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+
+    .section-heading-row {
+        align-items: flex-start;
+    }
+
+    .section-heading h2 {
+        font-size: 24px;
+    }
+
+    .category-items {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .category-image {
+        width: 85px;
+        height: 85px;
+    }
+
+    .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+
+    .product-image {
+        height: 145px;
+    }
+
+    .product-info {
+        padding: 12px;
+    }
+
+    .product-name {
+        font-size: 12px;
+    }
+
+    .current-price {
+        font-size: 14px;
+    }
+
+    .add-cart {
+        padding: 9px 8px;
+        font-size: 11px;
+    }
+
+    .why-section {
+        padding: 50px 0;
+    }
+
+    .why-image {
+        height: 300px;
+    }
+
+    .why-copy h2 {
+        font-size: 29px;
+    }
+
+    .features-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .customer-slide {
+        min-width: 100%;
+        height: 270px;
+    }
+
+    .slider-prev {
+        left: 8px;
+    }
+
+    .slider-next {
+        right: 8px;
+    }
+
+    .testimonial-card {
+        width: calc(100% - 35px);
+    }
+
+    .testimonial-arrow {
+        display: none;
+    }
+
+    .newsletter {
+        width: calc(100% - 32px);
+        padding: 20px;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 17px;
+    }
+
+    .newsletter-form {
+        width: 100%;
+    }
+}
+
+
+@media (max-width: 450px) {
+
+    .header-actions {
+        gap: 10px;
+    }
+
+    .hero h1 {
+        font-size: 39px;
+    }
+
+    .products-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .product-image {
+        height: 125px;
+    }
+
+    .product-info {
+        padding: 10px;
+    }
+
+    .product-badge {
+        top: 7px;
+        left: 7px;
+        padding: 4px 7px;
+        font-size: 8px;
+    }
+
+    .product-wishlist {
+        top: 7px;
+        right: 7px;
+        width: 28px;
+        height: 28px;
+        font-size: 17px;
+    }
+
+    .category-box {
+        padding: 20px 12px;
+    }
+
+    .category-items {
+        gap: 10px;
+    }
+
+    .features-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+</style>
+
+
+<div class="sanjay-page">
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
+
+<section class="hero" id="heroBanner">
+
+    <div class="hero-content">
+
+        <div class="hero-copy">
+
+            <div class="hero-small">
+                PREMIUM PLANTS &amp; GARDEN ESSENTIALS
+            </div>
+
+            <h1>
+                Bring Nature<br>
+                Closer to Home
+            </h1>
+
+            <p class="hero-description">
+                Discover a wide variety of healthy plants,
+                beautiful pots and garden essentials.
+                Perfect for your home, office and outdoor spaces.
+            </p>
+
+            <a
+                href="/all-products"
+                class="primary-btn"
+            >
+                Shop Now
+                <span>→</span>
+            </a>
+
+            <div class="hero-benefits">
+
+                <div class="hero-benefit">
+
+                    <div class="benefit-icon">
+                        ♣
+                    </div>
+
+                    <span>
+                        Healthy Plants<br>
+                        Guaranteed
+                    </span>
+
+                </div>
+
+
+                <div class="hero-benefit">
+
+                    <div class="benefit-icon">
+                        🚚
+                    </div>
+
+                    <span>
+                        Fast &amp; Safe<br>
+                        Delivery
+                    </span>
+
+                </div>
+
+
+                <div class="hero-benefit">
+
+                    <div class="benefit-icon">
+                        ♧
+                    </div>
+
+                    <span>
+                        Trusted by<br>
+                        Thousands
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SHOP BY CATEGORY
+===================================================== -->
+
+<section class="category-section">
+
+    <div class="sanjay-container">
+
+        <div class="category-box">
+
+            <div class="category-top">
+
+                <h3>
+                    Shop by Category
+                </h3>
+
+                <a
+                    href="/all-products"
+                    class="view-all"
+                >
+                    Explore All →
+                </a>
+
+            </div>
+
+
+            <div class="category-items">
+
+                <!-- INDOOR -->
+
+                <a
+                    href="/all-products?category=Indoor%20Plants"
+                    class="category-item"
+                >
+
+                    <div class="category-image">
+
+                        <img
+                            src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=300&q=85"
+                            alt="Indoor Plants"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+                    <div class="category-name">
+                        Indoor Plants
+                    </div>
+
+                </a>
+
+
+                <!-- OUTDOOR -->
+
+                <a
+                    href="/all-products?category=Outdoor%20Plants"
+                    class="category-item"
+                >
+
+                    <div class="category-image">
+
+                        <img
+                            src="https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=300&q=85"
+                            alt="Outdoor Plants"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+                    <div class="category-name">
+                        Outdoor Plants
+                    </div>
+
+                </a>
+
+
+                <!-- FLOWERING -->
+
+                <a
+                    href="/all-products?category=Flowering%20Plants"
+                    class="category-item"
+                >
+
+                    <div class="category-image">
+
+                        <img
+                            src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=300&q=85"
+                            alt="Flowering Plants"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+                    <div class="category-name">
+                        Flowering Plants
+                    </div>
+
+                </a>
+
+
+                <!-- POTS -->
+
+                <a
+                    href="/all-products?category=Pots"
+                    class="category-item"
+                >
+
+                    <div class="category-image">
+
+                        <img
+                            src="https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=300&q=85"
+                            alt="Pots and Planters"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+                    <div class="category-name">
+                        Pots &amp; Planters
+                    </div>
+
+                </a>
+
+
+                <!-- GARDEN ESSENTIALS -->
+
+                <a
+                    href="/all-products?category=Garden%20Essentials"
+                    class="category-item"
+                >
+
+                    <div class="category-image">
+
+                        <img
+                            src="https://images.unsplash.com/photo-1592150621744-aca64f48394a?auto=format&fit=crop&w=300&q=85"
+                            alt="Garden Essentials"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+                    <div class="category-name">
+                        Garden Essentials
+                    </div>
+
+                </a>
+
+
+                <!-- SEEDS -->
+
+                <a
+                    href="/all-products?category=Seeds"
+                    class="category-item"
+                >
+
+                    <div class="category-image">
+
+                        <img
+                            src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=300&q=85"
+                            alt="Seeds and Fertilizers"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+                    <div class="category-name">
+                        Seeds &amp; Fertilizers
+                    </div>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     POPULAR PICKS
+===================================================== -->
+
+<section class="products-section sanjay-section">
+
+    <div class="sanjay-container">
+
+        <div class="section-heading-row">
+
+            <div class="section-heading">
+
+                <h2>
+                    Popular Picks
+                </h2>
+
+                <p>
+                    Our best-selling plants and garden essentials
+                </p>
+
+            </div>
+
+            <a
+                href="/all-products"
+                class="view-all"
+            >
+                View All →
+            </a>
+
+        </div>
+
+
+        <div class="shop-layout">
+
+
+            <!-- =================================================
+                 SMART PLANT DISCOVERY
+            ================================================= -->
+
+            <aside class="plant-discovery">
+
+                <div class="discovery-header">
+
+                    <span class="discovery-icon">
+                        ✦
+                    </span>
+
+                    <div>
+
+                        <h3>
+                            Smart Plant Discovery
+                        </h3>
+
+                        <p>
+                            We can guide you through a simple plant finder.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     LOCATION
+                ================================================= -->
+
+                <div class="filter-group">
+
+                    <label>
+                        Where will it live?
+                    </label>
+
+                    <div class="filter-options">
+
+                        <button
+                            type="button"
+                            class="filter-option"
+                            data-filter="location"
+                            data-value="indoor"
+                        >
+                            Indoor
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="filter-option"
+                            data-filter="location"
+                            data-value="outdoor"
+                        >
+                            Outdoor
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="filter-option"
+                            data-filter="location"
+                            data-value="terrace"
+                        >
+                            Terrace
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="filter-option"
+                            data-filter="location"
+                            data-value="garden"
+                        >
+                            Garden
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     SUNLIGHT
+                ================================================= -->
+
+                <div class="filter-group">
+
+                    <label>
+                        How much sunlight?
+                    </label>
+
+                    <div class="filter-options">
+
+                        <button
+                            type="button"
+                            class="filter-option"
+                            data-filter="sunlight"
+                            data-value="low"
+                        >
+                            Low
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="filter-option"
+                            data-filter="sunlight"
+                            data-value="medium"
+                        >
+                            Medium
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="filter-option"
+                            data-filter="sunlight"
+                            data-value="high"
+                        >
+                            High
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     CARE
+                ================================================= -->
+
+                <div class="filter-group">
+
+                    <label>
+                        How much care?
+                    </label>
+
+                    <div class="filter-options">
+
+                        <button
+                            type="button"
+                            class="filter-option"
+                            data-filter="care"
+                            data-value="easy"
+                        >
+                            Easy
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="filter-option"
+                            data-filter="care"
+                            data-value="moderate"
+                        >
+                            Moderate
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="filter-option"
+                            data-filter="care"
+                            data-value="advanced"
+                        >
+                            Advanced
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     PURPOSE
+                ================================================= -->
+
+                <div class="filter-group">
+
+                    <label>
+                        What do you want?
+                    </label>
+
+                    <div class="filter-options purpose-options">
+
+                        <button
+                            type="button"
+                            class="filter-option"
+                            data-filter="purpose"
+                            data-value="air_purifying"
+                        >
+                            Air Purifying
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="filter-option"
+                            data-filter="purpose"
+                            data-value="flowering"
+                        >
+                            Flowering
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="filter-option"
+                            data-filter="purpose"
+                            data-value="decorative"
+                        >
+                            Decorative
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="filter-option"
+                            data-filter="purpose"
+                            data-value="fruit"
+                        >
+                            Fruit
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="filter-option"
+                            data-filter="purpose"
+                            data-value="vegetable"
+                        >
+                            Vegetable
+                        </button>
+
+
+                        <button
+                            type="button"
+                            class="filter-option"
+                            data-filter="purpose"
+                            data-value="low_maintenance"
+                        >
+                            Low Maintenance
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================================
+                     ACTIONS
+                ================================================= -->
+
+                <div class="discovery-actions">
+
+                    <button
+                        type="button"
+                        class="reset-filters"
+                        onclick="resetPlantFilters()"
+                    >
+                        Reset
+                    </button>
+
+
+                    <button
+                        type="button"
+                        class="apply-filters"
+                        onclick="applyPlantFilters()"
+                    >
+                        Find My Plants →
+                    </button>
+
+                </div>
+
+
+                <div
+                    id="no-plants-message"
+                    class="no-plants-message"
+                    style="display:none;"
+                >
+                    No plants found.
+                    Try changing your filters.
+                </div>
+
+            </aside>
+
+
+            <!-- =================================================
+                 PRODUCTS
+            ================================================= -->
+
+            <div class="products-area">
+
+                <div
+                    class="products-grid"
+                    id="popularProductsGrid"
+                >
+
+                    <div
+                        class="products-loading"
+                        id="productsLoading"
+                    >
+
+                        <i class="fas fa-spinner fa-spin"></i>
+
+                        <span>
+                            Loading plants...
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     WHY CHOOSE US
+===================================================== -->
+
+<section class="why-section">
+
+    <div class="sanjay-container">
+
+        <div class="why-grid">
+
+            <div class="why-image-wrapper">
+
+                <img
+                    class="why-image"
+                    src="/files/gardener-planting-seedling-wooden-box.jpg"
+                    alt="Healthy Plants"
+                    loading="lazy"
+                >
+
+                <div class="why-floating">
+                    Healthy<br>
+                    Plants<br>
+                    Happy<br>
+                    Homes<br>
+                    ♡
+                </div>
+
+            </div>
+
+
+            <div class="why-copy">
+
+                <div class="eyebrow">
+                    WHY CHOOSE VISHUDDHI
+                </div>
+
+                <h2>
+                    More Than Just Plants
+                </h2>
+
+                <p>
+                    We're passionate about plants and committed
+                    to bringing healthy greenery, quality products
+                    and expert plant care guidance into your life.
+                </p>
+
+
+                <div class="features-grid">
+
+                    <div class="feature-item">
+
+                        <div class="feature-icon">
+                            ♧
+                        </div>
+
+                        <div class="feature-title">
+                            Premium Quality<br>
+                            Plants
+                        </div>
+
+                        <div class="feature-text">
+                            Handpicked and carefully nurtured.
+                        </div>
+
+                    </div>
+
+
+                    <div class="feature-item">
+
+                        <div class="feature-icon">
+                            ♧
+                        </div>
+
+                        <div class="feature-title">
+                            Expert Guidance
+                        </div>
+
+                        <div class="feature-text">
+                            Get support from our plant experts.
+                        </div>
+
+                    </div>
+
+
+                    <div class="feature-item">
+
+                        <div class="feature-icon">
+                            □
+                        </div>
+
+                        <div class="feature-title">
+                            Secure Packaging
+                        </div>
+
+                        <div class="feature-text">
+                            Your plants arrive fresh and safe.
+                        </div>
+
+                    </div>
+
+
+                    <div class="feature-item">
+
+                        <div class="feature-icon">
+                            ♧
+                        </div>
+
+                        <div class="feature-title">
+                            Wide Variety
+                        </div>
+
+                        <div class="feature-text">
+                            From indoor to outdoor, we have it all.
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <a
+                    href="/aboutus"
+                    class="primary-btn"
+                >
+                    Learn More →
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     HAPPY CUSTOMERS
+===================================================== -->
+
+<section class="customers-section">
+
+    <div class="sanjay-container">
+
+        <div class="section-heading-row">
+
+            <div class="section-heading">
+
+                <h2>
+                    Our Happy Customers
+                </h2>
+
+                <p>
+                    See how our plants make homes and spaces greener
+                </p>
+
+            </div>
+
+            <div style="font-size:11px;color:#65766f;">
+                Follow Us &nbsp;
+                ◎ &nbsp; ● &nbsp; ▶
+            </div>
+
+        </div>
+
+
+        <div class="customer-slider">
+
+            <button
+                type="button"
+                class="slider-button slider-prev"
+                onclick="moveCustomerSlider(-1)"
+            >
+                ←
+            </button>
+
+
+            <div
+                class="customer-track"
+                id="customerTrack"
+            >
+
+                <div class="customer-slide">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1592150621744-aca64f48394a?auto=format&fit=crop&w=700&q=90"
+                        alt="Customer Plants"
+                        loading="lazy"
+                    >
+
+                </div>
+
+
+                <div class="customer-slide">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1598880940080-ff9a29891b85?auto=format&fit=crop&w=700&q=90"
+                        alt="Balcony Plants"
+                        loading="lazy"
+                    >
+
+                </div>
+
+
+                <div class="customer-slide">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=700&q=90"
+                        alt="Garden"
+                        loading="lazy"
+                    >
+
+                </div>
+
+
+                <div class="customer-slide">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&w=700&q=90"
+                        alt="Home Plants"
+                        loading="lazy"
+                    >
+
+                </div>
+
+
+                <div class="customer-slide">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=700&q=90"
+                        alt="Indoor Plants"
+                        loading="lazy"
+                    >
+
+                </div>
+
+
+                <div class="customer-slide">
+
+                    <img
+                        src="https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=700&q=90"
+                        alt="Outdoor Plants"
+                        loading="lazy"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="slider-button slider-next"
+                onclick="moveCustomerSlider(1)"
+            >
+                →
+            </button>
+
+        </div>
+
+
+        <div class="slider-dots">
+
+            <span
+                class="slider-dot active"
+                onclick="goCustomerSlide(0)"
+            ></span>
+
+            <span
+                class="slider-dot"
+                onclick="goCustomerSlide(1)"
+            ></span>
+
+            <span
+                class="slider-dot"
+                onclick="goCustomerSlide(2)"
+            ></span>
+
+            <span
+                class="slider-dot"
+                onclick="goCustomerSlide(3)"
+            ></span>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     TESTIMONIAL
+===================================================== -->
+
+<section class="testimonial-section">
+
+    <div class="sanjay-container">
+
+        <div class="testimonial-heading">
+
+            <div class="eyebrow">
+                TESTIMONIALS
+            </div>
+
+            <h2>
+                What Our Customers Say
+            </h2>
+
+            <p>
+                Real stories from plant lovers like you.
+            </p>
+
+        </div>
+
+
+        <button
+            type="button"
+            class="testimonial-arrow left"
+        >
+            ←
+        </button>
+
+
+        <div class="testimonial-card">
+
+            <img
+                class="testimonial-avatar"
+                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=90"
+                alt="Customer"
+                loading="lazy"
+            >
+
+
+            <div class="stars">
+                ★★★★★
+            </div>
+
+
+            <div class="testimonial-text">
+                "Amazing quality plants and super fast delivery!
+                My home looks so much greener now. Highly recommend
+                Vishuddhi!"
+            </div>
+
+
+            <div class="testimonial-name">
+                Priya Sharma
+            </div>
+
+
+            <div class="testimonial-location">
+                Mumbai
+            </div>
+
+        </div>
+
+
+        <button
+            type="button"
+            class="testimonial-arrow right"
+        >
+            →
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     NEWSLETTER
+===================================================== -->
+
+<div class="newsletter">
+
+    <div class="newsletter-left">
+
+        <div class="newsletter-icon">
+
+            <svg
+                viewBox="0 0 40 40"
+                fill="none"
+                stroke="white"
+                stroke-width="1.5"
+            >
+
+                <path d="M20 32V17"></path>
+
+                <path
+                    d="M20 22C13 22 9 18 8 11C15 11 20 14 20 22Z"
+                ></path>
+
+                <path
+                    d="M20 19C20 11 25 7 32 7C31 14 27 19 20 19Z"
+                ></path>
+
+            </svg>
+
+        </div>
+
+
+        <div>
+
+            <div class="newsletter-title">
+                Stay Updated
+            </div>
+
+            <div class="newsletter-text">
+                Get exclusive offers, plant care tips and more.
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <form
+        class="newsletter-form"
+        onsubmit="subscribeNewsletter(event)"
+    >
+
+        <input
+            type="email"
+            placeholder="Enter your email address"
+            required
+        >
+
+        <button type="submit">
+            Subscribe
+        </button>
+
+    </form>
+
+</div>
+
+
+</div>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+
+/* =========================================================
+   VISHUDDHI HOMEPAGE JAVASCRIPT
+========================================================= */
+
+
+/* =========================================================
+   SMART PLANT FILTER STATE
+========================================================= */
+
+const plantFilters = {
+
+    location: [],
+
+    sunlight: [],
+
+    care: [],
+
+    purpose: []
+
+};
+
+
+/* =========================================================
+   HTML ESCAPE
+========================================================= */
+
+function escapeHtml(value) {
+
+    if (
+        value === null ||
+        value === undefined
+    ) {
+
+        return "";
+
+    }
+
+
+    return String(value)
+
+        .replace(/&/g, "&amp;")
+
+        .replace(/</g, "&lt;")
+
+        .replace(/>/g, "&gt;")
+
+        .replace(/"/g, "&quot;")
+
+        .replace(/'/g, "&#039;");
+
+}
+
+
+/* =========================================================
+   PRICE FORMAT
+========================================================= */
+
+function formatPrice(value) {
+
+    const price =
+        Number(value || 0);
+
+
+    if (!price) {
+
+        return "₹0";
+
+    }
+
+
+    return "₹" +
+
+        price.toLocaleString(
+
+            "en-IN",
+
+            {
+                maximumFractionDigits: 0
+            }
+
+        );
+
+}
+
+
+/* =========================================================
+   LOAD HERO BANNER
+========================================================= */
+
+function loadBannerImage() {
+
+    frappe.call({
+
+        method:
+            "vishuddhi.api.banner_image.get_banner_image",
+
+        callback: function(r) {
+
+            console.log(
+                "Banner response:",
+                r.message
+            );
+
+
+            if (
+                !r.message ||
+                !r.message.banner_image
+            ) {
+
+                return;
+
+            }
+
+
+            const hero =
+                document.getElementById(
+                    "heroBanner"
+                );
+
+
+            if (!hero) {
+
+                return;
+
+            }
+
+
+            hero.style.backgroundImage =
+                "url('" +
+                String(
+                    r.message.banner_image
+                ).replace(/'/g, "\\'") +
+                "')";
+
+        },
+
+
+        error: function(error) {
+
+            console.error(
+                "Banner API error:",
+                error
+            );
+
+        }
+
+    });
+
+}
+
+
+/* =========================================================
+   LOAD POPULAR PRODUCTS
+========================================================= */
+
+function loadPopularProducts() {
+
+    const grid =
+        document.getElementById(
+            "popularProductsGrid"
+        );
+
+
+    if (!grid) {
+
+        return;
+
+    }
+
+
+    grid.innerHTML = `
+
+        <div class="products-loading">
+
+            <i class="fas fa-spinner fa-spin"></i>
+
+            <span>
+                Loading plants...
+            </span>
+
+        </div>
+
+    `;
+
+
+    const noMessage =
+        document.getElementById(
+            "no-plants-message"
+        );
+
+
+    if (noMessage) {
+
+        noMessage.style.display =
+            "none";
+
+    }
+
+
+    frappe.call({
+
+        method:
+            "vishuddhi.api.products.get_bestsellers",
+
+
+        callback: function(r) {
+
+            console.log(
+                "Bestseller API response:",
+                r.message
+            );
+
+
+            const products =
+                r.message || [];
+
+
+            if (
+                !Array.isArray(products) ||
+                products.length === 0
+            ) {
+
+                grid.innerHTML = `
+
+                    <div class="products-empty">
+
+                        <i class="fas fa-seedling"></i>
+
+                        <h4>
+                            No best-selling plants available
+                        </h4>
+
+                        <p>
+                            Please mark products as Bestseller
+                            in ERPNext.
+                        </p>
+
+                    </div>
+
+                `;
+
+                return;
+
+            }
+
+
+            renderPopularProducts(
+                products
+            );
+
+        },
+
+
+        error: function(error) {
+
+            console.error(
+                "Bestseller API error:",
+                error
+            );
+
+
+            grid.innerHTML = `
+
+                <div class="products-empty">
+
+                    <i class="fas fa-circle-exclamation"></i>
+
+                    <h4>
+                        Unable to load products
+                    </h4>
+
+                    <p>
+                        Please check the product API.
+                    </p>
+
+                </div>
+
+            `;
+
+        }
+
+    });
+
+}
+
+
+/* =========================================================
+   RENDER PRODUCTS
+========================================================= */
+
+function renderPopularProducts(products) {
+
+    const grid =
+        document.getElementById(
+            "popularProductsGrid"
+        );
+
+
+    if (!grid) {
+
+        return;
+
+    }
+
+
+    grid.innerHTML = "";
+
+
+    if (
+        !Array.isArray(products) ||
+        products.length === 0
+    ) {
+
+        grid.innerHTML = `
+
+            <div class="products-empty">
+
+                <i class="fas fa-seedling"></i>
+
+                <h4>
+                    No products found
+                </h4>
+
+                <p>
+                    Try changing your filters.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    products.forEach(
+        function(product) {
+
+            const card =
+                createProductCard(
+                    product
+                );
+
+
+            grid.appendChild(
+                card
+            );
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   CREATE PRODUCT CARD
+========================================================= */
+
+function createProductCard(product) {
+
+    const card =
+        document.createElement(
+            "div"
+        );
+
+
+    card.className =
+        "product-card";
+
+
+    /* =====================================================
+       ITEM CODE
+    ===================================================== */
+
+    card.dataset.itemCode =
+        product.name || "";
+
+
+    /* =====================================================
+       RAW FILTER DATA
+    ===================================================== */
+
+    card.dataset.location = [
+
+        product.indoor
+            ? "indoor"
+            : "",
+
+        product.outdoor
+            ? "outdoor"
+            : "",
+
+        product.terrace
+            ? "terrace"
+            : "",
+
+        product.garden
+            ? "garden"
+            : ""
+
+    ]
+        .filter(Boolean)
+        .join("|");
+
+
+    card.dataset.sunlight = [
+
+        product.low
+            ? "low"
+            : "",
+
+        product.medium
+            ? "medium"
+            : "",
+
+        product.high
+            ? "high"
+            : ""
+
+    ]
+        .filter(Boolean)
+        .join("|");
+
+
+    card.dataset.care = [
+
+        product.easy
+            ? "easy"
+            : "",
+
+        product.moderate
+            ? "moderate"
+            : "",
+
+        product.advanced
+            ? "advanced"
+            : ""
+
+    ]
+        .filter(Boolean)
+        .join("|");
+
+
+    card.dataset.purpose = [
+
+        product.air_purifying
+            ? "air_purifying"
+            : "",
+
+        product.flowering
+            ? "flowering"
+            : "",
+
+        product.decorative
+            ? "decorative"
+            : "",
+
+        product.fruit
+            ? "fruit"
+            : "",
+
+        product.vegetable
+            ? "vegetable"
+            : "",
+
+        product.low_maintenance
+            ? "low_maintenance"
+            : ""
+
+    ]
+        .filter(Boolean)
+        .join("|");
+
+
+    /* =====================================================
+       PRODUCT IMAGE
+    ===================================================== */
+
+    let imageHtml = "";
+
+
+    if (product.image) {
+
+        imageHtml = `
+
+            <img
+                src="${escapeHtml(product.image)}"
+                alt="${escapeHtml(
+                    product.item_name ||
+                    product.name ||
+                    "Plant"
+                )}"
+                loading="lazy"
+            >
+
+        `;
+
+    }
+    else {
+
+        imageHtml = `
+
+            <div class="product-placeholder">
+
+                <i class="fas fa-seedling"></i>
+
+            </div>
+
+        `;
+
+    }
+
+
+    /* =====================================================
+       PRODUCT NAME
+    ===================================================== */
+
+    const productName =
+        product.item_name ||
+        product.name ||
+        "Plant";
+
+
+    /* =====================================================
+       ITEM GROUP
+    ===================================================== */
+
+    const itemGroup =
+        product.item_group ||
+        "Plant";
+
+
+    /* =====================================================
+       PRICE
+    ===================================================== */
+
+    const price =
+        formatPrice(
+            product.price
+        );
+
+
+    /* =====================================================
+       BESTSELLER BADGE
+    ===================================================== */
+
+    const badgeHtml =
+        product.is_bestseller
+            ? `
+                <span class="product-badge">
+                    Best Seller
+                </span>
+              `
+            : "";
+
+
+    /* =====================================================
+       CARD HTML
+    ===================================================== */
+
+    card.innerHTML = `
+
+        ${badgeHtml}
+
+
+        <button
+            type="button"
+            class="product-wishlist"
+            aria-label="Add to wishlist"
+            title="Add to wishlist"
+        >
+            ♡
+        </button>
+
+
+        <div class="product-image">
+
+            ${imageHtml}
+
+        </div>
+
+
+        <div class="product-info">
+
+            <div class="product-name">
+                ${escapeHtml(productName)}
+            </div>
+
+
+            <div class="product-type">
+                ${escapeHtml(itemGroup)}
+            </div>
+
+
+            <div class="price-row">
+
+                <span class="current-price">
+                    ${price}
+                </span>
+
+            </div>
+
+
+            <button
+                type="button"
+                class="add-cart"
+            >
+
+                <i class="fas fa-cart-shopping"></i>
+
+                <span>
+                    Add to Cart
+                </span>
+
+            </button>
+
+        </div>
+
+    `;
+
+
+    /* =====================================================
+       CART BUTTON
+    ===================================================== */
+
+    const cartButton =
+        card.querySelector(
+            ".add-cart"
+        );
+
+
+    if (cartButton) {
+
+        cartButton.addEventListener(
+
+            "click",
+
+            function(event) {
+
+                event.preventDefault();
+
+                event.stopPropagation();
+
+
+                addProductToCart(
+
+                    product.name,
+
+                    productName,
+
+                    cartButton
+
+                );
+
+            }
+
+        );
+
+    }
+
+
+    /* =====================================================
+       WISHLIST BUTTON
+    ===================================================== */
+
+    const wishlistButton =
+        card.querySelector(
+            ".product-wishlist"
+        );
+
+
+    if (wishlistButton) {
+
+        wishlistButton.addEventListener(
+
+            "click",
+
+            function(event) {
+
+                event.preventDefault();
+
+                event.stopPropagation();
+
+
+                toggleWishlist(
+
+                    product.name,
+
+                    wishlistButton
+
+                );
+
+            }
+
+        );
+
+
+        checkProductWishlist(
+
+            product.name,
+
+            wishlistButton
+
+        );
+
+    }
+
+
+    /* =====================================================
+       PRODUCT IMAGE CLICK
+    ===================================================== */
+
+    const productImage =
+        card.querySelector(
+            ".product-image"
+        );
+
+
+    if (
+        productImage &&
+        product.route
+    ) {
+
+        productImage.style.cursor =
+            "pointer";
+
+
+        productImage.addEventListener(
+
+            "click",
+
+            function() {
+
+                window.location.href =
+                    "/" +
+                    product.route;
+
+            }
+
+        );
+
+    }
+
+
+    return card;
+
+}
+
+
+/* =========================================================
+   SMART FILTER BUTTONS
+========================================================= */
+
+document.addEventListener(
+
+    "click",
+
+    function(event) {
+
+        const button =
+            event.target.closest(
+                ".filter-option"
+            );
+
+
+        if (!button) {
+
+            return;
+
+        }
+
+
+        const filterType =
+            button.dataset.filter;
+
+
+        const filterValue =
+            button.dataset.value;
+
+
+        if (
+            !filterType ||
+            !filterValue
+        ) {
+
+            return;
+
+        }
+
+
+        /* -------------------------------------------------
+           MAKE SURE GROUP EXISTS
+        ------------------------------------------------- */
+
+        if (
+            !Array.isArray(
+                plantFilters[
+                    filterType
+                ]
+            )
+        ) {
+
+            plantFilters[
+                filterType
+            ] = [];
+
+        }
+
+
+        /* -------------------------------------------------
+           CHECK CURRENT SELECTION
+        ------------------------------------------------- */
+
+        const selectedIndex =
+            plantFilters[
+                filterType
+            ].indexOf(
+                filterValue
+            );
+
+
+        /* -------------------------------------------------
+           REMOVE IF ALREADY SELECTED
+        ------------------------------------------------- */
+
+        if (
+            selectedIndex >= 0
+        ) {
+
+            plantFilters[
+                filterType
+            ].splice(
+                selectedIndex,
+                1
+            );
+
+
+            button.classList.remove(
+                "active"
+            );
+
+        }
+
+
+        /* -------------------------------------------------
+           ADD IF NOT SELECTED
+        ------------------------------------------------- */
+
+        else {
+
+            plantFilters[
+                filterType
+            ].push(
+                filterValue
+            );
+
+
+            button.classList.add(
+                "active"
+            );
+
+        }
+
+
+        console.log(
+            "Smart Plant Filters:",
+            plantFilters
+        );
+
+    }
+
+);
+
+
+/* =========================================================
+   FIND MY PLANTS
+========================================================= */
+
+function applyPlantFilters() {
+
+    const grid =
+        document.getElementById(
+            "popularProductsGrid"
+        );
+
+
+    if (!grid) {
+
+        return;
+
+    }
+
+
+    const noMessage =
+        document.getElementById(
+            "no-plants-message"
+        );
+
+
+    /* =====================================================
+       CHECK WHETHER FILTERS ARE SELECTED
+    ===================================================== */
+
+    const hasFilters =
+
+        plantFilters.location.length > 0 ||
+
+        plantFilters.sunlight.length > 0 ||
+
+        plantFilters.care.length > 0 ||
+
+        plantFilters.purpose.length > 0;
+
+
+    /* =====================================================
+       IF NO FILTERS SELECTED
+    ===================================================== */
+
+    if (!hasFilters) {
+
+        loadPopularProducts();
+
+        return;
+
+    }
+
+
+    /* =====================================================
+       SHOW LOADING
+    ===================================================== */
+
+    grid.innerHTML = `
+
+        <div class="products-loading">
+
+            <i class="fas fa-spinner fa-spin"></i>
+
+            <span>
+                Finding plants for you...
+            </span>
+
+        </div>
+
+    `;
+
+
+    if (noMessage) {
+
+        noMessage.style.display =
+            "none";
+
+    }
+
+
+    /* =====================================================
+       BACKEND REQUEST
+    ===================================================== */
+
+    frappe.call({
+
+        method:
+            "vishuddhi.api.products.find_plants",
+
+
+        args: {
+
+            location:
+                JSON.stringify(
+                    plantFilters.location
+                ),
+
+
+            sunlight:
+                JSON.stringify(
+                    plantFilters.sunlight
+                ),
+
+
+            care:
+                JSON.stringify(
+                    plantFilters.care
+                ),
+
+
+            purpose:
+                JSON.stringify(
+                    plantFilters.purpose
+                )
+
+        },
+
+
+        callback: function(r) {
+
+            console.log(
+                "Smart Plant Discovery:",
+                r.message
+            );
+
+
+            const products =
+                r.message || [];
+
+
+            /* =============================================
+               NO RESULTS
+            ============================================= */
+
+            if (
+                !Array.isArray(products) ||
+                products.length === 0
+            ) {
+
+                grid.innerHTML = `
+
+                    <div class="products-empty">
+
+                        <i class="fas fa-seedling"></i>
+
+                        <h4>
+                            No matching plants found
+                        </h4>
+
+                        <p>
+                            Try changing one or more filters.
+                        </p>
+
+                    </div>
+
+                `;
+
+
+                if (noMessage) {
+
+                    noMessage.style.display =
+                        "block";
+
+                }
+
+
+                return;
+
+            }
+
+
+            /* =============================================
+               RESULTS FOUND
+            ============================================= */
+
+            if (noMessage) {
+
+                noMessage.style.display =
+                    "none";
+
+            }
+
+
+            renderPopularProducts(
+                products
+            );
+
+        },
+
+
+        error: function(error) {
+
+            console.error(
+                "Smart Plant Discovery error:",
+                error
+            );
+
+
+            grid.innerHTML = `
+
+                <div class="products-empty">
+
+                    <i class="fas fa-circle-exclamation"></i>
+
+                    <h4>
+                        Unable to find plants
+                    </h4>
+
+                    <p>
+                        Please try again.
+                    </p>
+
+                </div>
+
+            `;
+
+        }
+
+    });
+
+}
+
+
+/* =========================================================
+   RESET SMART FILTERS
+========================================================= */
+
+function resetPlantFilters() {
+
+    /* -----------------------------------------------------
+       CLEAR STATE
+    ----------------------------------------------------- */
+
+    plantFilters.location = [];
+
+    plantFilters.sunlight = [];
+
+    plantFilters.care = [];
+
+    plantFilters.purpose = [];
+
+
+    /* -----------------------------------------------------
+       REMOVE ACTIVE STATES
+    ----------------------------------------------------- */
+
+    document
+        .querySelectorAll(
+            ".filter-option"
+        )
+        .forEach(
+            function(button) {
+
+                button.classList.remove(
+                    "active"
+                );
+
+            }
+        );
+
+
+    /* -----------------------------------------------------
+       HIDE MESSAGE
+    ----------------------------------------------------- */
+
+    const noMessage =
+        document.getElementById(
+            "no-plants-message"
+        );
+
+
+    if (noMessage) {
+
+        noMessage.style.display =
+            "none";
+
+    }
+
+
+    /* -----------------------------------------------------
+       LOAD POPULAR PICKS AGAIN
+    ----------------------------------------------------- */
+
+    loadPopularProducts();
+
+}
+
+
+/* =========================================================
+   ADD PRODUCT TO CART
+========================================================= */
+
+function addProductToCart(
+    itemCode,
+    productName,
+    button
+) {
+
+    if (!itemCode) {
+
+        frappe.show_alert({
+
+            message:
+                "Product Item Code is missing",
+
+            indicator:
+                "red"
+
+        });
+
+        return;
+
+    }
+
+
+    /* =====================================================
+       LOGIN CHECK
+    ===================================================== */
+
+    if (
+        frappe.session &&
+        frappe.session.user === "Guest"
+    ) {
+
+        frappe.msgprint({
+
+            title:
+                "Login Required",
+
+            message:
+                "Please login before adding products to your cart.",
+
+            indicator:
+                "orange"
+
+        });
+
+        return;
+
+    }
+
+
+    if (!button) {
+
+        return;
+
+    }
+
+
+    /* =====================================================
+       SAVE BUTTON
+    ===================================================== */
+
+    const oldHtml =
+        button.innerHTML;
+
+
+    button.disabled =
+        true;
+
+
+    button.innerHTML = `
+
+        <i class="fas fa-spinner fa-spin"></i>
+
+        Adding...
+
+    `;
+
+
+    /* =====================================================
+       CART API
+    ===================================================== */
+
+    frappe.call({
+
+        method:
+            "vishuddhi.api.cart.add_to_cart",
+
+
+        args: {
+
+            item_code:
+                itemCode,
+
+            qty:
+                1
+
+        },
+
+
+        callback: function(r) {
+
+            console.log(
+                "Add cart response:",
+                r.message
+            );
+
+
+            if (
+                !r.message ||
+                !r.message.success
+            ) {
+
+                frappe.show_alert({
+
+                    message:
+                        "Unable to add product to cart",
+
+                    indicator:
+                        "red"
+
+                });
+
+                return;
+
+            }
+
+
+            /* =============================================
+               CART COUNT
+            ============================================= */
+
+            const cartCount =
+                Number(
+                    r.message.cart_count || 0
+                );
+
+
+            updateCartCount(
+                cartCount
+            );
+
+
+            /* =============================================
+               NAVBAR EVENT
+            ============================================= */
+
+            document.dispatchEvent(
+
+                new CustomEvent(
+
+                    "vishuddhi:cart-updated",
+
+                    {
+
+                        detail: {
+
+                            cart_count:
+                                cartCount
+
+                        }
+
+                    }
+
+                )
+
+            );
+
+
+            /* =============================================
+               SUCCESS
+            ============================================= */
+
+            frappe.show_alert({
+
+                message:
+                    productName +
+                    " added to cart",
+
+                indicator:
+                    "green"
+
+            });
+
+        },
+
+
+        error: function(error) {
+
+            console.error(
+                "Add to cart API error:",
+                error
+            );
+
+
+            frappe.show_alert({
+
+                message:
+                    "Unable to add product to cart",
+
+                indicator:
+                    "red"
+
+            });
+
+        },
+
+
+        always: function() {
+
+            button.disabled =
+                false;
+
+
+            button.innerHTML =
+                oldHtml;
+
+        }
+
+    });
+
+}
+
+
+/* =========================================================
+   UPDATE CART COUNT
+========================================================= */
+
+function updateCartCount(count) {
+
+    const value =
+        Number(count || 0);
+
+
+    document
+        .querySelectorAll(
+            ".cart-count"
+        )
+        .forEach(
+            function(element) {
+
+                element.textContent =
+                    value;
+
+
+                element.style.display =
+                    value > 0
+                        ? "flex"
+                        : "none";
+
+            }
+        );
+
+
+    const navbarCart =
+        document.getElementById(
+            "cartBadgeTop"
+        );
+
+
+    if (navbarCart) {
+
+        navbarCart.textContent =
+            value;
+
+
+        navbarCart.style.display =
+            value > 0
+                ? "flex"
+                : "none";
+
+    }
+
+}
+
+
+/* =========================================================
+   LOAD CART COUNT
+========================================================= */
+
+function loadCartCount() {
+
+    if (!frappe.session) {
+
+        return;
+
+    }
+
+
+    if (
+        frappe.session.user === "Guest"
+    ) {
+
+        updateCartCount(0);
+
+        return;
+
+    }
+
+
+    frappe.call({
+
+        method:
+            "vishuddhi.api.cart.get_cart_count",
+
+
+        callback: function(r) {
+
+            console.log(
+                "Cart count:",
+                r.message
+            );
+
+
+            updateCartCount(
+
+                Number(
+                    r.message || 0
+                )
+
+            );
+
+        },
+
+
+        error: function(error) {
+
+            console.error(
+                "Cart count API error:",
+                error
+            );
+
+        }
+
+    });
+
+}
+
+
+/* =========================================================
+   UPDATE WISHLIST COUNT
+========================================================= */
+
+function updateWishlistCount(count) {
+
+    const value =
+        Number(count || 0);
+
+
+    document
+        .querySelectorAll(
+            ".wishlist-count"
+        )
+        .forEach(
+            function(element) {
+
+                element.textContent =
+                    value;
+
+
+                element.style.display =
+                    value > 0
+                        ? "flex"
+                        : "none";
+
+            }
+        );
+
+
+    const navbarWishlist =
+        document.getElementById(
+            "wishlistBadgeTop"
+        );
+
+
+    if (navbarWishlist) {
+
+        navbarWishlist.textContent =
+            value;
+
+
+        navbarWishlist.style.display =
+            value > 0
+                ? "flex"
+                : "none";
+
+    }
+
+}
+
+
+/* =========================================================
+   LOAD WISHLIST COUNT
+========================================================= */
+
+function loadWishlistCount() {
+
+    if (!frappe.session) {
+
+        return;
+
+    }
+
+
+    if (
+        frappe.session.user === "Guest"
+    ) {
+
+        updateWishlistCount(0);
+
+        return;
+
+    }
+
+
+    frappe.call({
+
+        method:
+            "vishuddhi.api.cart.get_wishlist_count",
+
+
+        callback: function(r) {
+
+            console.log(
+                "Wishlist count:",
+                r.message
+            );
+
+
+            updateWishlistCount(
+
+                Number(
+                    r.message || 0
+                )
+
+            );
+
+        },
+
+
+        error: function(error) {
+
+            console.error(
+                "Wishlist count API error:",
+                error
+            );
+
+        }
+
+    });
+
+}
+
+
+/* =========================================================
+   CHECK WISHLIST
+========================================================= */
+
+function checkProductWishlist(
+    itemCode,
+    button
+) {
+
+    if (
+        !itemCode ||
+        !button
+    ) {
+
+        return;
+
+    }
+
+
+    if (
+        frappe.session &&
+        frappe.session.user === "Guest"
+    ) {
+
+        button.classList.remove(
+            "active"
+        );
+
+        button.textContent =
+            "♡";
+
+        return;
+
+    }
+
+
+    frappe.call({
+
+        method:
+            "vishuddhi.api.cart.check_wishlist",
+
+
+        args: {
+
+            item_code:
+                itemCode
+
+        },
+
+
+        callback: function(r) {
+
+            const exists =
+                Boolean(
+                    r.message
+                );
+
+
+            if (exists) {
+
+                button.classList.add(
+                    "active"
+                );
+
+                button.textContent =
+                    "♥";
+
+                button.setAttribute(
+                    "aria-label",
+                    "Remove from wishlist"
+                );
+
+                button.setAttribute(
+                    "title",
+                    "Remove from wishlist"
+                );
+
+            }
+            else {
+
+                button.classList.remove(
+                    "active"
+                );
+
+                button.textContent =
+                    "♡";
+
+                button.setAttribute(
+                    "aria-label",
+                    "Add to wishlist"
+                );
+
+                button.setAttribute(
+                    "title",
+                    "Add to wishlist"
+                );
+
+            }
+
+        },
+
+
+        error: function(error) {
+
+            console.error(
+                "Wishlist check error:",
+                error
+            );
+
+        }
+
+    });
+
+}
+
+
+/* =========================================================
+   TOGGLE WISHLIST
+========================================================= */
+
+function toggleWishlist(
+    itemCode,
+    button
+) {
+
+    if (
+        !itemCode ||
+        !button
+    ) {
+
+        return;
+
+    }
+
+
+    if (
+        frappe.session &&
+        frappe.session.user === "Guest"
+    ) {
+
+        frappe.msgprint({
+
+            title:
+                "Login Required",
+
+            message:
+                "Please login before adding products to your wishlist.",
+
+            indicator:
+                "orange"
+
+        });
+
+        return;
+
+    }
+
+
+    const isActive =
+        button.classList.contains(
+            "active"
+        );
+
+
+    button.disabled =
+        true;
+
+
+    /* =====================================================
+       REMOVE
+    ===================================================== */
+
+    if (isActive) {
+
+        frappe.call({
+
+            method:
+                "vishuddhi.api.cart.remove_from_wishlist",
+
+
+            args: {
+
+                item_code:
+                    itemCode
+
+            },
+
+
+            callback: function(r) {
+
+                console.log(
+                    "Remove wishlist response:",
+                    r.message
+                );
+
+
+                if (
+                    !r.message ||
+                    !r.message.success
+                ) {
+
+                    frappe.show_alert({
+
+                        message:
+                            "Unable to remove from wishlist",
+
+                        indicator:
+                            "red"
+
+                    });
+
+                    return;
+
+                }
+
+
+                button.classList.remove(
+                    "active"
+                );
+
+
+                button.textContent =
+                    "♡";
+
+
+                button.setAttribute(
+                    "aria-label",
+                    "Add to wishlist"
+                );
+
+
+                button.setAttribute(
+                    "title",
+                    "Add to wishlist"
+                );
+
+
+                const wishlistCount =
+                    Number(
+                        r.message.wishlist_count || 0
+                    );
+
+
+                updateWishlistCount(
+                    wishlistCount
+                );
+
+
+                document.dispatchEvent(
+
+                    new CustomEvent(
+
+                        "vishuddhi:wishlist-updated",
+
+                        {
+
+                            detail: {
+
+                                wishlist_count:
+                                    wishlistCount
+
+                            }
+
+                        }
+
+                    )
+
+                );
+
+
+                frappe.show_alert({
+
+                    message:
+                        "Removed from wishlist",
+
+                    indicator:
+                        "orange"
+
+                });
+
+            },
+
+
+            error: function(error) {
+
+                console.error(
+                    "Remove wishlist error:",
+                    error
+                );
+
+
+                frappe.show_alert({
+
+                    message:
+                        "Unable to remove from wishlist",
+
+                    indicator:
+                        "red"
+
+                });
+
+            },
+
+
+            always: function() {
+
+                button.disabled =
+                    false;
+
+            }
+
+        });
+
+
+        return;
+
+    }
+
+
+    /* =====================================================
+       ADD
+    ===================================================== */
+
+    frappe.call({
+
+        method:
+            "vishuddhi.api.cart.add_to_wishlist",
+
+
+        args: {
+
+            item_code:
+                itemCode
+
+        },
+
+
+        callback: function(r) {
+
+            console.log(
+                "Add wishlist response:",
+                r.message
+            );
+
+
+            if (
+                !r.message ||
+                !r.message.success
+            ) {
+
+                frappe.show_alert({
+
+                    message:
+                        "Unable to add to wishlist",
+
+                    indicator:
+                        "red"
+
+                });
+
+                return;
+
+            }
+
+
+            button.classList.add(
+                "active"
+            );
+
+
+            button.textContent =
+                "♥";
+
+
+            button.setAttribute(
+                "aria-label",
+                "Remove from wishlist"
+            );
+
+
+            button.setAttribute(
+                "title",
+                "Remove from wishlist"
+            );
+
+
+            const wishlistCount =
+                Number(
+                    r.message.wishlist_count || 0
+                );
+
+
+            updateWishlistCount(
+                wishlistCount
+            );
+
+
+            document.dispatchEvent(
+
+                new CustomEvent(
+
+                    "vishuddhi:wishlist-updated",
+
+                    {
+
+                        detail: {
+
+                            wishlist_count:
+                                wishlistCount
+
+                        }
+
+                    }
+
+                )
+
+            );
+
+
+            frappe.show_alert({
+
+                message:
+                    "Added to wishlist",
+
+                indicator:
+                    "green"
+
+            });
+
+        },
+
+
+        error: function(error) {
+
+            console.error(
+                "Add wishlist error:",
+                error
+            );
+
+
+            frappe.show_alert({
+
+                message:
+                    "Unable to add to wishlist",
+
+                indicator:
+                    "red"
+
+            });
+
+        },
+
+
+        always: function() {
+
+            button.disabled =
+                false;
+
+        }
+
+    });
+
+}
+
+
+/* =========================================================
+   MOBILE MENU
+========================================================= */
+
+function toggleMobileMenu() {
+
+    const nav =
+        document.querySelector(
+            ".main-nav"
+        );
+
+
+    if (!nav) {
+
+        return;
+
+    }
+
+
+    if (
+        nav.style.display === "flex"
+    ) {
+
+        nav.style.display =
+            "";
+
+    }
+    else {
+
+        nav.style.display =
+            "flex";
+
+        nav.style.position =
+            "absolute";
+
+        nav.style.top =
+            "65px";
+
+        nav.style.left =
+            "0";
+
+        nav.style.right =
+            "0";
+
+        nav.style.background =
+            "#fff";
+
+        nav.style.padding =
+            "20px";
+
+        nav.style.flexDirection =
+            "column";
+
+        nav.style.gap =
+            "15px";
+
+        nav.style.boxShadow =
+            "0 10px 25px rgba(0,0,0,.08)";
+
+    }
+
+}
+
+
+/* =========================================================
+   CUSTOMER SLIDER
+========================================================= */
+
+let customerIndex = 0;
+
+
+function getSlidesPerView() {
+
+    if (
+        window.innerWidth <= 700
+    ) {
+
+        return 1;
+
+    }
+
+
+    if (
+        window.innerWidth <= 1000
+    ) {
+
+        return 2;
+
+    }
+
+
+    return 4;
+
+}
+
+
+function moveCustomerSlider(
+    direction
+) {
+
+    const track =
+        document.getElementById(
+            "customerTrack"
+        );
+
+
+    if (!track) {
+
+        return;
+
+    }
+
+
+    const slides =
+        track.querySelectorAll(
+            ".customer-slide"
+        );
+
+
+    const perView =
+        getSlidesPerView();
+
+
+    const maxIndex =
+        Math.max(
+            0,
+            slides.length - perView
+        );
+
+
+    customerIndex +=
+        direction;
+
+
+    if (
+        customerIndex < 0
+    ) {
+
+        customerIndex =
+            maxIndex;
+
+    }
+
+
+    if (
+        customerIndex > maxIndex
+    ) {
+
+        customerIndex =
+            0;
+
+    }
+
+
+    updateCustomerSlider();
+
+}
+
+
+function goCustomerSlide(
+    index
+) {
+
+    const track =
+        document.getElementById(
+            "customerTrack"
+        );
+
+
+    if (!track) {
+
+        return;
+
+    }
+
+
+    const slides =
+        track.querySelectorAll(
+            ".customer-slide"
+        );
+
+
+    const perView =
+        getSlidesPerView();
+
+
+    const maxIndex =
+        Math.max(
+            0,
+            slides.length - perView
+        );
+
+
+    customerIndex =
+        Math.min(
+            index,
+            maxIndex
+        );
+
+
+    updateCustomerSlider();
+
+}
+
+
+function updateCustomerSlider() {
+
+    const track =
+        document.getElementById(
+            "customerTrack"
+        );
+
+
+    if (!track) {
+
+        return;
+
+    }
+
+
+    const slides =
+        track.querySelectorAll(
+            ".customer-slide"
+        );
+
+
+    if (!slides.length) {
+
+        return;
+
+    }
+
+
+    const gap =
+        16;
+
+
+    const slideWidth =
+        slides[0].offsetWidth +
+        gap;
+
+
+    track.style.transform =
+        "translateX(-" +
+        (
+            customerIndex *
+            slideWidth
+        ) +
+        "px)";
+
+
+    document
+        .querySelectorAll(
+            ".slider-dot"
+        )
+        .forEach(
+            function(dot, index) {
+
+                dot.classList.toggle(
+                    "active",
+                    index === customerIndex
+                );
+
+            }
+        );
+
+}
+
+
+window.addEventListener(
+    "resize",
+    function() {
+
+        customerIndex =
+            0;
+
+        updateCustomerSlider();
+
+    }
+);
+
+
+/* =========================================================
+   NEWSLETTER
+========================================================= */
+
+function subscribeNewsletter(
+    event
+) {
+
+    event.preventDefault();
+
+
+    const input =
+        event.target.querySelector(
+            "input"
+        );
+
+
+    if (!input) {
+
+        return;
+
+    }
+
+
+    const email =
+        input.value.trim();
+
+
+    if (!email) {
+
+        return;
+
+    }
+
+
+    if (
+        typeof frappe !== "undefined" &&
+        frappe.show_alert
+    ) {
+
+        frappe.show_alert({
+
+            message:
+                "Thank you for subscribing!",
+
+            indicator:
+                "green"
+
+        });
+
+    }
+    else {
+
+        alert(
+            "Thank you for subscribing!"
+        );
+
+    }
+
+
+    event.target.reset();
+
+}
+
+
+/* =========================================================
+   INITIALIZE FRAPPE
+========================================================= */
+
+frappe.ready(
+
+    function() {
+
+        console.log(
+            "Vishuddhi homepage initialized"
+        );
+
+
+        /* ================================================
+           HERO
+        ================================================= */
+
+        loadBannerImage();
+
+
+        /* ================================================
+           POPULAR PICKS
+        ================================================= */
+
+        loadPopularProducts();
+
+
+        /* ================================================
+           CART
+        ================================================= */
+
+        loadCartCount();
+
+
+        /* ================================================
+           WISHLIST
+        ================================================= */
+
+        loadWishlistCount();
+
+
+        /* ================================================
+           CUSTOMER SLIDER
+        ================================================= */
+
+        setTimeout(
+
+            function() {
+
+                updateCustomerSlider();
+
+            },
+
+            100
+
+        );
+
+    }
+
+);
+
+</script>

@@ -1,0 +1,1730 @@
+{% extends "templates/web.html" %}
+
+{% block page_content %}
+
+<!-- =========================================================
+     EXTERNAL CSS
+========================================================= -->
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
+
+<link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+<link rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
+
+<style>
+
+/* =========================================================
+   GLOBAL
+========================================================= */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    background: #f8faf7;
+    color: #333;
+    overflow-x: hidden;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+.container,
+.container-fluid {
+    width: 100%;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero-banner {
+    position: relative;
+    width: 100%;
+    min-height: 300px;
+
+    background:
+        linear-gradient(
+            rgba(6, 73, 30, 0.75),
+            rgba(6, 73, 30, 0.75)
+        ),
+        url("/files/greenhouse.jpg") center center / cover no-repeat;
+
+    display: flex;
+    align-items: center;
+}
+
+.hero-content {
+    color: #fff;
+    max-width: 800px;
+}
+
+.hero-content h1 {
+    margin: 0 0 12px;
+    font-size: clamp(32px, 5vw, 52px);
+    line-height: 1.15;
+    font-weight: 700;
+    color: #fff !important;
+}
+
+.hero-content p {
+    margin: 0;
+    font-size: clamp(15px, 2vw, 19px);
+    line-height: 1.7;
+    color: #fff;
+}
+
+
+/* =========================================================
+   ABOUT SECTION
+========================================================= */
+
+.about-section {
+    padding: 70px 0;
+    background: #f8faf7;
+}
+
+.about-section h4 {
+    margin-bottom: 20px;
+    font-size: clamp(26px, 3vw, 32px);
+    color: #06491e;
+    font-weight: 700;
+    line-height: 1.3;
+}
+
+.about-section p {
+    margin-bottom: 18px;
+    font-size: 16px;
+    line-height: 1.8;
+    color: #4f5c54;
+}
+
+.about-image {
+    width: 100%;
+    max-width: 520px;
+    height: 400px;
+    object-fit: cover;
+    border-radius: 20px;
+    margin: 0 auto;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
+}
+
+
+/* =========================================================
+   VISION / MISSION
+========================================================= */
+
+.vision-mission-section {
+    padding: 10px 0 70px;
+    background: #f8faf7;
+}
+
+.vision-mission-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+}
+
+.vision-mission-column {
+    flex: 1 1 calc(50% - 13px);
+    min-width: 0;
+}
+
+.vision-mission-card {
+    height: 100%;
+    background: #fff;
+    border: 1px solid #e6eee8;
+    border-radius: 18px;
+    padding: 30px;
+
+    box-shadow: 0 8px 25px rgba(0, 61, 31, 0.08);
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.vision-mission-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 14px 32px rgba(0, 61, 31, 0.13);
+}
+
+.vm-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    background: #003d1f;
+    color: #fff;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 23px;
+    margin-bottom: 18px;
+}
+
+.vision-mission-card h5 {
+    margin: 0 0 12px;
+    color: #003d1f;
+    font-size: 21px;
+    font-weight: 700;
+}
+
+.vision-mission-card p {
+    margin: 0;
+    color: #5d6b62;
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+
+/* =========================================================
+   SERVICES SECTION
+========================================================= */
+
+.services-section {
+    padding: 70px 0;
+    background: #f7faf5;
+    overflow: hidden;
+}
+
+.service-title {
+    margin: 0 0 10px;
+    font-size: clamp(28px, 4vw, 36px);
+    font-weight: 700;
+    color: #0a4d24;
+}
+
+.service-subtitle {
+    margin: 0 auto 55px;
+    color: #666;
+    font-size: 17px;
+    line-height: 1.6;
+}
+
+.service-wave {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 25px;
+    flex-wrap: wrap;
+}
+
+.service-card {
+    flex: 0 1 250px;
+    width: 250px;
+    height: 320px;
+
+    position: relative;
+    overflow: hidden;
+
+    border-radius: 30px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+
+    transition:
+        transform 0.4s ease,
+        box-shadow 0.4s ease;
+
+    cursor: pointer;
+}
+
+.service-card.up {
+    margin-top: -30px;
+}
+
+.service-card.down {
+    margin-top: 30px;
+}
+
+.service-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+
+    transition: transform 0.5s ease;
+}
+
+.service-card:hover img {
+    transform: scale(1.08);
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.16);
+}
+
+.service-card.up:hover,
+.service-card.down:hover {
+    transform: translateY(-10px);
+}
+
+.overlay {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    padding: 50px 20px 25px;
+
+    background:
+        linear-gradient(
+            transparent,
+            rgba(0, 0, 0, 0.82)
+        );
+}
+
+.overlay h4 {
+    margin: 0;
+    color: #fff;
+    font-size: 22px;
+    line-height: 1.3;
+    font-weight: 700;
+}
+
+
+/* =========================================================
+   WHY CHOOSE US
+========================================================= */
+
+.why-section {
+    text-align: center;
+}
+
+.why-section h5 {
+    margin: 0;
+    font-size: clamp(28px, 4vw, 36px);
+    color: #0a4d24;
+    font-weight: 700;
+}
+
+.whySwiper {
+    width: 100%;
+    padding: 10px 5px 55px;
+}
+
+.why-card {
+    width: 100%;
+    min-height: 230px;
+
+    border-radius: 25px;
+    background: #fff;
+
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 25px 15px;
+
+    border: 1px solid #eee;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.why-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 16px 30px rgba(0, 0, 0, 0.12);
+}
+
+.why-card i {
+    font-size: 43px;
+    color: #0b4d22;
+    margin-bottom: 20px;
+}
+
+.why-card h6 {
+    margin: 0;
+    text-align: center;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #0b4d22;
+    font-weight: 700;
+}
+
+.swiper-pagination {
+    bottom: 10px !important;
+}
+
+.swiper-pagination-bullet-active {
+    background: #0b4d22 !important;
+}
+
+
+/* =========================================================
+   CUSTOMER REVIEWS
+========================================================= */
+
+.oil-review-section {
+    padding: 70px 0;
+    background: #f5f5f5;
+    overflow: hidden;
+}
+
+.oil-review-title {
+    margin: 0 0 10px;
+    text-align: center;
+    font-size: clamp(28px, 4vw, 38px);
+    line-height: 1.2;
+    font-weight: 700;
+    color: #003d1f;
+}
+
+.oil-review-subtitle {
+    margin: 0 0 45px;
+    text-align: center;
+    font-size: clamp(17px, 2vw, 22px);
+    line-height: 1.5;
+    color: #555;
+}
+
+.oil-review-wrapper {
+    position: relative;
+    width: 100%;
+    padding: 0 45px;
+}
+
+.oil-review-slider {
+    display: flex;
+    gap: 24px;
+
+    width: 100%;
+
+    overflow-x: auto;
+    scroll-behavior: smooth;
+
+    scrollbar-width: none;
+
+    scroll-snap-type: x mandatory;
+}
+
+.oil-review-slider::-webkit-scrollbar {
+    display: none;
+}
+
+.oil-review-card {
+    flex: 0 0 calc(33.333% - 16px);
+
+    min-height: 340px;
+
+    background: #dff0eb;
+    border-radius: 16px;
+
+    padding: 25px;
+
+    display: flex;
+    flex-direction: column;
+
+    scroll-snap-align: start;
+}
+
+.oil-review-stars {
+    color: #d4b100;
+    font-size: 22px;
+    letter-spacing: 2px;
+    margin-bottom: 14px;
+}
+
+.oil-review-card h5 {
+    margin: 0 0 12px;
+    font-size: 19px;
+    line-height: 1.4;
+    font-weight: 700;
+    color: #222;
+}
+
+.oil-review-card p {
+    margin: 0 0 20px;
+    font-size: 15px;
+    line-height: 1.75;
+    color: #333;
+    flex-grow: 1;
+}
+
+.oil-review-user {
+    margin-bottom: 3px;
+    font-size: 16px;
+    line-height: 1.4;
+    font-weight: 700;
+    color: #222;
+}
+
+.oil-review-card span {
+    font-size: 14px;
+    color: #666;
+}
+
+.oil-review-btn {
+    position: absolute;
+
+    top: 50%;
+    transform: translateY(-50%);
+
+    width: 48px;
+    height: 48px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: #fff;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+    cursor: pointer;
+
+    z-index: 10;
+
+    font-size: 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: 0.2s ease;
+}
+
+.oil-review-btn:hover {
+    transform: translateY(-50%) scale(1.05);
+}
+
+.oil-review-prev {
+    left: 0;
+}
+
+.oil-review-next {
+    right: 0;
+}
+
+.oil-review-btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1199px) {
+
+    .service-wave {
+        gap: 20px;
+    }
+
+    .service-card {
+        flex: 0 1 calc(25% - 15px);
+        width: auto;
+        min-width: 210px;
+    }
+
+    .oil-review-card {
+        flex-basis: calc(50% - 12px);
+    }
+}
+
+
+/* =========================================================
+   TABLET / SMALL LAPTOP
+========================================================= */
+
+@media (max-width: 991px) {
+
+    .hero-banner {
+        min-height: 280px;
+    }
+
+    .about-section {
+        padding: 55px 0;
+    }
+
+    .about-image {
+        height: 350px;
+    }
+
+    .vision-mission-section {
+        padding-bottom: 55px;
+    }
+
+    .vision-mission-row {
+        gap: 20px;
+    }
+
+    .vision-mission-column {
+        flex-basis: calc(50% - 10px);
+    }
+
+    .service-card {
+        flex: 0 1 calc(50% - 15px);
+        min-width: 0;
+        height: 300px;
+    }
+
+    .service-card.up,
+    .service-card.down {
+        margin-top: 0;
+    }
+
+    .services-section {
+        padding: 55px 0;
+    }
+
+    .oil-review-section {
+        padding: 55px 0;
+    }
+
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 767px) {
+
+    body {
+        overflow-x: hidden;
+    }
+
+    .hero-banner {
+        min-height: 240px;
+
+        background-position: center;
+    }
+
+    .hero-content {
+        padding: 25px 10px;
+    }
+
+    .hero-content h1 {
+        font-size: 34px;
+    }
+
+    .hero-content p {
+        font-size: 15px;
+        line-height: 1.6;
+    }
+
+
+    /* About */
+
+    .about-section {
+        padding: 45px 0;
+    }
+
+    .about-section h4 {
+        font-size: 27px;
+        margin-bottom: 18px;
+    }
+
+    .about-section p {
+        font-size: 15px;
+        line-height: 1.75;
+    }
+
+    .about-image {
+        width: 100%;
+        height: 280px;
+        margin-top: 5px;
+        border-radius: 16px;
+    }
+
+
+    /* Vision / Mission */
+
+    .vision-mission-section {
+        padding: 0 0 45px;
+    }
+
+    .vision-mission-row {
+        display: block;
+    }
+
+    .vision-mission-column {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+    .vision-mission-column:last-child {
+        margin-bottom: 0;
+    }
+
+    .vision-mission-card {
+        padding: 24px;
+        border-radius: 16px;
+    }
+
+    .vm-icon {
+        width: 48px;
+        height: 48px;
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+
+    .vision-mission-card h5 {
+        font-size: 20px;
+    }
+
+    .vision-mission-card p {
+        font-size: 14px;
+        line-height: 1.7;
+    }
+
+
+    /* Services */
+
+    .services-section {
+        padding: 45px 0;
+    }
+
+    .service-title {
+        font-size: 29px;
+    }
+
+    .service-subtitle {
+        font-size: 15px;
+        margin-bottom: 30px;
+        padding: 0 15px;
+    }
+
+    .service-wave {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 15px;
+        width: 100%;
+    }
+
+    .service-card {
+        width: 100%;
+        min-width: 0;
+        height: 230px;
+        flex: none;
+        border-radius: 20px;
+    }
+
+    .service-card.up,
+    .service-card.down {
+        margin-top: 0;
+    }
+
+    .overlay {
+        padding: 40px 14px 16px;
+    }
+
+    .overlay h4 {
+        font-size: 17px;
+    }
+
+
+    /* Why Us */
+
+    .why-section h5 {
+        font-size: 29px;
+    }
+
+    .whySwiper {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+
+    .why-card {
+        min-height: 210px;
+        border-radius: 20px;
+        padding: 20px 15px;
+    }
+
+    .why-card i {
+        font-size: 40px;
+        margin-bottom: 17px;
+    }
+
+    .why-card h6 {
+        font-size: 15px;
+    }
+
+
+    /* Reviews */
+
+    .oil-review-section {
+        padding: 45px 0;
+    }
+
+    .oil-review-title {
+        font-size: 29px;
+    }
+
+    .oil-review-subtitle {
+        font-size: 17px;
+        margin-bottom: 30px;
+        padding: 0 15px;
+    }
+
+    .oil-review-wrapper {
+        padding: 0 8px;
+    }
+
+    .oil-review-slider {
+        gap: 15px;
+        padding: 0;
+    }
+
+    .oil-review-card {
+        flex: 0 0 88%;
+        min-height: 330px;
+        padding: 22px;
+        border-radius: 15px;
+    }
+
+    .oil-review-stars {
+        font-size: 20px;
+    }
+
+    .oil-review-card h5 {
+        font-size: 18px;
+    }
+
+    .oil-review-card p {
+        font-size: 14px;
+        line-height: 1.7;
+    }
+
+    .oil-review-user {
+        font-size: 15px;
+    }
+
+    .oil-review-card span {
+        font-size: 13px;
+    }
+
+    .oil-review-btn {
+        width: 40px;
+        height: 40px;
+        font-size: 17px;
+    }
+
+    .oil-review-prev {
+        left: -3px;
+    }
+
+    .oil-review-next {
+        right: -3px;
+    }
+
+}
+
+
+/* =========================================================
+   VERY SMALL MOBILE
+========================================================= */
+
+@media (max-width: 400px) {
+
+    .hero-banner {
+        min-height: 220px;
+    }
+
+    .hero-content h1 {
+        font-size: 30px;
+    }
+
+    .hero-content p {
+        font-size: 14px;
+    }
+
+    .about-section h4 {
+        font-size: 24px;
+    }
+
+    .service-wave {
+        gap: 12px;
+    }
+
+    .service-card {
+        height: 210px;
+        border-radius: 17px;
+    }
+
+    .overlay {
+        padding: 35px 11px 13px;
+    }
+
+    .overlay h4 {
+        font-size: 15px;
+    }
+
+    .why-card {
+        min-height: 200px;
+    }
+
+    .oil-review-card {
+        flex-basis: 92%;
+        min-height: 320px;
+    }
+
+}
+
+
+/* =========================================================
+   TOUCH DEVICES
+========================================================= */
+
+@media (hover: none) {
+
+    .service-card:hover,
+    .service-card.up:hover,
+    .service-card.down:hover,
+    .why-card:hover,
+    .vision-mission-card:hover {
+        transform: none;
+    }
+
+    .service-card:hover img {
+        transform: none;
+    }
+
+}
+
+</style>
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section class="hero-banner">
+
+    <div class="container">
+
+        <div class="hero-content">
+
+            <h1>About Us</h1>
+
+            <p>
+                A Family-Run Nursery Helping You Bring the Right Plants Home.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     ABOUT CONTENT
+========================================================= -->
+
+<section class="about-section">
+
+    <div class="container">
+
+        <div class="row align-items-center g-4 g-lg-5">
+
+            <div class="col-12 col-lg-7">
+
+                <h4>
+                    Welcome to Vishuddhi Home Garden
+                </h4>
+
+                <p>
+                    Vishuddhi Home Garden is a family-run nursery based in
+                    Bengaluru, helping plant lovers find the right plants for
+                    their homes, balconies, terraces, and gardens.
+                </p>
+
+                <p>
+                    We believe choosing a plant should be simple and personal.
+                    Instead of simply selling a plant, we help you understand
+                    what will work best for your space, sunlight, and lifestyle.
+                    From healthy indoor and outdoor plants to pots, soil mixes,
+                    fertilisers, and essential gardening tools, we bring
+                    everything you need to create a thriving green space at home.
+                </p>
+
+                <p>
+                    Our approach is built around honest guidance, fresh products,
+                    and continued support. Whether you're choosing your first
+                    plant or adding to an existing garden, we're here to help
+                    you make the right choice.
+                </p>
+
+            </div>
+
+            <div class="col-12 col-lg-5">
+
+                <img
+                    src="/files/plants-sunlight.jpg"
+                    class="about-image"
+                    alt="Vishuddhi Home Garden">
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     VISION / MISSION
+========================================================= -->
+
+<section class="vision-mission-section">
+
+    <div class="container">
+
+        <div class="vision-mission-row">
+
+            <!-- Vision -->
+
+            <div class="vision-mission-column">
+
+                <div class="vision-mission-card">
+
+                    <div class="vm-icon">
+                        <i class="bi bi-eye"></i>
+                    </div>
+
+                    <h5>
+                        Our Vision
+                    </h5>
+
+                    <p>
+                        To help more people create healthy, beautiful green
+                        spaces by making plant selection, gardening, and plant
+                        care simple, practical, and accessible.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- Mission -->
+
+            <div class="vision-mission-column">
+
+                <div class="vision-mission-card">
+
+                    <div class="vm-icon">
+                        <i class="bi bi-bullseye"></i>
+                    </div>
+
+                    <h5>
+                        Our Mission
+                    </h5>
+
+                    <p>
+                        To provide healthy plants, fresh soil mixes, suitable
+                        pots, and essential gardening products while giving
+                        every customer honest guidance and ongoing support to
+                        help their plants thrive.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     WHAT WE OFFER
+========================================================= -->
+
+<section class="services-section">
+
+    <div class="container">
+
+        <div class="text-center">
+
+            <h5 class="service-title">
+                What We Offer
+            </h5>
+
+            <p class="service-subtitle">
+                Everything You Need to Grow a Greener Home.
+            </p>
+
+        </div>
+
+
+        <div class="service-wave">
+
+            <!-- Indoor -->
+
+            <div class="service-card up">
+
+                <img
+                    src="/files/indoor-plants.jpg"
+                    alt="Indoor Plants">
+
+                <div class="overlay">
+
+                    <h4>
+                        Indoor Plants
+                    </h4>
+
+                </div>
+
+            </div>
+
+
+            <!-- Outdoor -->
+
+            <div class="service-card down">
+
+                <img
+                    src="/files/outdoor-plants.jpg"
+                    alt="Outdoor Plants">
+
+                <div class="overlay">
+
+                    <h4>
+                        Outdoor Plants
+                    </h4>
+
+                </div>
+
+            </div>
+
+
+            <!-- Pots -->
+
+            <div class="service-card up">
+
+                <img
+                    src="/files/stylish-potted-plants-display.jpg"
+                    alt="Pots and Planters">
+
+                <div class="overlay">
+
+                    <h4>
+                        Pots &amp; Planters
+                    </h4>
+
+                </div>
+
+            </div>
+
+
+            <!-- Soil -->
+
+            <div class="service-card down">
+
+                <img
+                    src="/files/closeup-picture-gardener-s-hands-planting-plant.jpg"
+                    alt="Soil and Fertiliser">
+
+                <div class="overlay">
+
+                    <h4>
+                        Soil &amp; Fertiliser
+                    </h4>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     WHY CHOOSE US
+========================================================= -->
+
+<section class="py-5">
+
+    <div class="container">
+
+        <div class="why-section text-center mb-4 mb-md-5">
+
+            <h5>
+                Why Choose Us
+            </h5>
+
+        </div>
+
+
+        <div class="swiper whySwiper">
+
+            <div class="swiper-wrapper">
+
+
+                <!-- Card 1 -->
+
+                <div class="swiper-slide">
+
+                    <div class="why-card">
+
+                        <i class="fas fa-seedling"></i>
+
+                        <h6>
+                            Guided Plant Picks
+                        </h6>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Card 2 -->
+
+                <div class="swiper-slide">
+
+                    <div class="why-card">
+
+                        <i class="fas fa-spa"></i>
+
+                        <h6>
+                            Repotting Support
+                        </h6>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Card 3 -->
+
+                <div class="swiper-slide">
+
+                    <div class="why-card">
+
+                        <i class="fas fa-leaf"></i>
+
+                        <h6>
+                            Fresh Soil Mixes
+                        </h6>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Card 4 -->
+
+                <div class="swiper-slide">
+
+                    <div class="why-card">
+
+                        <i class="fas fa-hands-helping"></i>
+
+                        <h6>
+                            After-Sale Advice
+                        </h6>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Card 5 -->
+
+                <div class="swiper-slide">
+
+                    <div class="why-card">
+
+                        <i class="fas fa-tree"></i>
+
+                        <h6>
+                            250+ Plant Varieties
+                        </h6>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Card 6 -->
+
+                <div class="swiper-slide">
+
+                    <div class="why-card">
+
+                        <i class="fas fa-star"></i>
+
+                        <h6>
+                            500+ Five-Star Reviews
+                        </h6>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="swiper-pagination"></div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================================================
+     CUSTOMER REVIEWS
+========================================================= -->
+
+<section class="oil-review-section">
+
+<div class="container">
+
+    <h2 class="oil-review-title">
+        Customer Reviews
+    </h2>
+
+    <p class="oil-review-subtitle">
+        Happy plants. Happy homes. Happy customers.
+    </p>
+
+
+    <div class="oil-review-wrapper">
+
+        <!-- Previous -->
+
+        <button
+            type="button"
+            class="oil-review-btn oil-review-prev"
+            id="oilReviewPrev"
+            aria-label="Previous review"
+            onclick="oilReviewScroll(-1)">
+
+            &#10094;
+
+        </button>
+
+
+        <!-- Review Slider -->
+
+        <div
+            class="oil-review-slider"
+            id="oilReviewSlider">
+
+
+            <!-- Review 1 -->
+
+            <div class="oil-review-card">
+
+                <div class="oil-review-stars">
+                    ★ ★ ★ ★ ★
+                </div>
+
+                <h5>
+                    Beautiful and Healthy Plant
+                </h5>
+
+                <p>
+                    I ordered an indoor plant and was really impressed
+                    with the quality. The plant arrived healthy, fresh,
+                    and beautifully packed. It has already become a
+                    lovely addition to my living room.
+                </p>
+
+                <div class="oil-review-user">
+                    Ritika
+                </div>
+
+                <span>
+                    Indoor Plant
+                </span>
+
+            </div>
+
+
+            <!-- Review 2 -->
+
+            <div class="oil-review-card">
+
+                <div class="oil-review-stars">
+                    ★ ★ ★ ★ ★
+                </div>
+
+                <h5>
+                    Excellent Plant Quality
+                </h5>
+
+                <p>
+                    Very happy with my purchase. The plant was healthy,
+                    well-grown, and looked exactly like the pictures.
+                    The packaging was also done carefully to make sure
+                    the plant reached safely.
+                </p>
+
+                <div class="oil-review-user">
+                    Priya
+                </div>
+
+                <span>
+                    Home Garden Plant
+                </span>
+
+            </div>
+
+
+            <!-- Review 3 -->
+
+            <div class="oil-review-card">
+
+                <div class="oil-review-stars">
+                    ★ ★ ★ ★ ★
+                </div>
+
+                <h5>
+                    Great Guidance for Beginners
+                </h5>
+
+                <p>
+                    I was confused about which plant would suit my
+                    balcony. The team helped me choose the right plant
+                    according to the sunlight available. Very helpful
+                    and friendly service.
+                </p>
+
+                <div class="oil-review-user">
+                    Vanshita
+                </div>
+
+                <span>
+                    Plant Selection
+                </span>
+
+            </div>
+
+
+            <!-- Review 4 -->
+
+            <div class="oil-review-card">
+
+                <div class="oil-review-stars">
+                    ★ ★ ★ ★ ★
+                </div>
+
+                <h5>
+                    Perfect for My Balcony
+                </h5>
+
+                <p>
+                    I purchased a few outdoor plants for my balcony.
+                    All the plants arrived in excellent condition and
+                    are growing beautifully. The quality and variety
+                    are really good.
+                </p>
+
+                <div class="oil-review-user">
+                    Ananya
+                </div>
+
+                <span>
+                    Outdoor Plants
+                </span>
+
+            </div>
+
+
+            <!-- Review 5 -->
+
+            <div class="oil-review-card">
+
+                <div class="oil-review-stars">
+                    ★ ★ ★ ★ ★
+                </div>
+
+                <h5>
+                    Loved the Pots and Plants
+                </h5>
+
+                <p>
+                    Ordered a plant along with a pot and soil mix.
+                    Everything was good quality and the combination
+                    looks beautiful in my home. Will definitely shop
+                    here again.
+                </p>
+
+                <div class="oil-review-user">
+                    Sneha
+                </div>
+
+                <span>
+                    Pots &amp; Plants
+                </span>
+
+            </div>
+
+
+            <!-- Review 6 -->
+
+            <div class="oil-review-card">
+
+                <div class="oil-review-stars">
+                    ★ ★ ★ ★ ★
+                </div>
+
+                <h5>
+                    Very Good After-Sale Support
+                </h5>
+
+                <p>
+                    The plant arrived healthy and the care instructions
+                    were very useful. I also received helpful advice
+                    about watering and sunlight. A great experience
+                    for a new plant parent.
+                </p>
+
+                <div class="oil-review-user">
+                    Meera
+                </div>
+
+                <span>
+                    Plant Care Support
+                </span>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- Next -->
+
+        <button
+            type="button"
+            class="oil-review-btn oil-review-next"
+            id="oilReviewNext"
+            aria-label="Next review"
+            onclick="oilReviewScroll(1)">
+
+            &#10095;
+
+        </button>
+
+    </div>
+
+</div>
+
+
+</section>
+
+
+<!-- =========================================================
+     JAVASCRIPT
+========================================================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+
+<script>
+
+/* =========================================================
+   WHY CHOOSE US SWIPER
+========================================================= */
+
+document.addEventListener("DOMContentLoaded", function () {
+
+    new Swiper(".whySwiper", {
+
+        slidesPerView: 4,
+
+        spaceBetween: 25,
+
+        slidesPerGroup: 1,
+
+        loop: true,
+
+        autoplay: {
+            delay: 3000,
+            disableOnInteraction: false
+        },
+
+        pagination: {
+            el: ".whySwiper .swiper-pagination",
+            clickable: true
+        },
+
+        breakpoints: {
+
+            320: {
+                slidesPerView: 1,
+                spaceBetween: 15
+            },
+
+            576: {
+                slidesPerView: 2,
+                spaceBetween: 18
+            },
+
+            768: {
+                slidesPerView: 3,
+                spaceBetween: 20
+            },
+
+            1200: {
+                slidesPerView: 4,
+                spaceBetween: 25
+            }
+
+        }
+
+    });
+
+});
+
+
+/* =========================================================
+   CUSTOMER REVIEW SLIDER
+========================================================= */
+
+const oilReviewSlider =
+    document.getElementById("oilReviewSlider");
+
+const oilReviewPrev =
+    document.getElementById("oilReviewPrev");
+
+const oilReviewNext =
+    document.getElementById("oilReviewNext");
+
+
+function oilReviewScroll(direction) {
+
+    if (!oilReviewSlider) {
+        return;
+    }
+
+    const card =
+        oilReviewSlider.querySelector(".oil-review-card");
+
+    if (!card) {
+        return;
+    }
+
+    const gap = 24;
+
+    /*
+     * On mobile the gap is smaller.
+     */
+    const currentGap =
+        window.innerWidth <= 767 ? 15 : gap;
+
+    oilReviewSlider.scrollBy({
+
+        left:
+            direction *
+            (card.offsetWidth + currentGap),
+
+        behavior: "smooth"
+
+    });
+
+}
+
+
+/* =========================================================
+   REVIEW BUTTON STATE
+========================================================= */
+
+function updateReviewButtons() {
+
+    if (!oilReviewSlider) {
+        return;
+    }
+
+    const maxScroll =
+        oilReviewSlider.scrollWidth -
+        oilReviewSlider.clientWidth;
+
+
+    if (oilReviewPrev) {
+
+        oilReviewPrev.disabled =
+            oilReviewSlider.scrollLeft <= 5;
+
+    }
+
+
+    if (oilReviewNext) {
+
+        oilReviewNext.disabled =
+            oilReviewSlider.scrollLeft >= maxScroll - 5;
+
+    }
+
+}
+
+
+/* =========================================================
+   EVENTS
+========================================================= */
+
+if (oilReviewSlider) {
+
+    oilReviewSlider.addEventListener(
+        "scroll",
+        updateReviewButtons
+    );
+
+}
+
+
+window.addEventListener(
+    "load",
+    updateReviewButtons
+);
+
+
+window.addEventListener(
+    "resize",
+    updateReviewButtons
+);
+
+
+/* =========================================================
+   INITIAL CHECK
+========================================================= */
+
+setTimeout(
+    updateReviewButtons,
+    300
+);
+
+</script>
+
+
+{% endblock %}

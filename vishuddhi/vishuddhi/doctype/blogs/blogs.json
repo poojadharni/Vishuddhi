@@ -1,0 +1,167 @@
+{
+ "actions": [],
+ "allow_rename": 1,
+ "autoname": "field:description_heading_1",
+ "creation": "2025-09-29 10:48:45.985723",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "thumbnail_image",
+  "description_heading_1",
+  "sub_description_heading_1",
+  "description_1",
+  "description_heading_2",
+  "sub_description_heading_2",
+  "description_2",
+  "blog_date",
+  "url",
+  "meta_title",
+  "meta_description",
+  "column_break_mqsb",
+  "header_image",
+  "description_heading_3",
+  "sub_description_heading_3",
+  "description_3",
+  "description_heading_4",
+  "sub_description_heading_4",
+  "description_4",
+  "section_break_xcro",
+  "custom_html"
+ ],
+ "fields": [
+  {
+   "fieldname": "thumbnail_image",
+   "fieldtype": "Attach Image",
+   "label": "Thumbnail Image"
+  },
+  {
+   "fieldname": "description_heading_1",
+   "fieldtype": "Data",
+   "label": "Description Heading 1 (h3)",
+   "unique": 1
+  },
+  {
+   "fieldname": "description_1",
+   "fieldtype": "Text Editor",
+   "label": "Description 1"
+  },
+  {
+   "fieldname": "description_heading_2",
+   "fieldtype": "Data",
+   "label": "Description Heading 2"
+  },
+  {
+   "fieldname": "description_2",
+   "fieldtype": "Text Editor",
+   "label": "Description 2"
+  },
+  {
+   "fieldname": "column_break_mqsb",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "header_image",
+   "fieldtype": "Attach Image",
+   "label": "Header Image"
+  },
+  {
+   "fieldname": "description_heading_3",
+   "fieldtype": "Data",
+   "label": "Description Heading 3"
+  },
+  {
+   "fieldname": "description_3",
+   "fieldtype": "Text Editor",
+   "label": "Description 3"
+  },
+  {
+   "fieldname": "description_heading_4",
+   "fieldtype": "Data",
+   "label": "Description Heading 4"
+  },
+  {
+   "fieldname": "description_4",
+   "fieldtype": "Text Editor",
+   "label": "Description 4"
+  },
+  {
+   "fieldname": "section_break_xcro",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "custom_html",
+   "fieldtype": "Code",
+   "label": "Custom HTML",
+   "options": "HTML"
+  },
+  {
+   "fieldname": "sub_description_heading_1",
+   "fieldtype": "Data",
+   "label": "Sub Description Heading 1 (p)"
+  },
+  {
+   "fieldname": "sub_description_heading_2",
+   "fieldtype": "Data",
+   "label": "Sub Description Heading 2"
+  },
+  {
+   "fieldname": "blog_date",
+   "fieldtype": "Date",
+   "label": "Blog Date"
+  },
+  {
+   "fieldname": "sub_description_heading_3",
+   "fieldtype": "Data",
+   "label": "Sub Description Heading 3"
+  },
+  {
+   "fieldname": "sub_description_heading_4",
+   "fieldtype": "Data",
+   "label": "Sub Description Heading 4"
+  },
+  {
+   "fieldname": "url",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "URL",
+   "reqd": 1
+  },
+  {
+   "fieldname": "meta_title",
+   "fieldtype": "Data",
+   "label": "Meta Title"
+  },
+  {
+   "fieldname": "meta_description",
+   "fieldtype": "Small Text",
+   "label": "Meta Description"
+  }
+ ],
+ "grid_page_length": 50,
+ "index_web_pages_for_search": 1,
+ "links": [],
+ "modified": "2025-12-31 11:51:27.381873",
+ "modified_by": "manohar.kariyappa@gmail.com",
+ "module": "vishuddhi",
+ "name": "Blogs",
+ "naming_rule": "By fieldname",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "row_format": "Dynamic",
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": []
+}
