@@ -1,4 +1,5 @@
 import frappe
+from frappe import _
 from datetime import datetime, timedelta
 
 
@@ -11,7 +12,6 @@ def _time_to_seconds(value):
     value = str(value)
 
     try:
-
         parts = value.split(":")
 
         hours = int(parts[0])
@@ -613,5 +613,297 @@ def book_appointment(
 
         "message": (
             "Appointment booked successfully."
+        )
+    }
+
+
+# ============================================================
+# CONTACT US
+#
+# Sends Contact Us form directly to:
+#
+# vishuddhihomegardens@gmail.com
+#
+# NO DocType is created.
+# ============================================================
+
+@frappe.whitelist(allow_guest=True)
+def send_contact_message(
+    name=None,
+    email=None,
+    phone=None,
+    source=None,
+    message=None
+):
+
+    # --------------------------------------------------------
+    # Clean input
+    # --------------------------------------------------------
+
+    name = (name or "").strip()
+    email = (email or "").strip()
+    phone = (phone or "").strip()
+    source = (
+        source or "Website Contact Form"
+    ).strip()
+    message = (message or "").strip()
+
+    # --------------------------------------------------------
+    # Validate name
+    # --------------------------------------------------------
+
+    if not name:
+
+        frappe.throw(
+            _("Please enter your name.")
+        )
+
+    if len(name) < 2:
+
+        frappe.throw(
+            _("Name must contain at least 2 characters.")
+        )
+
+    # --------------------------------------------------------
+    # Validate email
+    # --------------------------------------------------------
+
+    if not email:
+
+        frappe.throw(
+            _("Please enter your email address.")
+        )
+
+    if not frappe.utils.validate_email_address(
+        email
+    ):
+
+        frappe.throw(
+            _("Please enter a valid email address.")
+        )
+
+    # --------------------------------------------------------
+    # Validate message
+    # --------------------------------------------------------
+
+    if not message:
+
+        frappe.throw(
+            _("Please enter your message.")
+        )
+
+    if len(message) < 5:
+
+        frappe.throw(
+            _("Please enter at least 5 characters.")
+        )
+
+    # --------------------------------------------------------
+    # Validate phone
+    #
+    # Phone is optional.
+    # If entered, it must be a valid
+    # 10-digit Indian mobile number.
+    # --------------------------------------------------------
+
+    if phone:
+
+        phone = "".join(
+            character
+            for character in phone
+            if character.isdigit()
+        )
+
+        if (
+            len(phone) != 10
+            or phone[0] not in "6789"
+        ):
+
+            frappe.throw(
+                _(
+                    "Please enter a valid "
+                    "10-digit Indian mobile number."
+                )
+            )
+
+    # --------------------------------------------------------
+    # Email subject
+    # --------------------------------------------------------
+
+    email_subject = (
+        f"New Contact Us Message - {name}"
+    )
+
+    # --------------------------------------------------------
+    # Safely escape user input
+    #
+    # Prevents HTML entered by the visitor
+    # from being interpreted as email HTML.
+    # --------------------------------------------------------
+
+    import html
+
+    safe_name = html.escape(name)
+    safe_email = html.escape(email)
+    safe_phone = html.escape(
+        phone or "Not provided"
+    )
+    safe_source = html.escape(source)
+    safe_message = html.escape(message)
+
+    # --------------------------------------------------------
+    # Email HTML
+    # --------------------------------------------------------
+
+    email_message = f"""
+    <div style="
+        font-family: Arial, sans-serif;
+        max-width: 700px;
+        margin: 0 auto;
+        color: #183126;
+    ">
+
+        <div style="
+            background: #203b27;
+            color: #ffffff;
+            padding: 22px 25px;
+            border-radius: 10px 10px 0 0;
+        ">
+
+            <h2 style="margin:0;">
+                New Contact Us Message
+            </h2>
+
+            <p style="
+                margin:8px 0 0;
+                color:#dcebdd;
+            ">
+                Vishuddhi Plants Website
+            </p>
+
+        </div>
+
+        <div style="
+            padding: 25px;
+            border: 1px solid #dfe9e1;
+            border-top: 0;
+            border-radius: 0 0 10px 10px;
+        ">
+
+            <table style="
+                width:100%;
+                border-collapse:collapse;
+            ">
+
+                <tr>
+                    <td style="
+                        padding:10px 0;
+                        font-weight:bold;
+                        width:140px;
+                    ">
+                        Name
+                    </td>
+
+                    <td style="padding:10px 0;">
+                        {safe_name}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="
+                        padding:10px 0;
+                        font-weight:bold;
+                    ">
+                        Email
+                    </td>
+
+                    <td style="padding:10px 0;">
+                        <a href="mailto:{safe_email}">
+                            {safe_email}
+                        </a>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="
+                        padding:10px 0;
+                        font-weight:bold;
+                    ">
+                        Phone
+                    </td>
+
+                    <td style="padding:10px 0;">
+                        {safe_phone}
+                    </td>
+                </tr>
+
+                <tr>
+                    <td style="
+                        padding:10px 0;
+                        font-weight:bold;
+                    ">
+                        Source
+                    </td>
+
+                    <td style="padding:10px 0;">
+                        {safe_source}
+                    </td>
+                </tr>
+
+            </table>
+
+            <hr style="
+                border:0;
+                border-top:1px solid #dfe9e1;
+                margin:20px 0;
+            ">
+
+            <h3 style="
+                color:#203b27;
+                margin-bottom:10px;
+            ">
+                Message
+            </h3>
+
+            <div style="
+                background:#f5faf5;
+                border:1px solid #dfe9e1;
+                border-radius:8px;
+                padding:15px;
+                white-space:pre-wrap;
+                line-height:1.6;
+            ">
+                {safe_message}
+            </div>
+
+        </div>
+
+    </div>
+    """
+
+    # --------------------------------------------------------
+    # SEND EMAIL
+    #
+    # This sends directly to the Vishuddhi Gmail address.
+    # No Contact document is created.
+    # --------------------------------------------------------
+
+    frappe.sendmail(
+        recipients=[
+            "vishuddhihomegardens@gmail.com"
+        ],
+        subject=email_subject,
+        message=email_message,
+        now=True
+    )
+
+    # --------------------------------------------------------
+    # Return success
+    # --------------------------------------------------------
+
+    return {
+        "success": True,
+        "message": (
+            "Your message has been sent successfully."
         )
     }

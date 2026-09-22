@@ -511,14 +511,23 @@ html {
 }
 
 .filter-option {
+    appearance: none;
+    -webkit-appearance: none;
+
     border: 1px solid #d6ded3;
     background: #ffffff;
     color: #506052;
+
     padding: 9px 13px;
+
     border-radius: 9px;
+
+    font-family: inherit;
     font-size: 12px;
     font-weight: 500;
+
     cursor: pointer;
+
     transition: all .2s ease;
 }
 
@@ -539,6 +548,11 @@ html {
     padding: 8px 10px;
 }
 
+
+/* =========================================================
+   DISCOVERY ACTIONS
+========================================================= */
+
 .discovery-actions {
     display: flex;
     gap: 10px;
@@ -546,7 +560,7 @@ html {
 }
 
 .reset-filters,
-.apply-filters {
+.find-plants-btn {
     border-radius: 10px;
     padding: 12px 15px;
     font-size: 12px;
@@ -565,7 +579,7 @@ html {
     background: #eef2ec;
 }
 
-.apply-filters {
+.find-plants-btn {
     flex: 1;
     background: linear-gradient(
         135deg,
@@ -577,8 +591,18 @@ html {
     color: #ffffff;
 }
 
-.apply-filters:hover {
+.find-plants-btn:hover {
     transform: translateY(-1px);
+}
+
+.selected-filter-message {
+    margin: -8px 0 18px;
+    padding: 10px 12px;
+    border-radius: 9px;
+    background: #edf5ee;
+    color: #526052;
+    font-size: 11px;
+    line-height: 1.5;
 }
 
 
@@ -622,10 +646,6 @@ html {
 .product-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 12px 28px rgba(0,0,0,.08);
-}
-
-.product-card.filter-hidden {
-    display: none !important;
 }
 
 
@@ -860,29 +880,6 @@ html {
 .products-empty h4 {
     margin: 0 0 7px;
     color: #203b27;
-}
-
-
-/* =========================================================
-   NO FILTER RESULTS
-========================================================= */
-
-.no-plants-message {
-    display: none;
-
-    margin-top: 18px;
-
-    padding: 12px;
-
-    border-radius: 10px;
-
-    background: #fff4e7;
-
-    color: #8a5b20;
-
-    font-size: 12px;
-
-    text-align: center;
 }
 
 
@@ -1352,8 +1349,6 @@ html {
         color: var(--green);
     }
 
-   
-
     .hero-copy {
         width: 100%;
     }
@@ -1509,6 +1504,15 @@ html {
     .features-grid {
         grid-template-columns: 1fr 1fr;
     }
+
+    .discovery-actions {
+        flex-direction: column;
+    }
+
+    .reset-filters,
+    .find-plants-btn {
+        width: 100%;
+    }
 }
 
 </style>
@@ -1630,10 +1634,11 @@ html {
 
             <div class="category-items">
 
+
                 <!-- INDOOR -->
 
                 <a
-                    href="/all-products?category=Indoor%20Plants"
+                    href="/all-products?attribute_filters=%7B%22Category%22%3A%5B%22Indoor%20Plants%22%5D%7D"
                     class="category-item"
                 >
 
@@ -1657,7 +1662,7 @@ html {
                 <!-- OUTDOOR -->
 
                 <a
-                    href="/all-products?category=Outdoor%20Plants"
+                    href="/all-products?attribute_filters=%7B%22Category%22%3A%5B%22Outdoor%20Plants%22%5D%7D"
                     class="category-item"
                 >
 
@@ -1681,7 +1686,7 @@ html {
                 <!-- FLOWERING -->
 
                 <a
-                    href="/all-products?category=Flowering%20Plants"
+                    href="/all-products?attribute_filters=%7B%22Category%22%3A%5B%22Flowering%20Plants%22%5D%7D"
                     class="category-item"
                 >
 
@@ -1705,7 +1710,7 @@ html {
                 <!-- POTS -->
 
                 <a
-                    href="/all-products?category=Pots"
+                    href="/all-products?attribute_filters=%7B%22Category%22%3A%5B%22Pots%22%5D%7D"
                     class="category-item"
                 >
 
@@ -1729,7 +1734,7 @@ html {
                 <!-- GARDEN ESSENTIALS -->
 
                 <a
-                    href="/all-products?category=Garden%20Essentials"
+                    href="/all-products?attribute_filters=%7B%22Category%22%3A%5B%22Garden%20Essentials%22%5D%7D"
                     class="category-item"
                 >
 
@@ -1753,7 +1758,7 @@ html {
                 <!-- SEEDS -->
 
                 <a
-                    href="/all-products?category=Seeds"
+                    href="/all-products?attribute_filters=%7B%22Category%22%3A%5B%22Seeds%22%5D%7D"
                     class="category-item"
                 >
 
@@ -1836,7 +1841,8 @@ html {
                         </h3>
 
                         <p>
-                            We can guide you through a simple plant finder.
+                            Choose the plant category and
+                            preferences you are looking for.
                         </p>
 
                     </div>
@@ -1845,54 +1851,93 @@ html {
 
 
                 <!-- =================================================
-                     LOCATION
+                     CATEGORY
                 ================================================= -->
 
                 <div class="filter-group">
 
                     <label>
-                        Where will it live?
+                        What type of plant are you looking for?
                     </label>
 
                     <div class="filter-options">
 
+
+                        <!-- Indoor Plants -->
+
                         <button
                             type="button"
                             class="filter-option"
-                            data-filter="location"
-                            data-value="indoor"
+                            data-filter="Category"
+                            data-value="Indoor Plants"
+                            aria-pressed="false"
                         >
-                            Indoor
+                            Indoor Plants
                         </button>
 
 
+                        <!-- Outdoor Plants -->
+
                         <button
                             type="button"
                             class="filter-option"
-                            data-filter="location"
-                            data-value="outdoor"
+                            data-filter="Category"
+                            data-value="Outdoor Plants"
+                            aria-pressed="false"
                         >
-                            Outdoor
+                            Outdoor Plants
                         </button>
 
 
+                        <!-- Flowering Plants -->
+
                         <button
                             type="button"
                             class="filter-option"
-                            data-filter="location"
-                            data-value="terrace"
+                            data-filter="Category"
+                            data-value="Flowering Plants"
+                            aria-pressed="false"
                         >
-                            Terrace
+                            Flowering Plants
                         </button>
 
 
+                        <!-- Pots -->
+
                         <button
                             type="button"
                             class="filter-option"
-                            data-filter="location"
-                            data-value="garden"
+                            data-filter="Category"
+                            data-value="Pots"
+                            aria-pressed="false"
                         >
-                            Garden
+                            Pots
+                        </button>
+
+
+                        <!-- Garden Essentials -->
+
+                        <button
+                            type="button"
+                            class="filter-option"
+                            data-filter="Category"
+                            data-value="Garden Essentials"
+                            aria-pressed="false"
+                        >
+                            Garden Essentials
+                        </button>
+
+
+                        <!-- Seeds -->
+
+                        <button
+                            type="button"
+                            class="filter-option"
+                            data-filter="Category"
+                            data-value="Seeds"
+                            aria-pressed="false"
+                        >
+                            Seeds
                         </button>
 
                     </div>
@@ -1915,8 +1960,9 @@ html {
                         <button
                             type="button"
                             class="filter-option"
-                            data-filter="sunlight"
-                            data-value="low"
+                            data-filter="Sunlight"
+                            data-value="Low"
+                            aria-pressed="false"
                         >
                             Low
                         </button>
@@ -1925,8 +1971,9 @@ html {
                         <button
                             type="button"
                             class="filter-option"
-                            data-filter="sunlight"
-                            data-value="medium"
+                            data-filter="Sunlight"
+                            data-value="Medium"
+                            aria-pressed="false"
                         >
                             Medium
                         </button>
@@ -1935,8 +1982,9 @@ html {
                         <button
                             type="button"
                             class="filter-option"
-                            data-filter="sunlight"
-                            data-value="high"
+                            data-filter="Sunlight"
+                            data-value="High"
+                            aria-pressed="false"
                         >
                             High
                         </button>
@@ -1961,8 +2009,9 @@ html {
                         <button
                             type="button"
                             class="filter-option"
-                            data-filter="care"
-                            data-value="easy"
+                            data-filter="Care"
+                            data-value="Easy"
+                            aria-pressed="false"
                         >
                             Easy
                         </button>
@@ -1971,8 +2020,9 @@ html {
                         <button
                             type="button"
                             class="filter-option"
-                            data-filter="care"
-                            data-value="moderate"
+                            data-filter="Care"
+                            data-value="Moderate"
+                            aria-pressed="false"
                         >
                             Moderate
                         </button>
@@ -1981,8 +2031,9 @@ html {
                         <button
                             type="button"
                             class="filter-option"
-                            data-filter="care"
-                            data-value="advanced"
+                            data-filter="Care"
+                            data-value="Advanced"
+                            aria-pressed="false"
                         >
                             Advanced
                         </button>
@@ -2007,8 +2058,9 @@ html {
                         <button
                             type="button"
                             class="filter-option"
-                            data-filter="purpose"
-                            data-value="air_purifying"
+                            data-filter="Purpose"
+                            data-value="Air Purifying"
+                            aria-pressed="false"
                         >
                             Air Purifying
                         </button>
@@ -2017,8 +2069,9 @@ html {
                         <button
                             type="button"
                             class="filter-option"
-                            data-filter="purpose"
-                            data-value="flowering"
+                            data-filter="Purpose"
+                            data-value="Flowering"
+                            aria-pressed="false"
                         >
                             Flowering
                         </button>
@@ -2027,8 +2080,9 @@ html {
                         <button
                             type="button"
                             class="filter-option"
-                            data-filter="purpose"
-                            data-value="decorative"
+                            data-filter="Purpose"
+                            data-value="Decorative"
+                            aria-pressed="false"
                         >
                             Decorative
                         </button>
@@ -2037,8 +2091,9 @@ html {
                         <button
                             type="button"
                             class="filter-option"
-                            data-filter="purpose"
-                            data-value="fruit"
+                            data-filter="Purpose"
+                            data-value="Fruit"
+                            aria-pressed="false"
                         >
                             Fruit
                         </button>
@@ -2047,8 +2102,9 @@ html {
                         <button
                             type="button"
                             class="filter-option"
-                            data-filter="purpose"
-                            data-value="vegetable"
+                            data-filter="Purpose"
+                            data-value="Vegetable"
+                            aria-pressed="false"
                         >
                             Vegetable
                         </button>
@@ -2057,8 +2113,9 @@ html {
                         <button
                             type="button"
                             class="filter-option"
-                            data-filter="purpose"
-                            data-value="low_maintenance"
+                            data-filter="Purpose"
+                            data-value="Low Maintenance"
+                            aria-pressed="false"
                         >
                             Low Maintenance
                         </button>
@@ -2069,7 +2126,19 @@ html {
 
 
                 <!-- =================================================
-                     ACTIONS
+                     SELECTED FILTER MESSAGE
+                ================================================= -->
+
+                <div
+                    id="selectedFilterMessage"
+                    class="selected-filter-message"
+                >
+                    Select your preferences.
+                </div>
+
+
+                <!-- =================================================
+                     ACTION BUTTONS
                 ================================================= -->
 
                 <div class="discovery-actions">
@@ -2085,22 +2154,13 @@ html {
 
                     <button
                         type="button"
-                        class="apply-filters"
+                        class="find-plants-btn"
                         onclick="applyPlantFilters()"
                     >
-                        Find My Plants →
+                        Find My Plants
+                        <span>→</span>
                     </button>
 
-                </div>
-
-
-                <div
-                    id="no-plants-message"
-                    class="no-plants-message"
-                    style="display:none;"
-                >
-                    No plants found.
-                    Try changing your filters.
                 </div>
 
             </aside>
@@ -2581,30 +2641,31 @@ html {
 
 
 <!-- =====================================================
-     JAVASCRIPT
+     SMART FILTER + HOMEPAGE JAVASCRIPT
 ===================================================== -->
 
 <script>
 
 
 /* =========================================================
-   VISHUDDHI HOMEPAGE JAVASCRIPT
-========================================================= */
-
-
-/* =========================================================
    SMART PLANT FILTER STATE
+
+   IMPORTANT:
+   These are the native Webshop Item Attribute
+   field names.
+
+   Category is now used instead of Location.
 ========================================================= */
 
 const plantFilters = {
 
-    location: [],
+    Category: [],
 
-    sunlight: [],
+    Sunlight: [],
 
-    care: [],
+    Care: [],
 
-    purpose: []
+    Purpose: []
 
 };
 
@@ -2772,20 +2833,6 @@ function loadPopularProducts() {
     `;
 
 
-    const noMessage =
-        document.getElementById(
-            "no-plants-message"
-        );
-
-
-    if (noMessage) {
-
-        noMessage.style.display =
-            "none";
-
-    }
-
-
     frappe.call({
 
         method:
@@ -2910,10 +2957,6 @@ function renderPopularProducts(products) {
                     No products found
                 </h4>
 
-                <p>
-                    Try changing your filters.
-                </p>
-
             </div>
 
         `;
@@ -2968,30 +3011,11 @@ function createProductCard(product) {
 
     /* =====================================================
        RAW FILTER DATA
+
+       These datasets are kept only for compatibility
+       with the product card. Smart Discovery itself
+       does NOT use them.
     ===================================================== */
-
-    card.dataset.location = [
-
-        product.indoor
-            ? "indoor"
-            : "",
-
-        product.outdoor
-            ? "outdoor"
-            : "",
-
-        product.terrace
-            ? "terrace"
-            : "",
-
-        product.garden
-            ? "garden"
-            : ""
-
-    ]
-        .filter(Boolean)
-        .join("|");
-
 
     card.dataset.sunlight = [
 
@@ -3136,11 +3160,12 @@ function createProductCard(product) {
 
     const badgeHtml =
         product.is_bestseller
-            ? `
-                <span class="product-badge">
+            ?
+
+                `<span class="product-badge">
                     Best Seller
-                </span>
-              `
+                </span>`
+
             : "";
 
 
@@ -3338,7 +3363,14 @@ function createProductCard(product) {
 
 
 /* =========================================================
-   SMART FILTER BUTTONS
+   SMART FILTER OPTION CLICK
+
+   Clicking a filter ONLY selects/deselects it.
+
+   It does NOT navigate.
+
+   Navigation happens only when
+   "Find My Plants" is clicked.
 ========================================================= */
 
 document.addEventListener(
@@ -3360,6 +3392,11 @@ document.addEventListener(
         }
 
 
+        event.preventDefault();
+
+        event.stopPropagation();
+
+
         const filterType =
             button.dataset.filter;
 
@@ -3378,28 +3415,17 @@ document.addEventListener(
         }
 
 
-        /* -------------------------------------------------
-           MAKE SURE GROUP EXISTS
-        ------------------------------------------------- */
-
         if (
             !Array.isArray(
-                plantFilters[
-                    filterType
-                ]
+                plantFilters[filterType]
             )
         ) {
 
-            plantFilters[
-                filterType
-            ] = [];
+            plantFilters[filterType] =
+                [];
 
         }
 
-
-        /* -------------------------------------------------
-           CHECK CURRENT SELECTION
-        ------------------------------------------------- */
 
         const selectedIndex =
             plantFilters[
@@ -3409,12 +3435,12 @@ document.addEventListener(
             );
 
 
-        /* -------------------------------------------------
-           REMOVE IF ALREADY SELECTED
-        ------------------------------------------------- */
+        /* =================================================
+           REMOVE
+        ================================================= */
 
         if (
-            selectedIndex >= 0
+            selectedIndex !== -1
         ) {
 
             plantFilters[
@@ -3429,12 +3455,18 @@ document.addEventListener(
                 "active"
             );
 
+
+            button.setAttribute(
+                "aria-pressed",
+                "false"
+            );
+
         }
 
 
-        /* -------------------------------------------------
-           ADD IF NOT SELECTED
-        ------------------------------------------------- */
+        /* =================================================
+           ADD
+        ================================================= */
 
         else {
 
@@ -3449,11 +3481,20 @@ document.addEventListener(
                 "active"
             );
 
+
+            button.setAttribute(
+                "aria-pressed",
+                "true"
+            );
+
         }
 
 
+        updateSelectedFilterMessage();
+
+
         console.log(
-            "Smart Plant Filters:",
+            "Selected native Webshop filters:",
             plantFilters
         );
 
@@ -3463,224 +3504,231 @@ document.addEventListener(
 
 
 /* =========================================================
+   UPDATE SELECTED FILTER MESSAGE
+========================================================= */
+
+function updateSelectedFilterMessage() {
+
+    const message =
+        document.getElementById(
+            "selectedFilterMessage"
+        );
+
+
+    if (!message) {
+
+        return;
+
+    }
+
+
+    const selected = [];
+
+
+    Object.keys(
+        plantFilters
+    ).forEach(
+
+        function(group) {
+
+            plantFilters[
+                group
+            ].forEach(
+
+                function(value) {
+
+                    selected.push(
+                        value
+                    );
+
+                }
+
+            );
+
+        }
+
+    );
+
+
+    if (
+        selected.length === 0
+    ) {
+
+        message.innerHTML =
+            "Select your preferences.";
+
+        return;
+
+    }
+
+
+    message.innerHTML = `
+
+        <strong>
+            Selected:
+        </strong>
+
+        ${selected
+            .map(
+                function(value) {
+
+                    return escapeHtml(
+                        value
+                    );
+
+                }
+            )
+            .join(", ")
+        }
+
+    `;
+
+}
+
+
+/* =========================================================
    FIND MY PLANTS
+
+   Uses NATIVE WEBSHOP attribute_filters.
+
+   Example:
+
+   {
+       "Category": ["Indoor Plants"],
+       "Sunlight": ["Low"],
+       "Care": ["Easy"],
+       "Purpose": ["Air Purifying"]
+   }
+
+   Result:
+
+   /all-products?attribute_filters=...
 ========================================================= */
 
 function applyPlantFilters() {
 
-    const grid =
-        document.getElementById(
-            "popularProductsGrid"
-        );
+    const attributeFilters = {};
 
 
-    if (!grid) {
+    /* =====================================================
+       CATEGORY
+    ===================================================== */
+
+    if (
+        plantFilters.Category.length > 0
+    ) {
+
+        attributeFilters.Category =
+            [
+                ...plantFilters.Category
+            ];
+
+    }
+
+
+    /* =====================================================
+       SUNLIGHT
+    ===================================================== */
+
+    if (
+        plantFilters.Sunlight.length > 0
+    ) {
+
+        attributeFilters.Sunlight =
+            [
+                ...plantFilters.Sunlight
+            ];
+
+    }
+
+
+    /* =====================================================
+       CARE
+    ===================================================== */
+
+    if (
+        plantFilters.Care.length > 0
+    ) {
+
+        attributeFilters.Care =
+            [
+                ...plantFilters.Care
+            ];
+
+    }
+
+
+    /* =====================================================
+       PURPOSE
+    ===================================================== */
+
+    if (
+        plantFilters.Purpose.length > 0
+    ) {
+
+        attributeFilters.Purpose =
+            [
+                ...plantFilters.Purpose
+            ];
+
+    }
+
+
+    /* =====================================================
+       NO FILTERS
+
+       If nothing is selected, open all products.
+    ===================================================== */
+
+    if (
+        Object.keys(
+            attributeFilters
+        ).length === 0
+    ) {
+
+        window.location.href =
+            "/all-products";
 
         return;
 
     }
 
 
-    const noMessage =
-        document.getElementById(
-            "no-plants-message"
+    /* =====================================================
+       CREATE JSON
+    ===================================================== */
+
+    const filterJSON =
+        JSON.stringify(
+            attributeFilters
+        );
+
+
+    console.log(
+        "Native Webshop attribute filters:",
+        filterJSON
+    );
+
+
+    /* =====================================================
+       ENCODE JSON
+    ===================================================== */
+
+    const encodedFilters =
+        encodeURIComponent(
+            filterJSON
         );
 
 
     /* =====================================================
-       CHECK WHETHER FILTERS ARE SELECTED
+       NAVIGATE
+
+       Only this function navigates.
     ===================================================== */
 
-    const hasFilters =
-
-        plantFilters.location.length > 0 ||
-
-        plantFilters.sunlight.length > 0 ||
-
-        plantFilters.care.length > 0 ||
-
-        plantFilters.purpose.length > 0;
-
-
-    /* =====================================================
-       IF NO FILTERS SELECTED
-    ===================================================== */
-
-    if (!hasFilters) {
-
-        loadPopularProducts();
-
-        return;
-
-    }
-
-
-    /* =====================================================
-       SHOW LOADING
-    ===================================================== */
-
-    grid.innerHTML = `
-
-        <div class="products-loading">
-
-            <i class="fas fa-spinner fa-spin"></i>
-
-            <span>
-                Finding plants for you...
-            </span>
-
-        </div>
-
-    `;
-
-
-    if (noMessage) {
-
-        noMessage.style.display =
-            "none";
-
-    }
-
-
-    /* =====================================================
-       BACKEND REQUEST
-    ===================================================== */
-
-    frappe.call({
-
-        method:
-            "vishuddhi.api.products.find_plants",
-
-
-        args: {
-
-            location:
-                JSON.stringify(
-                    plantFilters.location
-                ),
-
-
-            sunlight:
-                JSON.stringify(
-                    plantFilters.sunlight
-                ),
-
-
-            care:
-                JSON.stringify(
-                    plantFilters.care
-                ),
-
-
-            purpose:
-                JSON.stringify(
-                    plantFilters.purpose
-                )
-
-        },
-
-
-        callback: function(r) {
-
-            console.log(
-                "Smart Plant Discovery:",
-                r.message
-            );
-
-
-            const products =
-                r.message || [];
-
-
-            /* =============================================
-               NO RESULTS
-            ============================================= */
-
-            if (
-                !Array.isArray(products) ||
-                products.length === 0
-            ) {
-
-                grid.innerHTML = `
-
-                    <div class="products-empty">
-
-                        <i class="fas fa-seedling"></i>
-
-                        <h4>
-                            No matching plants found
-                        </h4>
-
-                        <p>
-                            Try changing one or more filters.
-                        </p>
-
-                    </div>
-
-                `;
-
-
-                if (noMessage) {
-
-                    noMessage.style.display =
-                        "block";
-
-                }
-
-
-                return;
-
-            }
-
-
-            /* =============================================
-               RESULTS FOUND
-            ============================================= */
-
-            if (noMessage) {
-
-                noMessage.style.display =
-                    "none";
-
-            }
-
-
-            renderPopularProducts(
-                products
-            );
-
-        },
-
-
-        error: function(error) {
-
-            console.error(
-                "Smart Plant Discovery error:",
-                error
-            );
-
-
-            grid.innerHTML = `
-
-                <div class="products-empty">
-
-                    <i class="fas fa-circle-exclamation"></i>
-
-                    <h4>
-                        Unable to find plants
-                    </h4>
-
-                    <p>
-                        Please try again.
-                    </p>
-
-                </div>
-
-            `;
-
-        }
-
-    });
+    window.location.href =
+        "/all-products?attribute_filters=" +
+        encodedFilters;
 
 }
 
@@ -3691,61 +3739,65 @@ function applyPlantFilters() {
 
 function resetPlantFilters() {
 
-    /* -----------------------------------------------------
-       CLEAR STATE
-    ----------------------------------------------------- */
+    /* =====================================================
+       CLEAR CATEGORY
+    ===================================================== */
 
-    plantFilters.location = [];
-
-    plantFilters.sunlight = [];
-
-    plantFilters.care = [];
-
-    plantFilters.purpose = [];
+    plantFilters.Category = [];
 
 
-    /* -----------------------------------------------------
-       REMOVE ACTIVE STATES
-    ----------------------------------------------------- */
+    /* =====================================================
+       CLEAR SUNLIGHT
+    ===================================================== */
+
+    plantFilters.Sunlight = [];
+
+
+    /* =====================================================
+       CLEAR CARE
+    ===================================================== */
+
+    plantFilters.Care = [];
+
+
+    /* =====================================================
+       CLEAR PURPOSE
+    ===================================================== */
+
+    plantFilters.Purpose = [];
+
+
+    /* =====================================================
+       REMOVE ACTIVE CLASS
+    ===================================================== */
 
     document
         .querySelectorAll(
             ".filter-option"
         )
         .forEach(
+
             function(button) {
 
                 button.classList.remove(
                     "active"
                 );
 
+                button.setAttribute(
+                    "aria-pressed",
+                    "false"
+                );
+
             }
+
         );
 
 
-    /* -----------------------------------------------------
-       HIDE MESSAGE
-    ----------------------------------------------------- */
+    /* =====================================================
+       UPDATE MESSAGE
+    ===================================================== */
 
-    const noMessage =
-        document.getElementById(
-            "no-plants-message"
-        );
-
-
-    if (noMessage) {
-
-        noMessage.style.display =
-            "none";
-
-    }
-
-
-    /* -----------------------------------------------------
-       LOAD POPULAR PICKS AGAIN
-    ----------------------------------------------------- */
-
-    loadPopularProducts();
+    updateSelectedFilterMessage();
 
 }
 
@@ -3810,10 +3862,6 @@ function addProductToCart(
 
     }
 
-
-    /* =====================================================
-       SAVE BUTTON
-    ===================================================== */
 
     const oldHtml =
         button.innerHTML;
@@ -3881,10 +3929,6 @@ function addProductToCart(
             }
 
 
-            /* =============================================
-               CART COUNT
-            ============================================= */
-
             const cartCount =
                 Number(
                     r.message.cart_count || 0
@@ -3895,10 +3939,6 @@ function addProductToCart(
                 cartCount
             );
 
-
-            /* =============================================
-               NAVBAR EVENT
-            ============================================= */
 
             document.dispatchEvent(
 
@@ -3921,10 +3961,6 @@ function addProductToCart(
 
             );
 
-
-            /* =============================================
-               SUCCESS
-            ============================================= */
 
             frappe.show_alert({
 
@@ -3992,6 +4028,7 @@ function updateCartCount(count) {
             ".cart-count"
         )
         .forEach(
+
             function(element) {
 
                 element.textContent =
@@ -4004,6 +4041,7 @@ function updateCartCount(count) {
                         : "none";
 
             }
+
         );
 
 
@@ -4107,6 +4145,7 @@ function updateWishlistCount(count) {
             ".wishlist-count"
         )
         .forEach(
+
             function(element) {
 
                 element.textContent =
@@ -4119,6 +4158,7 @@ function updateWishlistCount(count) {
                         : "none";
 
             }
+
         );
 
 
@@ -4928,6 +4968,7 @@ function updateCustomerSlider() {
             ".slider-dot"
         )
         .forEach(
+
             function(dot, index) {
 
                 dot.classList.toggle(
@@ -4936,13 +4977,16 @@ function updateCustomerSlider() {
                 );
 
             }
+
         );
 
 }
 
 
 window.addEventListener(
+
     "resize",
+
     function() {
 
         customerIndex =
@@ -4951,6 +4995,7 @@ window.addEventListener(
         updateCustomerSlider();
 
     }
+
 );
 
 
@@ -5041,6 +5086,10 @@ frappe.ready(
 
         /* ================================================
            POPULAR PICKS
+
+           Always loads bestsellers.
+
+           Smart Discovery does NOT filter this grid.
         ================================================= */
 
         loadPopularProducts();
@@ -5075,6 +5124,13 @@ frappe.ready(
             100
 
         );
+
+
+        /* ================================================
+           INITIAL FILTER MESSAGE
+        ================================================= */
+
+        updateSelectedFilterMessage();
 
     }
 

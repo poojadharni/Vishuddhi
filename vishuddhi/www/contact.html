@@ -16,7 +16,6 @@
 
 /* =========================================================
    VISHUDDHI CONTACT PAGE
-   MODERN + COMPACT BOTANICAL DESIGN
 ========================================================= */
 
 :root {
@@ -32,6 +31,7 @@
     --v-white: #ffffff;
     --v-danger: #c53c3c;
 }
+
 
 /* =========================================================
    GLOBAL
@@ -65,12 +65,11 @@
 
 
 /* =========================================================
-   FULL WIDTH HERO
+   HERO
 ========================================================= */
 
 .v-contact-hero {
     position: relative;
-
     width: 100%;
     min-height: 280px;
 
@@ -89,21 +88,12 @@
     overflow: hidden;
 }
 
-
-/* IMPORTANT:
-   NO BOOTSTRAP  HERE
-*/
-
 .v-contact-hero-inner {
     width: 100%;
     max-width: none;
-
     margin: 0;
     padding: 0 6%;
 }
-
-
-/* HERO CONTENT */
 
 .v-contact-hero-content {
     position: relative;
@@ -114,9 +104,6 @@
 
     padding: 55px 0;
 }
-
-
-/* EYEBROW */
 
 .v-contact-eyebrow {
     display: inline-flex;
@@ -143,9 +130,6 @@
     background: #d9ebda;
 }
 
-
-/* HEADING */
-
 .v-contact-hero h1 {
     color: #ffffff;
 
@@ -164,9 +148,6 @@
     color: #d5e9d5;
 }
 
-
-/* DESCRIPTION */
-
 .v-contact-hero p {
     max-width: 650px;
 
@@ -178,9 +159,6 @@
 
     margin: 0;
 }
-
-
-/* HERO DECORATION */
 
 .v-contact-hero::before {
     content: "";
@@ -218,13 +196,12 @@
 
 
 /* =========================================================
-   GENERAL SECTION
+   SECTION
 ========================================================= */
 
 .v-section {
     width: 100%;
-
-    padding: 68px 0;
+    padding: 68px 4%;
 }
 
 .v-section-soft {
@@ -284,7 +261,7 @@
 
 
 /* =========================================================
-   CONTACT INFORMATION CARD
+   CONTACT INFO CARD
 ========================================================= */
 
 .v-info-card {
@@ -347,9 +324,6 @@
     margin: 0 0 20px;
 }
 
-
-/* INFO ITEM */
-
 .v-info-item {
     display: flex;
 
@@ -365,9 +339,6 @@
 .v-info-item:last-child {
     border-bottom: 0;
 }
-
-
-/* ICON */
 
 .v-info-icon {
     width: 42px;
@@ -388,9 +359,6 @@
 
     font-size: 15px;
 }
-
-
-/* INFO TEXT */
 
 .v-info-item h5 {
     color: var(--v-text);
@@ -460,29 +428,14 @@
     margin: 0 0 22px;
 }
 
-
-/* =========================================================
-   FORM GRID
-========================================================= */
-
 .v-form-card .row {
     --bs-gutter-x: 14px;
     --bs-gutter-y: 0;
 }
 
-
-/* =========================================================
-   FIELD
-========================================================= */
-
 .v-field {
     margin-bottom: 14px;
 }
-
-
-/* =========================================================
-   LABEL
-========================================================= */
 
 .v-label {
     display: block;
@@ -500,19 +453,9 @@
     color: var(--v-danger);
 }
 
-
-/* =========================================================
-   INPUT WRAPPER
-========================================================= */
-
 .v-input-wrap {
     position: relative;
 }
-
-
-/* =========================================================
-   INPUT / TEXTAREA
-========================================================= */
 
 .v-input,
 .v-textarea {
@@ -534,9 +477,6 @@
         background 0.2s ease;
 }
 
-
-/* INPUT */
-
 .v-input {
     height: 46px;
 
@@ -547,15 +487,9 @@
     font-size: 13px;
 }
 
-
-/* INPUT WITHOUT ICON */
-
-.v-input[style*="padding-left:16px"] {
+.v-input[style*="padding-left:13px"] {
     padding-left: 13px !important;
 }
-
-
-/* TEXTAREA */
 
 .v-textarea {
     min-height: 105px;
@@ -567,18 +501,12 @@
     font-size: 13px;
 }
 
-
-/* PLACEHOLDER */
-
 .v-input::placeholder,
 .v-textarea::placeholder {
     color: #a0aaa5;
 
     font-size: 13px;
 }
-
-
-/* FOCUS */
 
 .v-input:focus,
 .v-textarea:focus {
@@ -589,9 +517,6 @@
     box-shadow:
         0 0 0 3px rgba(47,107,61,0.07);
 }
-
-
-/* ICON */
 
 .v-input-icon {
     position: absolute;
@@ -608,16 +533,10 @@
     pointer-events: none;
 }
 
-
-/* VALID */
-
 .v-input.valid,
 .v-textarea.valid {
     border-color: #63a56f;
 }
-
-
-/* INVALID */
 
 .v-input.invalid,
 .v-textarea.invalid {
@@ -625,9 +544,6 @@
 
     background: #fffafa;
 }
-
-
-/* ERROR */
 
 .v-error {
     display: none;
@@ -647,7 +563,7 @@
 
 
 /* =========================================================
-   SUBMIT BUTTON
+   SUBMIT
 ========================================================= */
 
 .v-submit {
@@ -715,8 +631,8 @@
 
     border-radius: 11px;
 
-    margin-bottom: 18px;
-
+    margin-bottom: 15px;
+    margin-top: 10px;
     font-size: 13px;
 
     line-height: 1.5;
@@ -744,15 +660,12 @@
 
 
 /* =========================================================
-   APPOINTMENT SECTION
+   APPOINTMENT
 ========================================================= */
 
 .v-appointment-section {
     background: var(--v-soft-green);
 }
-
-
-/* APPOINTMENT CARD */
 
 .v-appointment-card {
     background: #ffffff;
@@ -766,11 +679,6 @@
     box-shadow:
         0 14px 40px rgba(25,56,34,0.07);
 }
-
-
-/* =========================================================
-   APPOINTMENT STEP
-========================================================= */
 
 .v-step {
     margin-bottom: 28px;
@@ -805,6 +713,7 @@
     display: flex;
 
     align-items: center;
+
     justify-content: center;
 
     font-size: 12px;
@@ -821,11 +730,6 @@
 
     margin: 0;
 }
-
-
-/* =========================================================
-   DATE INPUT
-========================================================= */
 
 .v-date-input {
     width: 100%;
@@ -860,11 +764,6 @@
         0 0 0 3px rgba(47,107,61,0.07);
 }
 
-
-/* =========================================================
-   AVAILABLE DAY
-========================================================= */
-
 .v-available-day {
     display: none;
 
@@ -879,11 +778,6 @@
     color: var(--v-green);
 }
 
-
-/* =========================================================
-   LOADING
-========================================================= */
-
 .v-loading {
     color: var(--v-muted);
 
@@ -891,11 +785,6 @@
 
     font-size: 13px;
 }
-
-
-/* =========================================================
-   SLOT GRID
-========================================================= */
 
 .v-slot-grid {
     display: grid;
@@ -945,11 +834,6 @@
         0 6px 15px rgba(32,59,39,0.17);
 }
 
-
-/* =========================================================
-   EMPTY SLOTS
-========================================================= */
-
 .v-no-slots {
     padding: 18px;
 
@@ -965,11 +849,6 @@
 
     font-size: 13px;
 }
-
-
-/* =========================================================
-   SELECTED SUMMARY
-========================================================= */
 
 .v-selected-summary {
     display: none;
@@ -997,9 +876,6 @@
     color: var(--v-green);
 }
 
-
-/* APPOINTMENT FORM */
-
 .v-appointment-card .v-field {
     margin-bottom: 8px;
 }
@@ -1011,9 +887,6 @@
 .v-appointment-card .v-textarea {
     min-height: 90px;
 }
-
-
-/* BOOK BUTTON */
 
 .v-book-btn {
     min-height: 48px;
@@ -1071,9 +944,13 @@
 
 .v-contact-cta {
     position: relative;
+
     background: var(--v-primary);
-    padding: 30px 0;
+
+    padding: 30px 4%;
+
     overflow: hidden;
+
     margin-bottom: 20px;
 }
 
@@ -1183,14 +1060,13 @@
     }
 
     .v-section {
-        padding: 58px 0;
+        padding: 58px 4%;
     }
 
     .v-slot-grid {
         grid-template-columns:
             repeat(3, minmax(0, 1fr));
     }
-
 }
 
 
@@ -1225,7 +1101,7 @@
     }
 
     .v-section {
-        padding: 50px 0;
+        padding: 50px 22px;
     }
 
     .v-info-card,
@@ -1248,7 +1124,6 @@
     .v-book-btn {
         width: 100%;
     }
-
 }
 
 
@@ -1290,13 +1165,12 @@
     }
 
     .v-contact-cta {
-        padding: 45px 0;
+        padding: 45px 22px;
     }
 
     .v-contact-cta h2 {
         font-size: 27px;
     }
-
 }
 
 </style>
@@ -1306,7 +1180,7 @@
 
 
 <!-- =========================================================
-     FULL WIDTH HERO
+     HERO
 ========================================================= -->
 
 <section class="v-contact-hero">
@@ -1343,7 +1217,7 @@
 
 <section class="v-section">
 
-    <div class="">
+    <div>
 
         <div class="v-section-heading center">
 
@@ -1448,8 +1322,8 @@
                             </h5>
 
                             <p>
-                                <a href="mailto:info@example.com">
-                                    info@example.com
+                                <a href="mailto:vishuddhihomegardens@gmail.com">
+                                    vishuddhihomegardens@gmail.com
                                 </a>
                             </p>
 
@@ -1494,10 +1368,8 @@
 
                 <div class="v-form-card">
 
-                    <div
-                        id="contactMessage"
-                        class="v-alert">
-                    </div>
+
+
 
 
                     <h3>
@@ -1726,6 +1598,12 @@
                                 </button>
 
                             </div>
+                                                <!-- CONTACT MESSAGE -->
+
+                    <div
+                        id="contactMessage"
+                        class="v-alert">
+                    </div>
 
                         </div>
 
@@ -1748,7 +1626,7 @@
 
 <section class="v-section v-appointment-section">
 
-    <div class="">
+    <div>
 
 
         <div class="v-section-heading center">
@@ -1774,9 +1652,9 @@
             <div class="col-xl-9 col-lg-10">
 
                 <div class="v-appointment-card">
-                    <!-- =================================================
-                         STEP 1
-                    ================================================= -->
+
+
+                    <!-- STEP 1 -->
 
                     <div class="v-step">
 
@@ -1801,9 +1679,7 @@
                     </div>
 
 
-                    <!-- =================================================
-                         STEP 2
-                    ================================================= -->
+                    <!-- STEP 2 -->
 
                     <div class="v-step">
 
@@ -1825,6 +1701,7 @@
                             class="v-available-day">
 
                             Available appointments for
+
                             <strong id="weekdayText"></strong>
 
                         </div>
@@ -1879,9 +1756,7 @@
                     </div>
 
 
-                    <!-- =================================================
-                         STEP 3
-                    ================================================= -->
+                    <!-- STEP 3 -->
 
                     <div class="v-step">
 
@@ -2081,11 +1956,16 @@
 
                     </div>
 
-<div
-    id="bookingMessage"
-    class="v-alert"
-    style="margin-top: 14px; margin-bottom: 0; text-align: center;">
-</div>
+
+                    <div
+                        id="bookingMessage"
+                        class="v-alert"
+                        style="
+                            margin-top:14px;
+                            margin-bottom:0;
+                            text-align:center;
+                        ">
+                    </div>
 
                 </div>
 
@@ -2104,7 +1984,7 @@
 
 <section class="v-contact-cta">
 
-    <div class="">
+    <div>
 
         <div class="v-contact-cta-content">
 
@@ -2163,7 +2043,6 @@ function showMessage(id, message, type) {
     element.className = "v-alert " + type;
 
     element.textContent = message;
-
 }
 
 
@@ -2178,7 +2057,6 @@ function hideMessage(id) {
     element.className = "v-alert";
 
     element.textContent = "";
-
 }
 
 
@@ -2191,7 +2069,6 @@ function getApiError(result, fallback) {
     if (!result) {
         return fallback;
     }
-
 
     if (result._server_messages) {
 
@@ -2214,9 +2091,7 @@ function getApiError(result, fallback) {
                 ) {
 
                     return firstMessage.message;
-
                 }
-
             }
 
         }
@@ -2228,18 +2103,14 @@ function getApiError(result, fallback) {
             );
 
         }
-
     }
-
 
     if (
         typeof result.message === "string"
     ) {
 
         return result.message;
-
     }
-
 
     if (
         result.message &&
@@ -2247,44 +2118,35 @@ function getApiError(result, fallback) {
     ) {
 
         return result.message.message;
-
     }
-
 
     if (result.exc_type) {
-
         return result.exc_type;
-
     }
 
-
     return fallback;
-
 }
 
 
 /* =========================================================
-   VALIDATION HELPERS
+   VALIDATION
 ========================================================= */
 
 function isValidEmail(email) {
 
     return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email);
-
 }
 
 
 function isValidPhone(phone) {
 
     return /^[6-9]\d{9}$/.test(phone);
-
 }
 
 
 function isValidName(name) {
 
     return /^[\p{L}\p{M} .'-]+$/u.test(name);
-
 }
 
 
@@ -2318,7 +2180,6 @@ function setFieldError(
     error.classList.add("show");
 
     return false;
-
 }
 
 
@@ -2347,7 +2208,6 @@ function setFieldValid(
     error.classList.remove("show");
 
     return true;
-
 }
 
 
@@ -2375,7 +2235,6 @@ function clearFieldState(
     error.textContent = "";
 
     error.classList.remove("show");
-
 }
 
 
@@ -2399,12 +2258,11 @@ function getLocalDateString(date) {
         ).padStart(2, "0");
 
     return `${year}-${month}-${day}`;
-
 }
 
 
 /* =========================================================
-   DATE
+   APPOINTMENT DATE
 ========================================================= */
 
 const appointmentDate =
@@ -2437,7 +2295,6 @@ function getWeekdayFromDate(dateString) {
             weekday: "long"
         }
     );
-
 }
 
 
@@ -2472,7 +2329,6 @@ function formatTime(time) {
         hour % 12 || 12;
 
     return `${hour}:${minute} ${suffix}`;
-
 }
 
 
@@ -2495,12 +2351,11 @@ function formatDate(dateString) {
             year: "numeric"
         }
     );
-
 }
 
 
 /* =========================================================
-   CLEAR SLOT
+   CLEAR SELECTED SLOT
 ========================================================= */
 
 function clearSelectedSlot() {
@@ -2525,9 +2380,7 @@ function clearSelectedSlot() {
 
         summary.style.display =
             "none";
-
     }
-
 }
 
 
@@ -2541,24 +2394,16 @@ async function loadAvailableSlots() {
         appointmentDate.value;
 
     const slot =
-        getElement(
-            "slot"
-        );
+        getElement("slot");
 
     const slotLoading =
-        getElement(
-            "slotLoading"
-        );
+        getElement("slotLoading");
 
     const selectedDayText =
-        getElement(
-            "selectedDayText"
-        );
+        getElement("selectedDayText");
 
     const weekdayText =
-        getElement(
-            "weekdayText"
-        );
+        getElement("weekdayText");
 
 
     clearSelectedSlot();
@@ -2577,7 +2422,6 @@ async function loadAvailableSlots() {
         `;
 
         return;
-
     }
 
 
@@ -2590,7 +2434,6 @@ async function loadAvailableSlots() {
         `;
 
         return;
-
     }
 
 
@@ -2601,14 +2444,11 @@ async function loadAvailableSlots() {
     weekdayText.textContent =
         day;
 
-
     selectedDayText.style.display =
         "block";
 
-
     slotLoading.style.display =
         "block";
-
 
     slot.innerHTML =
         "";
@@ -2652,7 +2492,6 @@ async function loadAvailableSlots() {
                     "Unable to load available slots."
                 )
             );
-
         }
 
 
@@ -2664,7 +2503,6 @@ async function loadAvailableSlots() {
 
             slots =
                 slots?.slots || [];
-
         }
 
 
@@ -2684,7 +2522,6 @@ async function loadAvailableSlots() {
             `;
 
             return;
-
         }
 
 
@@ -2697,12 +2534,12 @@ async function loadAvailableSlots() {
             "v-slot-grid";
 
 
-        slots.forEach(function(slot) {
+        slots.forEach(function(slotData) {
 
             const time =
-                typeof slot === "string"
-                    ? slot
-                    : slot.time;
+                typeof slotData === "string"
+                    ? slotData
+                    : slotData.time;
 
 
             if (!time) {
@@ -2711,9 +2548,9 @@ async function loadAvailableSlots() {
 
 
             const label =
-                typeof slot === "object" &&
-                slot.label
-                    ? slot.label
+                typeof slotData === "object" &&
+                slotData.label
+                    ? slotData.label
                     : formatTime(time);
 
 
@@ -2831,9 +2668,7 @@ async function loadAvailableSlots() {
 
             </div>
         `;
-
     }
-
 }
 
 
@@ -3017,7 +2852,7 @@ function validateContactForm() {
     }
 
 
-    /* PHONE */
+    /* PHONE - OPTIONAL */
 
     if (
         phone &&
@@ -3078,7 +2913,6 @@ function validateContactForm() {
 
 
     return valid;
-
 }
 
 
@@ -3117,7 +2951,6 @@ async function sendContactMessage(event) {
 
 
         return;
-
     }
 
 
@@ -3165,11 +2998,10 @@ async function sendContactMessage(event) {
 
     try {
 
-        const finalMessage =
-            subject
-                ? `Subject: ${subject}\n\n${message}`
-                : message;
-
+        /*
+         * Subject is sent separately.
+         * The backend will create the email subject.
+         */
 
         const headers = {
 
@@ -3215,14 +3047,13 @@ async function sendContactMessage(event) {
                             phone:
                                 phone,
 
-                            source:
-                                "Website Contact Form",
+                            subject:
+                                subject,
 
                             message:
-                                finalMessage
+                                message
 
                         })
-
                 }
             );
 
@@ -3239,7 +3070,6 @@ async function sendContactMessage(event) {
                     "Unable to send your message."
                 )
             );
-
         }
 
 
@@ -3258,7 +3088,6 @@ async function sendContactMessage(event) {
                     "Unable to send your message."
                 )
             );
-
         }
 
 
@@ -3350,9 +3179,7 @@ async function sendContactMessage(event) {
             <i class="fa-regular fa-paper-plane"></i>
             Send Message
         `;
-
     }
-
 }
 
 
@@ -3413,7 +3240,6 @@ function validateAppointment() {
         appointmentDate.focus();
 
         return false;
-
     }
 
 
@@ -3428,7 +3254,6 @@ function validateAppointment() {
         appointmentDate.focus();
 
         return false;
-
     }
 
 
@@ -3441,7 +3266,6 @@ function validateAppointment() {
         );
 
         return false;
-
     }
 
 
@@ -3572,12 +3396,10 @@ function validateAppointment() {
         if (firstInvalid) {
             firstInvalid.focus();
         }
-
     }
 
 
     return valid;
-
 }
 
 
@@ -3720,7 +3542,6 @@ async function bookAppointment() {
                                 message
 
                         })
-
                 }
             );
 
@@ -3737,7 +3558,6 @@ async function bookAppointment() {
                     "Unable to book appointment."
                 )
             );
-
         }
 
 
@@ -3756,7 +3576,6 @@ async function bookAppointment() {
                     "Appointment could not be created."
                 )
             );
-
         }
 
 
@@ -3773,8 +3592,6 @@ async function bookAppointment() {
             "success"
         );
 
-
-        /* CLEAR DETAILS */
 
         getElement(
             "customerName"
@@ -3816,16 +3633,12 @@ async function bookAppointment() {
                 input.removeAttribute(
                     "aria-invalid"
                 );
-
             }
-
         });
 
 
         clearSelectedSlot();
 
-
-        /* REFRESH SLOTS */
 
         await loadAvailableSlots();
 
@@ -3856,14 +3669,12 @@ async function bookAppointment() {
             <i class="fa-regular fa-calendar-check"></i>
             Book Appointment
         `;
-
     }
-
 }
 
 
 /* =========================================================
-   REAL-TIME VALIDATION
+   BLUR VALIDATION
 ========================================================= */
 
 function setupBlurValidation(
@@ -3890,11 +3701,12 @@ function setupBlurValidation(
 
         }
     );
-
 }
 
 
-/* CONTACT NAME */
+/* =========================================================
+   CONTACT NAME
+========================================================= */
 
 setupBlurValidation(
     "contactName",
@@ -3928,14 +3740,15 @@ setupBlurValidation(
                 "contactName",
                 "contactNameError"
             );
-
         }
 
     }
 );
 
 
-/* CONTACT EMAIL */
+/* =========================================================
+   CONTACT EMAIL
+========================================================= */
 
 setupBlurValidation(
     "contactEmail",
@@ -3966,14 +3779,15 @@ setupBlurValidation(
                 "contactEmail",
                 "contactEmailError"
             );
-
         }
 
     }
 );
 
 
-/* CONTACT PHONE */
+/* =========================================================
+   CONTACT PHONE
+========================================================= */
 
 setupBlurValidation(
     "contactPhone",
@@ -4006,14 +3820,15 @@ setupBlurValidation(
                 "contactPhone",
                 "contactPhoneError"
             );
-
         }
 
     }
 );
 
 
-/* CONTACT MESSAGE */
+/* =========================================================
+   CONTACT MESSAGE
+========================================================= */
 
 setupBlurValidation(
     "contactText",
@@ -4044,7 +3859,6 @@ setupBlurValidation(
                 "contactText",
                 "contactTextError"
             );
-
         }
 
     }
@@ -4052,7 +3866,7 @@ setupBlurValidation(
 
 
 /* =========================================================
-   APPOINTMENT REAL-TIME VALIDATION
+   APPOINTMENT NAME
 ========================================================= */
 
 setupBlurValidation(
@@ -4087,14 +3901,15 @@ setupBlurValidation(
                 "customerName",
                 "customerNameError"
             );
-
         }
 
     }
 );
 
 
-/* APPOINTMENT EMAIL */
+/* =========================================================
+   APPOINTMENT EMAIL
+========================================================= */
 
 setupBlurValidation(
     "customerEmail",
@@ -4125,14 +3940,15 @@ setupBlurValidation(
                 "customerEmail",
                 "customerEmailError"
             );
-
         }
 
     }
 );
 
 
-/* APPOINTMENT PHONE */
+/* =========================================================
+   APPOINTMENT PHONE
+========================================================= */
 
 setupBlurValidation(
     "customerPhone",
@@ -4163,7 +3979,6 @@ setupBlurValidation(
                 "customerPhone",
                 "customerPhoneError"
             );
-
         }
 
     }
