@@ -890,11 +890,11 @@ def send_contact_message(
 
     frappe.sendmail(
         recipients=[
-            "vishuddhihomegardens@gmail.com"
+            "poojarajuhe@gmail.com"
         ],
         subject=email_subject,
         message=email_message,
-        now=True
+        # now=True
     )
 
     # --------------------------------------------------------
