@@ -15,6 +15,7 @@ def add_to_cart(item_code, qty=1):
         frappe.throw("Item Code is required")
 
     try:
+
         qty = int(qty)
 
         if qty <= 0:
@@ -25,12 +26,27 @@ def add_to_cart(item_code, qty=1):
             get_party
         )
 
+        # ----------------------------------------------------
+        # GET CUSTOMER / PARTY FROM WEBSHOP
+        # ----------------------------------------------------
+
         party = get_party()
+
+        if not party:
+            frappe.throw("Unable to identify customer")
+
+        # ----------------------------------------------------
+        # GET / CREATE CART QUOTATION
+        # ----------------------------------------------------
 
         quotation = _get_cart_quotation(party)
 
         if not quotation:
             frappe.throw("Unable to create cart")
+
+        # ----------------------------------------------------
+        # CHECK WHETHER ITEM ALREADY EXISTS
+        # ----------------------------------------------------
 
         item_found = False
 
@@ -39,10 +55,12 @@ def add_to_cart(item_code, qty=1):
             if item.item_code == item_code:
 
                 item.qty = (item.qty or 0) + qty
-
                 item_found = True
-
                 break
+
+        # ----------------------------------------------------
+        # ADD NEW ITEM
+        # ----------------------------------------------------
 
         if not item_found:
 
@@ -54,9 +72,17 @@ def add_to_cart(item_code, qty=1):
                 }
             )
 
+        # ----------------------------------------------------
+        # SAVE CART
+        # ----------------------------------------------------
+
         quotation.save(ignore_permissions=True)
 
         frappe.db.commit()
+
+        # ----------------------------------------------------
+        # CART COUNT
+        # ----------------------------------------------------
 
         cart_count = sum(
             item.qty or 0
@@ -100,17 +126,19 @@ def get_cart_count():
 
         party = get_party()
 
+        if not party:
+            return 0
+
         quotation = _get_cart_quotation(party)
 
         if not quotation:
             return 0
 
-        if not quotation.get("items"):
-            return 0
+        items = quotation.get("items") or []
 
         return sum(
             item.qty or 0
-            for item in quotation.items
+            for item in items
         )
 
     except Exception:
@@ -124,7 +152,13 @@ def get_cart_count():
 
 
 # ============================================================
-# GET / CREATE USER WISHLIST
+# GET EXISTING USER WISHLIST
+#
+# IMPORTANT:
+# This function DOES NOT create a Wishlist.
+#
+# Frappe/Webshop is responsible for creating the Wishlist.
+# This function only retrieves the existing Wishlist.
 # ============================================================
 
 def _get_user_wishlist():
@@ -134,6 +168,10 @@ def _get_user_wishlist():
     if user == "Guest":
         return None
 
+    # --------------------------------------------------------
+    # FIND EXISTING WISHLIST
+    # --------------------------------------------------------
+
     wishlist_name = frappe.db.get_value(
         "Wishlist",
         {
@@ -142,29 +180,23 @@ def _get_user_wishlist():
         "name"
     )
 
-    if wishlist_name:
-
-        return frappe.get_doc(
-            "Wishlist",
-            wishlist_name
-        )
-
     # --------------------------------------------------------
-    # CREATE WISHLIST FOR USER
+    # NO WISHLIST
+    #
+    # Do NOT create one here.
     # --------------------------------------------------------
 
-    wishlist = frappe.get_doc(
-        {
-            "doctype": "Wishlist",
-            "user": user
-        }
-    )
+    if not wishlist_name:
+        return None
 
-    wishlist.insert(
-        ignore_permissions=True
-    )
+    # --------------------------------------------------------
+    # RETURN EXISTING WISHLIST
+    # --------------------------------------------------------
 
-    return wishlist
+    return frappe.get_doc(
+        "Wishlist",
+        wishlist_name
+    )
 
 
 # ============================================================
@@ -180,6 +212,10 @@ def get_wishlist_count():
     try:
 
         wishlist = _get_user_wishlist()
+
+        # ----------------------------------------------------
+        # Wishlist has not been created yet
+        # ----------------------------------------------------
 
         if not wishlist:
             return 0
@@ -215,8 +251,16 @@ def check_wishlist(item_code):
 
         wishlist = _get_user_wishlist()
 
+        # ----------------------------------------------------
+        # No Wishlist yet
+        # ----------------------------------------------------
+
         if not wishlist:
             return False
+
+        # ----------------------------------------------------
+        # CHECK ITEMS
+        # ----------------------------------------------------
 
         for row in wishlist.get("items") or []:
 
@@ -255,21 +299,22 @@ def add_to_wishlist(item_code):
     try:
 
         # ----------------------------------------------------
-        # GET USER WISHLIST
+        # GET EXISTING WISHLIST
+        #
+        # This DOES NOT create a Wishlist.
         # ----------------------------------------------------
 
         wishlist = _get_user_wishlist()
 
         if not wishlist:
+
             frappe.throw(
-                "Unable to create wishlist"
+                "Wishlist is not available for this user. "
+                "Please refresh the page and try again."
             )
 
         # ----------------------------------------------------
         # GET WEBSITE ITEM
-        #
-        # We get the warehouse from Website Item instead of
-        # relying on the frontend.
         # ----------------------------------------------------
 
         website_item = frappe.db.get_value(
@@ -306,32 +351,36 @@ def add_to_wishlist(item_code):
         )
 
         # ----------------------------------------------------
-        # CHECK EXISTING ITEM
+        # CHECK IF ITEM ALREADY EXISTS
         # ----------------------------------------------------
 
         for row in wishlist.get("items") or []:
 
             if row.item_code == item_code:
 
-                # ------------------------------------------------
-                # IMPORTANT:
-                # Update warehouse for existing wishlist items
-                # too. This fixes items that were added previously
-                # without a warehouse.
-                # ------------------------------------------------
-
                 changed = False
+
+                # ------------------------------------------------
+                # UPDATE WAREHOUSE
+                # ------------------------------------------------
 
                 if warehouse and row.warehouse != warehouse:
 
                     row.warehouse = warehouse
                     changed = True
 
-                # Update other Website Item information if missing
+                # ------------------------------------------------
+                # UPDATE WEBSITE ITEM
+                # ------------------------------------------------
+
                 if not row.website_item:
 
                     row.website_item = website_item.name
                     changed = True
+
+                # ------------------------------------------------
+                # UPDATE ITEM NAME
+                # ------------------------------------------------
 
                 if not row.item_name:
 
@@ -343,6 +392,10 @@ def add_to_wishlist(item_code):
 
                     changed = True
 
+                # ------------------------------------------------
+                # UPDATE WEB ITEM NAME
+                # ------------------------------------------------
+
                 if not row.web_item_name:
 
                     row.web_item_name = (
@@ -353,6 +406,10 @@ def add_to_wishlist(item_code):
 
                     changed = True
 
+                # ------------------------------------------------
+                # UPDATE ITEM GROUP
+                # ------------------------------------------------
+
                 if not row.item_group:
 
                     row.item_group = website_item.get(
@@ -360,6 +417,10 @@ def add_to_wishlist(item_code):
                     )
 
                     changed = True
+
+                # ------------------------------------------------
+                # UPDATE IMAGE
+                # ------------------------------------------------
 
                 if not row.image:
 
@@ -369,6 +430,10 @@ def add_to_wishlist(item_code):
 
                     changed = True
 
+                # ------------------------------------------------
+                # UPDATE ROUTE
+                # ------------------------------------------------
+
                 if not row.route:
 
                     row.route = website_item.get(
@@ -376,6 +441,10 @@ def add_to_wishlist(item_code):
                     )
 
                     changed = True
+
+                # ------------------------------------------------
+                # SAVE ONLY IF SOMETHING CHANGED
+                # ------------------------------------------------
 
                 if changed:
 
@@ -397,16 +466,9 @@ def add_to_wishlist(item_code):
                     "warehouse": warehouse
                 }
 
-        # ----------------------------------------------------
-        # ADD CHILD ROW
-        #
-        # IMPORTANT:
-        # wishlist.append() automatically creates:
-        # parent
-        # parenttype
-        # parentfield
-        # idx
-        # ----------------------------------------------------
+        # ====================================================
+        # ADD ITEM TO EXISTING WISHLIST
+        # ====================================================
 
         wishlist.append(
             "items",
@@ -429,10 +491,6 @@ def add_to_wishlist(item_code):
                     "name"
                 ),
 
-                # ------------------------------------------------
-                # THIS IS THE IMPORTANT FIX
-                # ------------------------------------------------
-
                 "warehouse": warehouse,
 
                 "image": website_item.get(
@@ -450,7 +508,7 @@ def add_to_wishlist(item_code):
         )
 
         # ----------------------------------------------------
-        # SAVE PARENT WISHLIST
+        # SAVE EXISTING WISHLIST
         # ----------------------------------------------------
 
         wishlist.save(
@@ -506,7 +564,9 @@ def remove_from_wishlist(item_code):
     try:
 
         # ----------------------------------------------------
-        # GET USER WISHLIST
+        # GET EXISTING WISHLIST
+        #
+        # This DOES NOT create one.
         # ----------------------------------------------------
 
         wishlist = _get_user_wishlist()
@@ -520,7 +580,7 @@ def remove_from_wishlist(item_code):
             }
 
         # ----------------------------------------------------
-        # FIND CHILD ROW
+        # FIND ITEM
         # ----------------------------------------------------
 
         item_found = False

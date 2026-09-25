@@ -1,3 +1,5 @@
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>
 
 /* =========================================================
@@ -21,8 +23,8 @@
    RESET
 ========================================================= */
 
-.sanjay-page,
-.sanjay-page * {
+.vishuddhi-page,
+.vishuddhi-page * {
     box-sizing: border-box;
 }
 
@@ -65,18 +67,17 @@ html {
    GLOBAL
 ========================================================= */
 
-.sanjay-page {
+.vishuddhi-page {
     width: 100%;
-    overflow: hidden;
     background: #fff;
 }
 
-.sanjay-container {
+.vishuddhi-container {
     width: min(1200px, calc(100% - 80px));
     margin: auto;
 }
 
-.sanjay-section {
+.vishuddhi-section {
     padding: 30px 0;
 }
 
@@ -120,7 +121,7 @@ html {
    HEADER
 ========================================================= */
 
-.sanjay-header {
+.vishuddhi-header {
     height: 74px;
     background: #fff;
     display: flex;
@@ -518,7 +519,7 @@ html {
     background: #ffffff;
     color: #506052;
 
-    padding: 9px 13px;
+    padding: 6px 7px;
 
     border-radius: 9px;
 
@@ -1316,17 +1317,17 @@ html {
 
 @media (max-width: 700px) {
 
-    .sanjay-container,
+    .vishuddhi-container,
     .header-inner,
     .hero-content {
         width: calc(100% - 32px);
     }
 
-    .sanjay-section {
-        padding: 45px 0;
+    .vishuddhi-section {
+        padding: 5px 0;
     }
 
-    .sanjay-header {
+    .vishuddhi-header {
         height: 65px;
     }
 
@@ -1514,11 +1515,130 @@ html {
         width: 100%;
     }
 }
+.mobile-popular-heading {
+    display: none;
+}
 
+@media (max-width: 768px) {
+
+    .desktop-popular-heading {
+        display: none;
+    }
+
+    .shop-layout {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .plant-discovery {
+        order: 1;
+        position: static;
+        width: 100%;
+    }
+
+    .mobile-popular-heading {
+        display: block;
+        order: 2;
+        width: 100%;
+        margin: 0;
+    }
+
+    .mobile-popular-heading .section-heading {
+        width: 100%;
+        margin-bottom: 12px;
+    }
+
+    .mobile-popular-heading .section-heading h2 {
+        margin: 0 0 6px;
+    }
+
+    .mobile-popular-heading .section-heading p {
+        margin: 0;
+    }
+
+    .mobile-view-all {
+        display: block;
+        width: 100%;
+        margin-top: 12px;
+    }
+
+    .mobile-view-all a {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        padding: 13px 20px;
+        border: 1px solid #315c3b;
+        border-radius: 10px;
+        background: #fff;
+        color: #315c3b;
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 700;
+        box-sizing: border-box;
+    }
+
+    .products-area {
+        order: 3;
+        width: 100%;
+    }
+}
+/* =========================================================
+   TESTIMONIAL SLIDER
+========================================================= */
+
+.testimonial-card {
+    position: relative;
+}
+
+.testimonial-item {
+    display: none;
+    width: 100%;
+}
+
+.testimonial-item.active {
+    display: block;
+}
+
+
+/* =========================================================
+   TESTIMONIAL DOTS
+========================================================= */
+
+.testimonial-dots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 22px;
+}
+
+.testimonial-dot {
+    width: 8px;
+    height: 8px;
+
+    padding: 0;
+
+    border: none;
+    border-radius: 50%;
+
+    background: #cfd8d2;
+
+    cursor: pointer;
+
+    transition: all 0.25s ease;
+}
+
+.testimonial-dot.active {
+    width: 22px;
+    border-radius: 10px;
+    background: #003d1f;
+}
 </style>
 
 
-<div class="sanjay-page">
+<div class="vishuddhi-page">
 
 
 <!-- =====================================================
@@ -1612,7 +1732,7 @@ html {
 
 <section class="category-section">
 
-    <div class="sanjay-container">
+    <div class="vishuddhi-container">
 
         <div class="category-box">
 
@@ -1623,7 +1743,7 @@ html {
                 </h3>
 
                 <a
-                    href="/all-products"
+                    href="/shop-by-category"
                     class="view-all"
                 >
                     Explore All →
@@ -1632,151 +1752,21 @@ html {
             </div>
 
 
-            <div class="category-items">
+            <!-- Categories are loaded from ERPNext Item Group -->
+            <div
+                class="category-items"
+                id="shopByCategoryItems"
+            >
 
+                <div class="category-loading" style="grid-column: 1 / -1; text-align: center; padding: 30px; color: #687873;">
 
-                <!-- INDOOR -->
+                    <i class="fas fa-spinner fa-spin"></i>
 
-                <a
-                    href="/all-products?attribute_filters=%7B%22Category%22%3A%5B%22Indoor%20Plants%22%5D%7D"
-                    class="category-item"
-                >
+                    <span>
+                        Loading categories...
+                    </span>
 
-                    <div class="category-image">
-
-                        <img
-                            src="https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=300&q=85"
-                            alt="Indoor Plants"
-                            loading="lazy"
-                        >
-
-                    </div>
-
-                    <div class="category-name">
-                        Indoor Plants
-                    </div>
-
-                </a>
-
-
-                <!-- OUTDOOR -->
-
-                <a
-                    href="/all-products?attribute_filters=%7B%22Category%22%3A%5B%22Outdoor%20Plants%22%5D%7D"
-                    class="category-item"
-                >
-
-                    <div class="category-image">
-
-                        <img
-                            src="https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=300&q=85"
-                            alt="Outdoor Plants"
-                            loading="lazy"
-                        >
-
-                    </div>
-
-                    <div class="category-name">
-                        Outdoor Plants
-                    </div>
-
-                </a>
-
-
-                <!-- FLOWERING -->
-
-                <a
-                    href="/all-products?attribute_filters=%7B%22Category%22%3A%5B%22Flowering%20Plants%22%5D%7D"
-                    class="category-item"
-                >
-
-                    <div class="category-image">
-
-                        <img
-                            src="https://images.unsplash.com/photo-1490750967868-88aa4486c946?auto=format&fit=crop&w=300&q=85"
-                            alt="Flowering Plants"
-                            loading="lazy"
-                        >
-
-                    </div>
-
-                    <div class="category-name">
-                        Flowering Plants
-                    </div>
-
-                </a>
-
-
-                <!-- POTS -->
-
-                <a
-                    href="/all-products?attribute_filters=%7B%22Category%22%3A%5B%22Pots%22%5D%7D"
-                    class="category-item"
-                >
-
-                    <div class="category-image">
-
-                        <img
-                            src="https://images.unsplash.com/photo-1485955900006-10f4d324d411?auto=format&fit=crop&w=300&q=85"
-                            alt="Pots and Planters"
-                            loading="lazy"
-                        >
-
-                    </div>
-
-                    <div class="category-name">
-                        Pots &amp; Planters
-                    </div>
-
-                </a>
-
-
-                <!-- GARDEN ESSENTIALS -->
-
-                <a
-                    href="/all-products?attribute_filters=%7B%22Category%22%3A%5B%22Garden%20Essentials%22%5D%7D"
-                    class="category-item"
-                >
-
-                    <div class="category-image">
-
-                        <img
-                            src="https://images.unsplash.com/photo-1592150621744-aca64f48394a?auto=format&fit=crop&w=300&q=85"
-                            alt="Garden Essentials"
-                            loading="lazy"
-                        >
-
-                    </div>
-
-                    <div class="category-name">
-                        Garden Essentials
-                    </div>
-
-                </a>
-
-
-                <!-- SEEDS -->
-
-                <a
-                    href="/all-products?attribute_filters=%7B%22Category%22%3A%5B%22Seeds%22%5D%7D"
-                    class="category-item"
-                >
-
-                    <div class="category-image">
-
-                        <img
-                            src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=300&q=85"
-                            alt="Seeds and Fertilizers"
-                            loading="lazy"
-                        >
-
-                    </div>
-
-                    <div class="category-name">
-                        Seeds &amp; Fertilizers
-                    </div>
-
-                </a>
+                </div>
 
             </div>
 
@@ -1791,11 +1781,11 @@ html {
      POPULAR PICKS
 ===================================================== -->
 
-<section class="products-section sanjay-section">
+<section class="products-section vishuddhi-section">
 
-    <div class="sanjay-container">
+    <div class="vishuddhi-container">
 
-        <div class="section-heading-row">
+        <div class="section-heading-row desktop-popular-heading">
 
             <div class="section-heading">
 
@@ -1809,12 +1799,13 @@ html {
 
             </div>
 
-            <a
-                href="/all-products"
-                class="view-all"
-            >
-                View All →
-            </a>
+            <div class="view-all">
+
+                <a href="/all-products">
+                    View All →
+                </a>
+
+            </div>
 
         </div>
 
@@ -1902,16 +1893,16 @@ html {
                         </button>
 
 
-                        <!-- Pots -->
+                        <!-- Seeds & Fertilizers -->
 
                         <button
                             type="button"
                             class="filter-option"
                             data-filter="Category"
-                            data-value="Pots"
+                            data-value="Seeds & Fertilizers"
                             aria-pressed="false"
                         >
-                            Pots
+                            Seeds & Fertilizers
                         </button>
 
 
@@ -1925,19 +1916,6 @@ html {
                             aria-pressed="false"
                         >
                             Garden Essentials
-                        </button>
-
-
-                        <!-- Seeds -->
-
-                        <button
-                            type="button"
-                            class="filter-option"
-                            data-filter="Category"
-                            data-value="Seeds"
-                            aria-pressed="false"
-                        >
-                            Seeds
                         </button>
 
                     </div>
@@ -2167,6 +2145,36 @@ html {
 
 
             <!-- =================================================
+                 MOBILE POPULAR PICKS HEADING + VIEW ALL
+                 Appears below Smart Plant Discovery on mobile.
+            ================================================= -->
+
+            <div class="mobile-popular-heading">
+
+                <div class="section-heading">
+
+                    <h2>
+                        Popular Picks
+                    </h2>
+
+                    <p>
+                        Our best-selling plants and garden essentials
+                    </p>
+
+                </div>
+
+                <div class="mobile-view-all">
+
+                    <a href="/all-products">
+                        View All →
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
                  PRODUCTS
             ================================================= -->
 
@@ -2207,7 +2215,7 @@ html {
 
 <section class="why-section">
 
-    <div class="sanjay-container">
+    <div class="vishuddhi-container">
 
         <div class="why-grid">
 
@@ -2343,7 +2351,7 @@ html {
 
 <section class="customers-section">
 
-    <div class="sanjay-container">
+    <div class="vishuddhi-container">
 
         <div class="section-heading-row">
 
@@ -2359,10 +2367,27 @@ html {
 
             </div>
 
-            <div style="font-size:11px;color:#65766f;">
-                Follow Us &nbsp;
-                ◎ &nbsp; ● &nbsp; ▶
-            </div>
+<div style="font-size:11px;color:#65766f;">
+    Follow Us &nbsp;
+
+    <!-- Facebook -->
+    <a href="https://www.facebook.com/manoshawn/videos/visit-vishuddhi-home-garden-nri-layout-ramurthynagarsurinam-cherrymanila-cherry-/1017866434566146/"
+       target="_blank"
+       rel="noopener noreferrer"
+       aria-label="Vishuddhi Facebook"
+       style="color:#1877F2;text-decoration:none;margin-right:12px;">
+        <i class="fa-brands fa-facebook-f"></i>
+    </a>
+
+    <!-- Instagram -->
+    <a href="https://www.instagram.com/vishuddhi_homegarden/"
+       target="_blank"
+       rel="noopener noreferrer"
+       aria-label="Vishuddhi Instagram"
+       style="color:#E4405F;text-decoration:none;">
+        <i class="fa-brands fa-instagram"></i>
+    </a>
+</div>
 
         </div>
 
@@ -2497,7 +2522,7 @@ html {
 
 <section class="testimonial-section">
 
-    <div class="sanjay-container">
+    <div class="vishuddhi-container">
 
         <div class="testimonial-heading">
 
@@ -2519,6 +2544,7 @@ html {
         <button
             type="button"
             class="testimonial-arrow left"
+            onclick="previousTestimonial()"
         >
             ←
         </button>
@@ -2526,33 +2552,105 @@ html {
 
         <div class="testimonial-card">
 
-            <img
-                class="testimonial-avatar"
-                src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=90"
-                alt="Customer"
-                loading="lazy"
-            >
+            <!-- =====================================================
+                 TESTIMONIAL 1
+            ====================================================== -->
 
+            <div class="testimonial-item active">
 
-            <div class="stars">
-                ★★★★★
+                <img
+                    class="testimonial-avatar"
+                    src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=90"
+                    alt="Customer"
+                    loading="lazy"
+                >
+
+                <div class="stars">
+                    ★★★★★
+                </div>
+
+                <div class="testimonial-text">
+                    "Amazing quality plants and super fast delivery!
+                    My home looks so much greener now. Highly recommend
+                    Vishuddhi!"
+                </div>
+
+                <div class="testimonial-name">
+                    Pooja
+                </div>
+
+                <div class="testimonial-location">
+                    Bangalore
+                </div>
+
             </div>
 
 
-            <div class="testimonial-text">
-                "Amazing quality plants and super fast delivery!
-                My home looks so much greener now. Highly recommend
-                Vishuddhi!"
+            <!-- =====================================================
+                 TESTIMONIAL 2
+            ====================================================== -->
+
+            <div class="testimonial-item">
+
+                <img
+                    class="testimonial-avatar"
+                    src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=90"
+                    alt="Customer"
+                    loading="lazy"
+                >
+
+                <div class="stars">
+                    ★★★★★
+                </div>
+
+                <div class="testimonial-text">
+                    "The plants arrived fresh, healthy and beautifully
+                    packed. The quality was excellent and the entire
+                    shopping experience was very smooth."
+                </div>
+
+                <div class="testimonial-name">
+                    Rahul Mehta
+                </div>
+
+                <div class="testimonial-location">
+                    Bangalore
+                </div>
+
             </div>
 
 
-            <div class="testimonial-name">
-                Priya Sharma
-            </div>
+            <!-- =====================================================
+                 TESTIMONIAL 3
+            ====================================================== -->
 
+            <div class="testimonial-item">
 
-            <div class="testimonial-location">
-                Mumbai
+                <img
+                    class="testimonial-avatar"
+                    src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=90"
+                    alt="Customer"
+                    loading="lazy"
+                >
+
+                <div class="stars">
+                    ★★★★★
+                </div>
+
+                <div class="testimonial-text">
+                    "I loved the variety of plants available at Vishuddhi.
+                    The plants were healthy and exactly as shown on the
+                    website. I will definitely order again!"
+                </div>
+
+                <div class="testimonial-name">
+                    Harshitha
+                </div>
+
+                <div class="testimonial-location">
+                    Bangalore
+                </div>
+
             </div>
 
         </div>
@@ -2561,9 +2659,35 @@ html {
         <button
             type="button"
             class="testimonial-arrow right"
+            onclick="nextTestimonial()"
         >
             →
         </button>
+
+
+        <!-- DOTS -->
+
+        <div class="testimonial-dots">
+
+            <button
+                type="button"
+                class="testimonial-dot active"
+                onclick="showTestimonial(0)"
+            ></button>
+
+            <button
+                type="button"
+                class="testimonial-dot"
+                onclick="showTestimonial(1)"
+            ></button>
+
+            <button
+                type="button"
+                class="testimonial-dot"
+                onclick="showTestimonial(2)"
+            ></button>
+
+        </div>
 
     </div>
 
@@ -2615,26 +2739,13 @@ html {
         </div>
 
     </div>
-
-
-    <form
-        class="newsletter-form"
-        onsubmit="subscribeNewsletter(event)"
-    >
-
-        <input
-            type="email"
-            placeholder="Enter your email address"
-            required
-        >
-
-        <button type="submit">
-            Subscribe
-        </button>
-
-    </form>
-
-</div>
+    <a
+                    href="/contact"
+                    class="primary-btn"
+                >
+                    Enquiry Now →
+                </a>
+            </div>
 
 
 </div>
@@ -2646,7 +2757,70 @@ html {
 
 <script>
 
+let currentTestimonial = 0;
 
+const testimonialItems =
+    document.querySelectorAll(".testimonial-item");
+
+const testimonialDots =
+    document.querySelectorAll(".testimonial-dot");
+
+
+function showTestimonial(index) {
+
+    if (!testimonialItems.length) {
+        return;
+    }
+
+    if (index < 0) {
+        index = testimonialItems.length - 1;
+    }
+
+    if (index >= testimonialItems.length) {
+        index = 0;
+    }
+
+    currentTestimonial = index;
+
+
+    testimonialItems.forEach(function(item, i) {
+
+        item.classList.toggle(
+            "active",
+            i === currentTestimonial
+        );
+
+    });
+
+
+    testimonialDots.forEach(function(dot, i) {
+
+        dot.classList.toggle(
+            "active",
+            i === currentTestimonial
+        );
+
+    });
+
+}
+
+
+function nextTestimonial() {
+
+    showTestimonial(
+        currentTestimonial + 1
+    );
+
+}
+
+
+function previousTestimonial() {
+
+    showTestimonial(
+        currentTestimonial - 1
+    );
+
+}
 /* =========================================================
    SMART PLANT FILTER STATE
 
@@ -2791,6 +2965,166 @@ function loadBannerImage() {
                 "Banner API error:",
                 error
             );
+
+        }
+
+    });
+
+}
+
+
+/* =========================================================
+   LOAD SHOP BY CATEGORY
+
+   Categories come directly from ERPNext Item Group.
+   Only Item Groups with show_in_website enabled are returned.
+   "All Item Groups" is excluded by the API.
+========================================================= */
+
+function loadShopByCategory() {
+
+    const container =
+        document.getElementById(
+            "shopByCategoryItems"
+        );
+
+
+    if (!container) {
+
+        return;
+
+    }
+
+
+    frappe.call({
+
+        method:
+            "vishuddhi.api.products.get_item_groups",
+
+
+        callback: function(r) {
+
+            console.log(
+                "Item Group API response:",
+                r.message
+            );
+
+
+            const groups =
+                Array.isArray(r.message)
+                    ? r.message
+                    : [];
+
+
+            if (!groups.length) {
+
+                container.innerHTML = `
+
+                    <div class="category-loading"
+                         style="grid-column: 1 / -1; text-align: center; padding: 30px; color: #687873;">
+
+                        <i class="fas fa-seedling"></i>
+
+                        <div style="margin-top: 8px;">
+                            No categories available.
+                        </div>
+
+                    </div>
+
+                `;
+
+                return;
+
+            }
+
+
+            container.innerHTML = groups.map(function(group) {
+
+                const name =
+                    escapeHtml(
+                        group.name || "Category"
+                    );
+
+
+                const image =
+                    group.image
+                        ? String(group.image)
+                        : "https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=300&q=85";
+
+
+                const route =
+                    group.route
+                        ? String(group.route).trim()
+                        : "";
+
+
+                const href = route
+                    ? (
+                        route.startsWith("/")
+                            ? route
+                            : "/" + route
+                    )
+                    : (
+                        "/all-products?item_group=" +
+                        encodeURIComponent(
+                            group.name || ""
+                        )
+                    );
+
+
+                return `
+
+                    <a
+                        href="${escapeHtml(href)}"
+                        class="category-item"
+                    >
+
+                        <div class="category-image">
+
+                            <img
+                                src="${escapeHtml(image)}"
+                                alt="${name}"
+                                loading="lazy"
+                                onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=300&q=85';"
+                            >
+
+                        </div>
+
+                        <div class="category-name">
+                            ${name}
+                        </div>
+
+                    </a>
+
+                `;
+
+            }).join("");
+
+        },
+
+
+        error: function(error) {
+
+            console.error(
+                "Item Group API error:",
+                error
+            );
+
+
+            container.innerHTML = `
+
+                <div class="category-loading"
+                     style="grid-column: 1 / -1; text-align: center; padding: 30px; color: #687873;">
+
+                    <i class="fas fa-exclamation-circle"></i>
+
+                    <div style="margin-top: 8px;">
+                        Unable to load categories.
+                    </div>
+
+                </div>
+
+            `;
 
         }
 
@@ -5082,6 +5416,15 @@ frappe.ready(
         ================================================= */
 
         loadBannerImage();
+
+
+        /* ================================================
+           SHOP BY CATEGORY
+
+           Loads actual ERPNext Item Groups.
+        ================================================= */
+
+        loadShopByCategory();
 
 
         /* ================================================

@@ -79,7 +79,7 @@ def _get_item_fields():
     optional_fields = [
 
         # ----------------------------------------------------
-        # SHOP BY CATEGORY
+        # EXISTING SHOP BY CATEGORY CHECKBOXES
         # ----------------------------------------------------
 
         "indoor",
@@ -154,6 +154,12 @@ def _get_item_fields():
 # ============================================================
 
 def _add_categories(item):
+    """
+    Existing custom checkbox based categories.
+
+    These are kept for your existing filters and
+    bestseller category functionality.
+    """
 
     categories = []
 
@@ -249,9 +255,6 @@ def _add_discovery_data(item):
     if item.get("air_purifying"):
         purpose.append("air_purifying")
 
-    if item.get("flowering"):
-        purpose.append("flowering")
-
     if item.get("decorative"):
         purpose.append("decorative")
 
@@ -283,10 +286,13 @@ def _prepare_product(item, bestseller_field=None):
         item["name"]
     )
 
+    # Existing checkbox categories
     _add_categories(item)
 
+    # Existing Smart Plant Discovery data
     _add_discovery_data(item)
 
+    # Bestseller
     if bestseller_field:
 
         item["is_bestseller"] = bool(
@@ -409,7 +415,7 @@ def get_bestseller_categories():
 
 
 # ============================================================
-# CATEGORY FIELD MAPPING
+# EXISTING CUSTOM CATEGORY FIELD MAPPING
 # ============================================================
 
 CATEGORY_FIELDS = {
@@ -435,7 +441,7 @@ CATEGORY_FIELDS = {
 
 
 # ============================================================
-# GET PRODUCTS BY CATEGORY
+# GET PRODUCTS BY EXISTING CUSTOM CATEGORY
 # ============================================================
 
 @frappe.whitelist(allow_guest=True)
@@ -456,6 +462,135 @@ def get_products_by_category(category=None):
     return _get_products(
         filters={
             fieldname: 1
+        },
+        limit=100
+    )
+
+
+# ============================================================
+# SHOP BY CATEGORY
+# ERPNext ITEM GROUPS
+# ============================================================
+
+@frappe.whitelist(allow_guest=True)
+def get_item_groups():
+    """
+    Get ERPNext Item Groups for Shop by Category.
+
+    Uses the actual Item Group records instead of the
+    custom Item checkbox fields.
+
+    Example result:
+
+        Flowering Plants
+        Indoor Plants
+        Outdoor Plants
+
+    "All Item Groups" is always excluded.
+    """
+
+    meta = frappe.get_meta("Item Group")
+
+    # -----------------------------------------------
+    # Fields
+    # -----------------------------------------------
+
+    fields = [
+        "name"
+    ]
+
+    if meta.has_field("route"):
+        fields.append("route")
+
+    if meta.has_field("image"):
+        fields.append("image")
+
+    # -----------------------------------------------
+    # Website filter
+    # -----------------------------------------------
+
+    if meta.has_field("show_in_website"):
+
+        filters = {
+            "show_in_website": 1
+        }
+
+    else:
+
+        filters = {}
+
+    # -----------------------------------------------
+    # Get Item Groups
+    # -----------------------------------------------
+
+    groups = frappe.get_all(
+        "Item Group",
+        filters=filters,
+        fields=fields,
+        order_by="name asc",
+        limit_page_length=100
+    )
+
+    result = []
+
+    # -----------------------------------------------
+    # Prepare response
+    # -----------------------------------------------
+
+    for group in groups:
+
+        group_name = group.get("name")
+
+        # Never show root Item Group
+        if group_name == "All Item Groups":
+            continue
+
+        result.append({
+            "name": group_name,
+            "route": group.get("route") or "",
+            "image": group.get("image") or ""
+        })
+
+    return result
+
+
+# ============================================================
+# GET PRODUCTS BY ERPNext ITEM GROUP
+# ============================================================
+
+@frappe.whitelist(allow_guest=True)
+def get_products_by_item_group(item_group=None):
+    """
+    Get products using the actual ERPNext Item Group.
+
+    This does NOT replace get_products_by_category().
+    Both systems remain available.
+    """
+
+    if not item_group:
+        return []
+
+    item_group = str(
+        item_group
+    ).strip()
+
+    # -----------------------------------------------
+    # Check Item Group exists
+    # -----------------------------------------------
+
+    if not frappe.db.exists(
+        "Item Group",
+        item_group
+    ):
+        return []
+
+    # -----------------------------------------------
+    # Get products
+    # -----------------------------------------------
+
+    return _get_products(
+        filters={
+            "item_group": item_group
         },
         limit=100
     )
