@@ -302,7 +302,8 @@ html {
     max-width: 100%;
     font-size: 13px;
     line-height: 1.7;
-    color: #61726c;
+    color: #147f78;
+        font-weight: 700;
     margin-bottom: 26px;
 }
 
@@ -1352,6 +1353,7 @@ html {
 
     .hero-copy {
         width: 100%;
+        margin-top: 80px;
     }
 
     .hero h1 {
@@ -1634,6 +1636,360 @@ html {
     width: 22px;
     border-radius: 10px;
     background: #003d1f;
+}
+/* =========================================================
+   VISHUDDHI HOMEPAGE
+   API LOADING STYLES
+   ========================================================= */
+
+
+/* =========================================================
+   COMMON API LOADER
+   ========================================================= */
+
+.api-loading {
+
+    width: 100%;
+
+    min-height: 100px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 10px;
+
+    padding: 30px 20px;
+
+    color: #003d1f;
+
+    font-size: 15px;
+
+    font-weight: 500;
+
+    text-align: center;
+
+}
+
+
+/* =========================================================
+   LOADER ICON
+   ========================================================= */
+
+.api-loading i {
+
+    font-size: 18px;
+
+}
+
+
+/* =========================================================
+   CATEGORY LOADING
+   ========================================================= */
+
+.category-api-loading {
+
+    grid-column: 1 / -1;
+
+    min-height: 160px;
+
+}
+
+
+/* =========================================================
+   PRODUCTS LOADING
+   ========================================================= */
+
+.products-loading {
+
+    width: 100%;
+
+    min-height: 180px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex-direction: column;
+
+    gap: 12px;
+
+    color: #003d1f;
+
+    font-size: 15px;
+
+    font-weight: 500;
+
+    text-align: center;
+
+}
+
+
+/* =========================================================
+   PRODUCT LOADING ICON
+   ========================================================= */
+
+.products-loading i {
+
+    font-size: 26px;
+
+}
+
+
+/* =========================================================
+   API BUTTON LOADING
+   ========================================================= */
+
+.api-button-loading {
+
+    cursor: wait !important;
+
+    opacity: 0.75;
+
+    pointer-events: none;
+
+}
+
+
+/* =========================================================
+   ADD CART BUTTON LOADING
+   ========================================================= */
+
+.add-cart.api-button-loading {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 8px;
+
+}
+
+
+/* =========================================================
+   WISHLIST API LOADING
+   ========================================================= */
+
+.product-wishlist.wishlist-api-loading {
+
+    cursor: wait !important;
+
+    opacity: 0.75;
+
+    pointer-events: none;
+
+}
+
+
+/* =========================================================
+   WISHLIST SPINNER
+   ========================================================= */
+
+.product-wishlist.wishlist-api-loading i {
+
+    font-size: 14px;
+
+}
+
+
+/* =========================================================
+   CART BADGE LOADING
+   ========================================================= */
+
+.cart-count i,
+#wishlistBadgeTop i,
+#cartBadgeTop i {
+
+    font-size: 10px;
+
+}
+
+
+/* =========================================================
+   WISHLIST BADGE LOADING
+   ========================================================= */
+
+.wishlist-count i {
+
+    font-size: 10px;
+
+}
+
+
+/* =========================================================
+   HERO LOADING
+   ========================================================= */
+
+#heroBanner.api-loading-active {
+
+    position: relative;
+
+}
+
+
+/* =========================================================
+   HERO LOADING OVERLAY
+   ========================================================= */
+
+#heroBanner.api-loading-active::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        rgba(0, 61, 31, 0.12);
+
+    pointer-events: none;
+
+}
+
+
+/* =========================================================
+   HERO SPINNER
+   ========================================================= */
+
+#heroBanner.api-loading-active::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 32px;
+
+    height: 32px;
+
+    border: 3px solid
+        rgba(255, 255, 255, 0.35);
+
+    border-top-color:
+        #ffffff;
+
+    border-radius: 50%;
+
+    animation:
+        vishuddhiApiSpin
+        0.7s linear infinite;
+
+    left: 50%;
+
+    top: 50%;
+
+    transform:
+        translate(-50%, -50%);
+
+    z-index: 10;
+
+}
+
+
+/* =========================================================
+   GLOBAL SPINNER ANIMATION
+   ========================================================= */
+
+@keyframes vishuddhiApiSpin {
+
+    from {
+
+        transform:
+            translate(-50%, -50%)
+            rotate(0deg);
+
+    }
+
+    to {
+
+        transform:
+            translate(-50%, -50%)
+            rotate(360deg);
+
+    }
+
+}
+
+
+/* =========================================================
+   FONT AWESOME SPINNER
+   ========================================================= */
+
+.fa-spinner.fa-spin {
+
+    animation:
+        fa-spin
+        1s infinite linear;
+
+}
+
+
+/* =========================================================
+   CATEGORY LOADER MOBILE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .category-api-loading {
+
+        min-height: 130px;
+
+        padding: 25px 15px;
+
+    }
+
+
+    .products-loading {
+
+        min-height: 150px;
+
+    }
+
+
+    .products-loading i {
+
+        font-size: 22px;
+
+    }
+
+}
+
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 480px) {
+
+    .api-loading {
+
+        min-height: 90px;
+
+        font-size: 14px;
+
+    }
+
+
+    .category-api-loading {
+
+        min-height: 110px;
+
+    }
+
+
+    .products-loading {
+
+        min-height: 130px;
+
+        font-size: 14px;
+
+    }
+
 }
 </style>
 
@@ -2757,13 +3113,71 @@ html {
 
 <script>
 
+/* =========================================================
+   VISHUDDHI HOMEPAGE JAVASCRIPT
+   ========================================================= */
+
+
+/* =========================================================
+   GLOBAL API LOADING HELPERS
+   ========================================================= */
+
+function escapeHtml(value) {
+
+    if (
+        value === null ||
+        value === undefined
+    ) {
+        return "";
+    }
+
+    return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+
+/* =========================================================
+   PRICE FORMAT
+   ========================================================= */
+
+function formatPrice(value) {
+
+    const price =
+        Number(value || 0);
+
+    if (!price) {
+        return "₹0";
+    }
+
+    return "₹" +
+        price.toLocaleString(
+            "en-IN",
+            {
+                maximumFractionDigits: 0
+            }
+        );
+}
+
+
+/* =========================================================
+   TESTIMONIAL SLIDER
+   ========================================================= */
+
 let currentTestimonial = 0;
 
 const testimonialItems =
-    document.querySelectorAll(".testimonial-item");
+    document.querySelectorAll(
+        ".testimonial-item"
+    );
 
 const testimonialDots =
-    document.querySelectorAll(".testimonial-dot");
+    document.querySelectorAll(
+        ".testimonial-dot"
+    );
 
 
 function showTestimonial(index) {
@@ -2773,7 +3187,8 @@ function showTestimonial(index) {
     }
 
     if (index < 0) {
-        index = testimonialItems.length - 1;
+        index =
+            testimonialItems.length - 1;
     }
 
     if (index >= testimonialItems.length) {
@@ -2782,25 +3197,27 @@ function showTestimonial(index) {
 
     currentTestimonial = index;
 
+    testimonialItems.forEach(
+        function(item, i) {
 
-    testimonialItems.forEach(function(item, i) {
+            item.classList.toggle(
+                "active",
+                i === currentTestimonial
+            );
 
-        item.classList.toggle(
-            "active",
-            i === currentTestimonial
-        );
+        }
+    );
 
-    });
+    testimonialDots.forEach(
+        function(dot, i) {
 
+            dot.classList.toggle(
+                "active",
+                i === currentTestimonial
+            );
 
-    testimonialDots.forEach(function(dot, i) {
-
-        dot.classList.toggle(
-            "active",
-            i === currentTestimonial
-        );
-
-    });
+        }
+    );
 
 }
 
@@ -2821,15 +3238,11 @@ function previousTestimonial() {
     );
 
 }
+
+
 /* =========================================================
    SMART PLANT FILTER STATE
-
-   IMPORTANT:
-   These are the native Webshop Item Attribute
-   field names.
-
-   Category is now used instead of Location.
-========================================================= */
+   ========================================================= */
 
 const plantFilters = {
 
@@ -2845,73 +3258,23 @@ const plantFilters = {
 
 
 /* =========================================================
-   HTML ESCAPE
-========================================================= */
-
-function escapeHtml(value) {
-
-    if (
-        value === null ||
-        value === undefined
-    ) {
-
-        return "";
-
-    }
-
-
-    return String(value)
-
-        .replace(/&/g, "&amp;")
-
-        .replace(/</g, "&lt;")
-
-        .replace(/>/g, "&gt;")
-
-        .replace(/"/g, "&quot;")
-
-        .replace(/'/g, "&#039;");
-
-}
-
-
-/* =========================================================
-   PRICE FORMAT
-========================================================= */
-
-function formatPrice(value) {
-
-    const price =
-        Number(value || 0);
-
-
-    if (!price) {
-
-        return "₹0";
-
-    }
-
-
-    return "₹" +
-
-        price.toLocaleString(
-
-            "en-IN",
-
-            {
-                maximumFractionDigits: 0
-            }
-
-        );
-
-}
-
-
-/* =========================================================
    LOAD HERO BANNER
-========================================================= */
+   ========================================================= */
 
 function loadBannerImage() {
+
+    const hero =
+        document.getElementById(
+            "heroBanner"
+        );
+
+    if (!hero) {
+        return;
+    }
+
+    hero.classList.add(
+        "api-loading-active"
+    );
 
     frappe.call({
 
@@ -2925,29 +3288,12 @@ function loadBannerImage() {
                 r.message
             );
 
-
             if (
                 !r.message ||
                 !r.message.banner_image
             ) {
-
                 return;
-
             }
-
-
-            const hero =
-                document.getElementById(
-                    "heroBanner"
-                );
-
-
-            if (!hero) {
-
-                return;
-
-            }
-
 
             hero.style.backgroundImage =
                 "url('" +
@@ -2958,12 +3304,19 @@ function loadBannerImage() {
 
         },
 
-
         error: function(error) {
 
             console.error(
                 "Banner API error:",
                 error
+            );
+
+        },
+
+        always: function() {
+
+            hero.classList.remove(
+                "api-loading-active"
             );
 
         }
@@ -2975,11 +3328,7 @@ function loadBannerImage() {
 
 /* =========================================================
    LOAD SHOP BY CATEGORY
-
-   Categories come directly from ERPNext Item Group.
-   Only Item Groups with show_in_website enabled are returned.
-   "All Item Groups" is excluded by the API.
-========================================================= */
+   ========================================================= */
 
 function loadShopByCategory() {
 
@@ -2988,19 +3337,28 @@ function loadShopByCategory() {
             "shopByCategoryItems"
         );
 
-
     if (!container) {
-
         return;
-
     }
 
+    container.innerHTML = `
+
+        <div class="api-loading category-api-loading">
+
+            <i class="fas fa-spinner fa-spin"></i>
+
+            <span>
+                Loading categories...
+            </span>
+
+        </div>
+
+    `;
 
     frappe.call({
 
         method:
             "vishuddhi.api.products.get_item_groups",
-
 
         callback: function(r) {
 
@@ -3009,19 +3367,22 @@ function loadShopByCategory() {
                 r.message
             );
 
-
             const groups =
                 Array.isArray(r.message)
                     ? r.message
                     : [];
-
 
             if (!groups.length) {
 
                 container.innerHTML = `
 
                     <div class="category-loading"
-                         style="grid-column: 1 / -1; text-align: center; padding: 30px; color: #687873;">
+                         style="
+                            grid-column: 1 / -1;
+                            text-align: center;
+                            padding: 30px;
+                            color: #687873;
+                         ">
 
                         <i class="fas fa-seedling"></i>
 
@@ -3034,71 +3395,80 @@ function loadShopByCategory() {
                 `;
 
                 return;
-
             }
 
 
-            container.innerHTML = groups.map(function(group) {
+            container.innerHTML =
+                groups.map(
+                    function(group) {
 
-                const name =
-                    escapeHtml(
-                        group.name || "Category"
-                    );
-
-
-                const image =
-                    group.image
-                        ? String(group.image)
-                        : "https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=300&q=85";
+                        const name =
+                            escapeHtml(
+                                group.name ||
+                                "Category"
+                            );
 
 
-                const route =
-                    group.route
-                        ? String(group.route).trim()
-                        : "";
+                        const image =
+                            group.image
+                                ? String(group.image)
+                                : "https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=300&q=85";
 
 
-                const href = route
-                    ? (
-                        route.startsWith("/")
-                            ? route
-                            : "/" + route
-                    )
-                    : (
-                        "/all-products?item_group=" +
-                        encodeURIComponent(
-                            group.name || ""
-                        )
-                    );
+                        const route =
+                            group.route
+                                ? String(
+                                    group.route
+                                ).trim()
+                                : "";
 
 
-                return `
+                        const href =
+                            route
+                                ? (
+                                    route.startsWith("/")
+                                        ? route
+                                        : "/" + route
+                                )
+                                : (
+                                    "/all-products?item_group=" +
+                                    encodeURIComponent(
+                                        group.name || ""
+                                    )
+                                );
 
-                    <a
-                        href="${escapeHtml(href)}"
-                        class="category-item"
-                    >
 
-                        <div class="category-image">
+                        return `
 
-                            <img
-                                src="${escapeHtml(image)}"
-                                alt="${name}"
-                                loading="lazy"
-                                onerror="this.onerror=null;this.src='https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=300&q=85';"
+                            <a
+                                href="${escapeHtml(href)}"
+                                class="category-item"
                             >
 
-                        </div>
+                                <div class="category-image">
 
-                        <div class="category-name">
-                            ${name}
-                        </div>
+                                    <img
+                                        src="${escapeHtml(image)}"
+                                        alt="${name}"
+                                        loading="lazy"
+                                        onerror="
+                                            this.onerror=null;
+                                            this.src='https://images.unsplash.com/photo-1497250681960-ef046c08a56e?auto=format&fit=crop&w=300&q=85';
+                                        "
+                                    >
 
-                    </a>
+                                </div>
 
-                `;
+                                <div class="category-name">
+                                    ${name}
+                                </div>
 
-            }).join("");
+                            </a>
+
+                        `;
+
+                    }
+                ).join("");
 
         },
 
@@ -3110,11 +3480,15 @@ function loadShopByCategory() {
                 error
             );
 
-
             container.innerHTML = `
 
                 <div class="category-loading"
-                     style="grid-column: 1 / -1; text-align: center; padding: 30px; color: #687873;">
+                     style="
+                        grid-column: 1 / -1;
+                        text-align: center;
+                        padding: 30px;
+                        color: #687873;
+                     ">
 
                     <i class="fas fa-exclamation-circle"></i>
 
@@ -3135,7 +3509,7 @@ function loadShopByCategory() {
 
 /* =========================================================
    LOAD POPULAR PRODUCTS
-========================================================= */
+   ========================================================= */
 
 function loadPopularProducts() {
 
@@ -3144,13 +3518,9 @@ function loadPopularProducts() {
             "popularProductsGrid"
         );
 
-
     if (!grid) {
-
         return;
-
     }
-
 
     grid.innerHTML = `
 
@@ -3172,14 +3542,12 @@ function loadPopularProducts() {
         method:
             "vishuddhi.api.products.get_bestsellers",
 
-
         callback: function(r) {
 
             console.log(
                 "Bestseller API response:",
                 r.message
             );
-
 
             const products =
                 r.message || [];
@@ -3210,7 +3578,6 @@ function loadPopularProducts() {
                 `;
 
                 return;
-
             }
 
 
@@ -3227,7 +3594,6 @@ function loadPopularProducts() {
                 "Bestseller API error:",
                 error
             );
-
 
             grid.innerHTML = `
 
@@ -3255,8 +3621,8 @@ function loadPopularProducts() {
 
 
 /* =========================================================
-   RENDER PRODUCTS
-========================================================= */
+   RENDER POPULAR PRODUCTS
+   ========================================================= */
 
 function renderPopularProducts(products) {
 
@@ -3265,13 +3631,9 @@ function renderPopularProducts(products) {
             "popularProductsGrid"
         );
 
-
     if (!grid) {
-
         return;
-
     }
-
 
     grid.innerHTML = "";
 
@@ -3296,7 +3658,6 @@ function renderPopularProducts(products) {
         `;
 
         return;
-
     }
 
 
@@ -3307,7 +3668,6 @@ function renderPopularProducts(products) {
                 createProductCard(
                     product
                 );
-
 
             grid.appendChild(
                 card
@@ -3321,7 +3681,7 @@ function renderPopularProducts(products) {
 
 /* =========================================================
    CREATE PRODUCT CARD
-========================================================= */
+   ========================================================= */
 
 function createProductCard(product) {
 
@@ -3330,26 +3690,21 @@ function createProductCard(product) {
             "div"
         );
 
-
     card.className =
         "product-card";
 
 
     /* =====================================================
        ITEM CODE
-    ===================================================== */
+       ===================================================== */
 
     card.dataset.itemCode =
         product.name || "";
 
 
     /* =====================================================
-       RAW FILTER DATA
-
-       These datasets are kept only for compatibility
-       with the product card. Smart Discovery itself
-       does NOT use them.
-    ===================================================== */
+       FILTER DATA
+       ===================================================== */
 
     card.dataset.sunlight = [
 
@@ -3422,7 +3777,7 @@ function createProductCard(product) {
 
     /* =====================================================
        PRODUCT IMAGE
-    ===================================================== */
+       ===================================================== */
 
     let imageHtml = "";
 
@@ -3461,7 +3816,7 @@ function createProductCard(product) {
 
     /* =====================================================
        PRODUCT NAME
-    ===================================================== */
+       ===================================================== */
 
     const productName =
         product.item_name ||
@@ -3471,7 +3826,7 @@ function createProductCard(product) {
 
     /* =====================================================
        ITEM GROUP
-    ===================================================== */
+       ===================================================== */
 
     const itemGroup =
         product.item_group ||
@@ -3480,7 +3835,7 @@ function createProductCard(product) {
 
     /* =====================================================
        PRICE
-    ===================================================== */
+       ===================================================== */
 
     const price =
         formatPrice(
@@ -3490,22 +3845,24 @@ function createProductCard(product) {
 
     /* =====================================================
        BESTSELLER BADGE
-    ===================================================== */
+       ===================================================== */
 
     const badgeHtml =
         product.is_bestseller
             ?
 
-                `<span class="product-badge">
+            `
+                <span class="product-badge">
                     Best Seller
-                </span>`
+                </span>
+            `
 
             : "";
 
 
     /* =====================================================
        CARD HTML
-    ===================================================== */
+       ===================================================== */
 
     card.innerHTML = `
 
@@ -3570,7 +3927,7 @@ function createProductCard(product) {
 
     /* =====================================================
        CART BUTTON
-    ===================================================== */
+       ===================================================== */
 
     const cartButton =
         card.querySelector(
@@ -3581,28 +3938,19 @@ function createProductCard(product) {
     if (cartButton) {
 
         cartButton.addEventListener(
-
             "click",
-
             function(event) {
 
                 event.preventDefault();
-
                 event.stopPropagation();
 
-
                 addProductToCart(
-
                     product.name,
-
                     productName,
-
                     cartButton
-
                 );
 
             }
-
         );
 
     }
@@ -3610,7 +3958,7 @@ function createProductCard(product) {
 
     /* =====================================================
        WISHLIST BUTTON
-    ===================================================== */
+       ===================================================== */
 
     const wishlistButton =
         card.querySelector(
@@ -3621,35 +3969,24 @@ function createProductCard(product) {
     if (wishlistButton) {
 
         wishlistButton.addEventListener(
-
             "click",
-
             function(event) {
 
                 event.preventDefault();
-
                 event.stopPropagation();
 
-
                 toggleWishlist(
-
                     product.name,
-
                     wishlistButton
-
                 );
 
             }
-
         );
 
 
         checkProductWishlist(
-
             product.name,
-
             wishlistButton
-
         );
 
     }
@@ -3657,7 +3994,7 @@ function createProductCard(product) {
 
     /* =====================================================
        PRODUCT IMAGE CLICK
-    ===================================================== */
+       ===================================================== */
 
     const productImage =
         card.querySelector(
@@ -3675,9 +4012,7 @@ function createProductCard(product) {
 
 
         productImage.addEventListener(
-
             "click",
-
             function() {
 
                 window.location.href =
@@ -3685,7 +4020,6 @@ function createProductCard(product) {
                     product.route;
 
             }
-
         );
 
     }
@@ -3698,19 +4032,10 @@ function createProductCard(product) {
 
 /* =========================================================
    SMART FILTER OPTION CLICK
-
-   Clicking a filter ONLY selects/deselects it.
-
-   It does NOT navigate.
-
-   Navigation happens only when
-   "Find My Plants" is clicked.
-========================================================= */
+   ========================================================= */
 
 document.addEventListener(
-
     "click",
-
     function(event) {
 
         const button =
@@ -3720,14 +4045,11 @@ document.addEventListener(
 
 
         if (!button) {
-
             return;
-
         }
 
 
         event.preventDefault();
-
         event.stopPropagation();
 
 
@@ -3743,9 +4065,7 @@ document.addEventListener(
             !filterType ||
             !filterValue
         ) {
-
             return;
-
         }
 
 
@@ -3768,10 +4088,6 @@ document.addEventListener(
                 filterValue
             );
 
-
-        /* =================================================
-           REMOVE
-        ================================================= */
 
         if (
             selectedIndex !== -1
@@ -3797,11 +4113,6 @@ document.addEventListener(
 
         }
 
-
-        /* =================================================
-           ADD
-        ================================================= */
-
         else {
 
             plantFilters[
@@ -3826,20 +4137,13 @@ document.addEventListener(
 
         updateSelectedFilterMessage();
 
-
-        console.log(
-            "Selected native Webshop filters:",
-            plantFilters
-        );
-
     }
-
 );
 
 
 /* =========================================================
    UPDATE SELECTED FILTER MESSAGE
-========================================================= */
+   ========================================================= */
 
 function updateSelectedFilterMessage() {
 
@@ -3848,11 +4152,8 @@ function updateSelectedFilterMessage() {
             "selectedFilterMessage"
         );
 
-
     if (!message) {
-
         return;
-
     }
 
 
@@ -3862,13 +4163,11 @@ function updateSelectedFilterMessage() {
     Object.keys(
         plantFilters
     ).forEach(
-
         function(group) {
 
             plantFilters[
                 group
             ].forEach(
-
                 function(value) {
 
                     selected.push(
@@ -3876,11 +4175,9 @@ function updateSelectedFilterMessage() {
                     );
 
                 }
-
             );
 
         }
-
     );
 
 
@@ -3892,7 +4189,6 @@ function updateSelectedFilterMessage() {
             "Select your preferences.";
 
         return;
-
     }
 
 
@@ -3922,31 +4218,12 @@ function updateSelectedFilterMessage() {
 
 /* =========================================================
    FIND MY PLANTS
-
-   Uses NATIVE WEBSHOP attribute_filters.
-
-   Example:
-
-   {
-       "Category": ["Indoor Plants"],
-       "Sunlight": ["Low"],
-       "Care": ["Easy"],
-       "Purpose": ["Air Purifying"]
-   }
-
-   Result:
-
-   /all-products?attribute_filters=...
-========================================================= */
+   ========================================================= */
 
 function applyPlantFilters() {
 
     const attributeFilters = {};
 
-
-    /* =====================================================
-       CATEGORY
-    ===================================================== */
 
     if (
         plantFilters.Category.length > 0
@@ -3960,10 +4237,6 @@ function applyPlantFilters() {
     }
 
 
-    /* =====================================================
-       SUNLIGHT
-    ===================================================== */
-
     if (
         plantFilters.Sunlight.length > 0
     ) {
@@ -3976,10 +4249,6 @@ function applyPlantFilters() {
     }
 
 
-    /* =====================================================
-       CARE
-    ===================================================== */
-
     if (
         plantFilters.Care.length > 0
     ) {
@@ -3991,10 +4260,6 @@ function applyPlantFilters() {
 
     }
 
-
-    /* =====================================================
-       PURPOSE
-    ===================================================== */
 
     if (
         plantFilters.Purpose.length > 0
@@ -4010,9 +4275,7 @@ function applyPlantFilters() {
 
     /* =====================================================
        NO FILTERS
-
-       If nothing is selected, open all products.
-    ===================================================== */
+       ===================================================== */
 
     if (
         Object.keys(
@@ -4028,10 +4291,6 @@ function applyPlantFilters() {
     }
 
 
-    /* =====================================================
-       CREATE JSON
-    ===================================================== */
-
     const filterJSON =
         JSON.stringify(
             attributeFilters
@@ -4044,21 +4303,11 @@ function applyPlantFilters() {
     );
 
 
-    /* =====================================================
-       ENCODE JSON
-    ===================================================== */
-
     const encodedFilters =
         encodeURIComponent(
             filterJSON
         );
 
-
-    /* =====================================================
-       NAVIGATE
-
-       Only this function navigates.
-    ===================================================== */
 
     window.location.href =
         "/all-products?attribute_filters=" +
@@ -4069,48 +4318,24 @@ function applyPlantFilters() {
 
 /* =========================================================
    RESET SMART FILTERS
-========================================================= */
+   ========================================================= */
 
 function resetPlantFilters() {
 
-    /* =====================================================
-       CLEAR CATEGORY
-    ===================================================== */
-
     plantFilters.Category = [];
-
-
-    /* =====================================================
-       CLEAR SUNLIGHT
-    ===================================================== */
 
     plantFilters.Sunlight = [];
 
-
-    /* =====================================================
-       CLEAR CARE
-    ===================================================== */
-
     plantFilters.Care = [];
-
-
-    /* =====================================================
-       CLEAR PURPOSE
-    ===================================================== */
 
     plantFilters.Purpose = [];
 
-
-    /* =====================================================
-       REMOVE ACTIVE CLASS
-    ===================================================== */
 
     document
         .querySelectorAll(
             ".filter-option"
         )
         .forEach(
-
             function(button) {
 
                 button.classList.remove(
@@ -4123,13 +4348,8 @@ function resetPlantFilters() {
                 );
 
             }
-
         );
 
-
-    /* =====================================================
-       UPDATE MESSAGE
-    ===================================================== */
 
     updateSelectedFilterMessage();
 
@@ -4138,7 +4358,7 @@ function resetPlantFilters() {
 
 /* =========================================================
    ADD PRODUCT TO CART
-========================================================= */
+   ========================================================= */
 
 function addProductToCart(
     itemCode,
@@ -4165,7 +4385,7 @@ function addProductToCart(
 
     /* =====================================================
        LOGIN CHECK
-    ===================================================== */
+       ===================================================== */
 
     if (
         frappe.session &&
@@ -4191,9 +4411,7 @@ function addProductToCart(
 
 
     if (!button) {
-
         return;
-
     }
 
 
@@ -4205,24 +4423,26 @@ function addProductToCart(
         true;
 
 
+    button.classList.add(
+        "api-button-loading"
+    );
+
+
     button.innerHTML = `
 
         <i class="fas fa-spinner fa-spin"></i>
 
-        Adding...
+        <span>
+            Adding...
+        </span>
 
     `;
 
-
-    /* =====================================================
-       CART API
-    ===================================================== */
 
     frappe.call({
 
         method:
             "vishuddhi.api.cart.add_to_cart",
-
 
         args: {
 
@@ -4277,20 +4497,15 @@ function addProductToCart(
             document.dispatchEvent(
 
                 new CustomEvent(
-
                     "vishuddhi:cart-updated",
-
                     {
-
                         detail: {
 
                             cart_count:
                                 cartCount
 
                         }
-
                     }
-
                 )
 
             );
@@ -4336,6 +4551,9 @@ function addProductToCart(
             button.disabled =
                 false;
 
+            button.classList.remove(
+                "api-button-loading"
+            );
 
             button.innerHTML =
                 oldHtml;
@@ -4349,7 +4567,7 @@ function addProductToCart(
 
 /* =========================================================
    UPDATE CART COUNT
-========================================================= */
+   ========================================================= */
 
 function updateCartCount(count) {
 
@@ -4362,7 +4580,6 @@ function updateCartCount(count) {
             ".cart-count"
         )
         .forEach(
-
             function(element) {
 
                 element.textContent =
@@ -4375,7 +4592,6 @@ function updateCartCount(count) {
                         : "none";
 
             }
-
         );
 
 
@@ -4402,15 +4618,105 @@ function updateCartCount(count) {
 
 
 /* =========================================================
+   CART COUNT LOADING
+   ========================================================= */
+
+function setCartCountLoading(loading) {
+
+    document
+        .querySelectorAll(
+            ".cart-count"
+        )
+        .forEach(
+            function(element) {
+
+                if (loading) {
+
+                    element.dataset.oldText =
+                        element.textContent;
+
+                    element.innerHTML =
+                        `
+                            <i class="fas fa-spinner fa-spin"></i>
+                        `;
+
+                    element.style.display =
+                        "flex";
+
+                }
+
+                else {
+
+                    if (
+                        element.dataset.oldText !==
+                        undefined
+                    ) {
+
+                        element.textContent =
+                            element.dataset.oldText;
+
+                        delete element.dataset.oldText;
+
+                    }
+
+                }
+
+            }
+        );
+
+
+    const navbarCart =
+        document.getElementById(
+            "cartBadgeTop"
+        );
+
+
+    if (navbarCart) {
+
+        if (loading) {
+
+            navbarCart.dataset.oldText =
+                navbarCart.textContent;
+
+            navbarCart.innerHTML =
+                `
+                    <i class="fas fa-spinner fa-spin"></i>
+                `;
+
+            navbarCart.style.display =
+                "flex";
+
+        }
+
+        else {
+
+            if (
+                navbarCart.dataset.oldText !==
+                undefined
+            ) {
+
+                navbarCart.textContent =
+                    navbarCart.dataset.oldText;
+
+                delete navbarCart.dataset.oldText;
+
+            }
+
+        }
+
+    }
+
+}
+
+
+/* =========================================================
    LOAD CART COUNT
-========================================================= */
+   ========================================================= */
 
 function loadCartCount() {
 
     if (!frappe.session) {
-
         return;
-
     }
 
 
@@ -4425,11 +4731,13 @@ function loadCartCount() {
     }
 
 
+    setCartCountLoading(true);
+
+
     frappe.call({
 
         method:
             "vishuddhi.api.cart.get_cart_count",
-
 
         callback: function(r) {
 
@@ -4457,6 +4765,13 @@ function loadCartCount() {
                 error
             );
 
+        },
+
+
+        always: function() {
+
+            setCartCountLoading(false);
+
         }
 
     });
@@ -4466,7 +4781,7 @@ function loadCartCount() {
 
 /* =========================================================
    UPDATE WISHLIST COUNT
-========================================================= */
+   ========================================================= */
 
 function updateWishlistCount(count) {
 
@@ -4479,7 +4794,6 @@ function updateWishlistCount(count) {
             ".wishlist-count"
         )
         .forEach(
-
             function(element) {
 
                 element.textContent =
@@ -4492,7 +4806,6 @@ function updateWishlistCount(count) {
                         : "none";
 
             }
-
         );
 
 
@@ -4519,15 +4832,105 @@ function updateWishlistCount(count) {
 
 
 /* =========================================================
+   WISHLIST COUNT LOADING
+   ========================================================= */
+
+function setWishlistCountLoading(loading) {
+
+    document
+        .querySelectorAll(
+            ".wishlist-count"
+        )
+        .forEach(
+            function(element) {
+
+                if (loading) {
+
+                    element.dataset.oldText =
+                        element.textContent;
+
+                    element.innerHTML =
+                        `
+                            <i class="fas fa-spinner fa-spin"></i>
+                        `;
+
+                    element.style.display =
+                        "flex";
+
+                }
+
+                else {
+
+                    if (
+                        element.dataset.oldText !==
+                        undefined
+                    ) {
+
+                        element.textContent =
+                            element.dataset.oldText;
+
+                        delete element.dataset.oldText;
+
+                    }
+
+                }
+
+            }
+        );
+
+
+    const navbarWishlist =
+        document.getElementById(
+            "wishlistBadgeTop"
+        );
+
+
+    if (navbarWishlist) {
+
+        if (loading) {
+
+            navbarWishlist.dataset.oldText =
+                navbarWishlist.textContent;
+
+            navbarWishlist.innerHTML =
+                `
+                    <i class="fas fa-spinner fa-spin"></i>
+                `;
+
+            navbarWishlist.style.display =
+                "flex";
+
+        }
+
+        else {
+
+            if (
+                navbarWishlist.dataset.oldText !==
+                undefined
+            ) {
+
+                navbarWishlist.textContent =
+                    navbarWishlist.dataset.oldText;
+
+                delete navbarWishlist.dataset.oldText;
+
+            }
+
+        }
+
+    }
+
+}
+
+
+/* =========================================================
    LOAD WISHLIST COUNT
-========================================================= */
+   ========================================================= */
 
 function loadWishlistCount() {
 
     if (!frappe.session) {
-
         return;
-
     }
 
 
@@ -4542,11 +4945,13 @@ function loadWishlistCount() {
     }
 
 
+    setWishlistCountLoading(true);
+
+
     frappe.call({
 
         method:
             "vishuddhi.api.cart.get_wishlist_count",
-
 
         callback: function(r) {
 
@@ -4574,6 +4979,13 @@ function loadWishlistCount() {
                 error
             );
 
+        },
+
+
+        always: function() {
+
+            setWishlistCountLoading(false);
+
         }
 
     });
@@ -4583,7 +4995,7 @@ function loadWishlistCount() {
 
 /* =========================================================
    CHECK WISHLIST
-========================================================= */
+   ========================================================= */
 
 function checkProductWishlist(
     itemCode,
@@ -4617,11 +5029,29 @@ function checkProductWishlist(
     }
 
 
+    button.disabled =
+        true;
+
+
+    const oldHtml =
+        button.innerHTML;
+
+
+    button.classList.add(
+        "wishlist-api-loading"
+    );
+
+
+    button.innerHTML =
+        `
+            <i class="fas fa-spinner fa-spin"></i>
+        `;
+
+
     frappe.call({
 
         method:
             "vishuddhi.api.cart.check_wishlist",
-
 
         args: {
 
@@ -4659,6 +5089,7 @@ function checkProductWishlist(
                 );
 
             }
+
             else {
 
                 button.classList.remove(
@@ -4690,6 +5121,21 @@ function checkProductWishlist(
                 error
             );
 
+            button.innerHTML =
+                oldHtml;
+
+        },
+
+
+        always: function() {
+
+            button.disabled =
+                false;
+
+            button.classList.remove(
+                "wishlist-api-loading"
+            );
+
         }
 
     });
@@ -4699,7 +5145,7 @@ function checkProductWishlist(
 
 /* =========================================================
    TOGGLE WISHLIST
-========================================================= */
+   ========================================================= */
 
 function toggleWishlist(
     itemCode,
@@ -4749,17 +5195,31 @@ function toggleWishlist(
         true;
 
 
+    const oldHtml =
+        button.innerHTML;
+
+
+    button.classList.add(
+        "wishlist-api-loading"
+    );
+
+
     /* =====================================================
-       REMOVE
-    ===================================================== */
+       REMOVE WISHLIST
+       ===================================================== */
 
     if (isActive) {
+
+        button.innerHTML =
+            `
+                <i class="fas fa-spinner fa-spin"></i>
+            `;
+
 
         frappe.call({
 
             method:
                 "vishuddhi.api.cart.remove_from_wishlist",
-
 
             args: {
 
@@ -4820,7 +5280,8 @@ function toggleWishlist(
 
                 const wishlistCount =
                     Number(
-                        r.message.wishlist_count || 0
+                        r.message.wishlist_count ||
+                        0
                     );
 
 
@@ -4832,20 +5293,15 @@ function toggleWishlist(
                 document.dispatchEvent(
 
                     new CustomEvent(
-
                         "vishuddhi:wishlist-updated",
-
                         {
-
                             detail: {
 
                                 wishlist_count:
                                     wishlistCount
 
                             }
-
                         }
-
                     )
 
                 );
@@ -4890,6 +5346,21 @@ function toggleWishlist(
                 button.disabled =
                     false;
 
+                button.classList.remove(
+                    "wishlist-api-loading"
+                );
+
+                if (
+                    button.innerHTML.includes(
+                        "fa-spinner"
+                    )
+                ) {
+
+                    button.innerHTML =
+                        oldHtml;
+
+                }
+
             }
 
         });
@@ -4901,14 +5372,19 @@ function toggleWishlist(
 
 
     /* =====================================================
-       ADD
-    ===================================================== */
+       ADD WISHLIST
+       ===================================================== */
+
+    button.innerHTML =
+        `
+            <i class="fas fa-spinner fa-spin"></i>
+        `;
+
 
     frappe.call({
 
         method:
             "vishuddhi.api.cart.add_to_wishlist",
-
 
         args: {
 
@@ -4969,7 +5445,8 @@ function toggleWishlist(
 
             const wishlistCount =
                 Number(
-                    r.message.wishlist_count || 0
+                    r.message.wishlist_count ||
+                    0
                 );
 
 
@@ -4981,20 +5458,15 @@ function toggleWishlist(
             document.dispatchEvent(
 
                 new CustomEvent(
-
                     "vishuddhi:wishlist-updated",
-
                     {
-
                         detail: {
 
                             wishlist_count:
                                 wishlistCount
 
                         }
-
                     }
-
                 )
 
             );
@@ -5039,6 +5511,22 @@ function toggleWishlist(
             button.disabled =
                 false;
 
+            button.classList.remove(
+                "wishlist-api-loading"
+            );
+
+
+            if (
+                button.innerHTML.includes(
+                    "fa-spinner"
+                )
+            ) {
+
+                button.innerHTML =
+                    oldHtml;
+
+            }
+
         }
 
     });
@@ -5048,7 +5536,7 @@ function toggleWishlist(
 
 /* =========================================================
    MOBILE MENU
-========================================================= */
+   ========================================================= */
 
 function toggleMobileMenu() {
 
@@ -5057,11 +5545,8 @@ function toggleMobileMenu() {
             ".main-nav"
         );
 
-
     if (!nav) {
-
         return;
-
     }
 
 
@@ -5073,6 +5558,7 @@ function toggleMobileMenu() {
             "";
 
     }
+
     else {
 
         nav.style.display =
@@ -5112,7 +5598,7 @@ function toggleMobileMenu() {
 
 /* =========================================================
    CUSTOMER SLIDER
-========================================================= */
+   ========================================================= */
 
 let customerIndex = 0;
 
@@ -5151,11 +5637,8 @@ function moveCustomerSlider(
             "customerTrack"
         );
 
-
     if (!track) {
-
         return;
-
     }
 
 
@@ -5214,11 +5697,8 @@ function goCustomerSlide(
             "customerTrack"
         );
 
-
     if (!track) {
-
         return;
-
     }
 
 
@@ -5258,11 +5738,8 @@ function updateCustomerSlider() {
             "customerTrack"
         );
 
-
     if (!track) {
-
         return;
-
     }
 
 
@@ -5273,9 +5750,7 @@ function updateCustomerSlider() {
 
 
     if (!slides.length) {
-
         return;
-
     }
 
 
@@ -5302,7 +5777,6 @@ function updateCustomerSlider() {
             ".slider-dot"
         )
         .forEach(
-
             function(dot, index) {
 
                 dot.classList.toggle(
@@ -5311,16 +5785,13 @@ function updateCustomerSlider() {
                 );
 
             }
-
         );
 
 }
 
 
 window.addEventListener(
-
     "resize",
-
     function() {
 
         customerIndex =
@@ -5329,13 +5800,12 @@ window.addEventListener(
         updateCustomerSlider();
 
     }
-
 );
 
 
 /* =========================================================
    NEWSLETTER
-========================================================= */
+   ========================================================= */
 
 function subscribeNewsletter(
     event
@@ -5349,11 +5819,8 @@ function subscribeNewsletter(
             "input"
         );
 
-
     if (!input) {
-
         return;
-
     }
 
 
@@ -5362,9 +5829,7 @@ function subscribeNewsletter(
 
 
     if (!email) {
-
         return;
-
     }
 
 
@@ -5384,6 +5849,7 @@ function subscribeNewsletter(
         });
 
     }
+
     else {
 
         alert(
@@ -5400,10 +5866,9 @@ function subscribeNewsletter(
 
 /* =========================================================
    INITIALIZE FRAPPE
-========================================================= */
+   ========================================================= */
 
 frappe.ready(
-
     function() {
 
         console.log(
@@ -5420,8 +5885,6 @@ frappe.ready(
 
         /* ================================================
            SHOP BY CATEGORY
-
-           Loads actual ERPNext Item Groups.
         ================================================= */
 
         loadShopByCategory();
@@ -5429,10 +5892,6 @@ frappe.ready(
 
         /* ================================================
            POPULAR PICKS
-
-           Always loads bestsellers.
-
-           Smart Discovery does NOT filter this grid.
         ================================================= */
 
         loadPopularProducts();
@@ -5457,15 +5916,12 @@ frappe.ready(
         ================================================= */
 
         setTimeout(
-
             function() {
 
                 updateCustomerSlider();
 
             },
-
             100
-
         );
 
 
@@ -5476,7 +5932,6 @@ frappe.ready(
         updateSelectedFilterMessage();
 
     }
-
 );
 
 </script>

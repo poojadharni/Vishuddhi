@@ -1175,6 +1175,180 @@
     }
 }
 
+/* =========================================================
+   VISHUDDHI API LOADING STATES
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   COMMON SPINNER
+   --------------------------------------------------------- */
+
+.v-api-spinner {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    border-top-color: #ffffff;
+    border-radius: 50%;
+    animation: vApiSpin 0.7s linear infinite;
+    vertical-align: -3px;
+    margin-right: 8px;
+}
+
+@keyframes vApiSpin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+
+/* ---------------------------------------------------------
+   CONTACT / APPOINTMENT BUTTON LOADING
+   --------------------------------------------------------- */
+
+#contactSubmitBtn,
+#bookAppointmentBtn {
+    position: relative;
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
+}
+
+#contactSubmitBtn:disabled,
+#bookAppointmentBtn:disabled {
+    cursor: not-allowed;
+    opacity: 0.75;
+}
+
+
+/* Prevent button content from jumping */
+
+#contactSubmitBtn .v-api-spinner,
+#bookAppointmentBtn .v-api-spinner {
+    width: 15px;
+    height: 15px;
+    border-width: 2px;
+}
+
+
+/* ---------------------------------------------------------
+   SLOT LOADING
+   --------------------------------------------------------- */
+
+#slotLoading {
+    display: none;
+    width: 100%;
+    text-align: center;
+    padding: 18px 10px;
+    color: #003d1f;
+    font-size: 14px;
+}
+
+#slotLoading .v-slot-spinner {
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    border: 3px solid rgba(0, 61, 31, 0.20);
+    border-top-color: #003d1f;
+    border-radius: 50%;
+    animation: vApiSpin 0.7s linear infinite;
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+
+/* ---------------------------------------------------------
+   SLOT AREA WHILE API IS LOADING
+   --------------------------------------------------------- */
+
+#slot.api-loading {
+    min-height: 70px;
+    position: relative;
+}
+
+#slot.api-loading .v-slot-grid {
+    opacity: 0.35;
+    pointer-events: none;
+}
+
+
+/* ---------------------------------------------------------
+   LOADING OVERLAY
+   --------------------------------------------------------- */
+
+.v-api-loading-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255, 255, 255, 0.75);
+    z-index: 10;
+    border-radius: 10px;
+}
+
+.v-api-loading-overlay .v-api-spinner {
+    width: 25px;
+    height: 25px;
+    border-width: 3px;
+    border-color: rgba(0, 61, 31, 0.20);
+    border-top-color: #003d1f;
+    margin-right: 0;
+}
+
+
+/* ---------------------------------------------------------
+   API MESSAGE
+   --------------------------------------------------------- */
+
+.v-api-loading-text {
+    color: #003d1f;
+    font-size: 14px;
+    margin-top: 8px;
+}
+
+
+/* ---------------------------------------------------------
+   SUCCESS / ERROR MESSAGE
+   --------------------------------------------------------- */
+
+.v-alert {
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
+}
+
+.v-alert.success {
+    color: #166534;
+}
+
+.v-alert.error {
+    color: #b91c1c;
+}
+
+
+/* ---------------------------------------------------------
+   MOBILE
+   --------------------------------------------------------- */
+
+@media (max-width: 576px) {
+
+    #contactSubmitBtn,
+    #bookAppointmentBtn {
+        width: 100%;
+    }
+
+    #slotLoading {
+        padding: 15px 5px;
+        font-size: 13px;
+    }
+
+    #slotLoading .v-slot-spinner {
+        width: 20px;
+        height: 20px;
+    }
+
+}
 </style>
 
 <div class="v-contact-page">
@@ -1989,7 +2163,7 @@
 
 /* =========================================================
    BASIC HELPERS
-========================================================= */
+   ========================================================= */
 
 function getElement(id) {
     return document.getElementById(id);
@@ -1998,7 +2172,7 @@ function getElement(id) {
 
 /* =========================================================
    ALERT
-========================================================= */
+   ========================================================= */
 
 function showMessage(id, message, type) {
 
@@ -2028,7 +2202,7 @@ function hideMessage(id) {
 
 /* =========================================================
    FRAPPE API ERROR
-========================================================= */
+   ========================================================= */
 
 function getApiError(result, fallback) {
 
@@ -2096,7 +2270,7 @@ function getApiError(result, fallback) {
 
 /* =========================================================
    SAFE API RESPONSE PARSER
-========================================================= */
+   ========================================================= */
 
 async function parseApiResponse(response) {
 
@@ -2113,14 +2287,12 @@ async function parseApiResponse(response) {
         responseText
     );
 
-
     if (!responseText) {
 
         throw new Error(
             "The server returned an empty response."
         );
     }
-
 
     try {
 
@@ -2143,7 +2315,7 @@ async function parseApiResponse(response) {
 
 /* =========================================================
    VALIDATION
-========================================================= */
+   ========================================================= */
 
 function isValidEmail(email) {
 
@@ -2165,7 +2337,7 @@ function isValidName(name) {
 
 /* =========================================================
    FIELD STATE
-========================================================= */
+   ========================================================= */
 
 function setFieldError(
     inputId,
@@ -2252,8 +2424,64 @@ function clearFieldState(
 
 
 /* =========================================================
+   API LOADING HELPERS
+   ========================================================= */
+
+function setButtonLoading(
+    button,
+    loadingText,
+    icon
+) {
+
+    if (!button) {
+        return;
+    }
+
+    if (!button.dataset.originalHtml) {
+
+        button.dataset.originalHtml =
+            button.innerHTML;
+    }
+
+    button.disabled = true;
+
+    button.setAttribute(
+        "aria-busy",
+        "true"
+    );
+
+    button.innerHTML = `
+        <span class="v-api-spinner"></span>
+        ${loadingText}
+    `;
+}
+
+
+function resetButtonLoading(button) {
+
+    if (!button) {
+        return;
+    }
+
+    button.disabled = false;
+
+    button.removeAttribute(
+        "aria-busy"
+    );
+
+    if (button.dataset.originalHtml) {
+
+        button.innerHTML =
+            button.dataset.originalHtml;
+
+        delete button.dataset.originalHtml;
+    }
+}
+
+
+/* =========================================================
    LOCAL DATE
-========================================================= */
+   ========================================================= */
 
 function getLocalDateString(date) {
 
@@ -2276,7 +2504,7 @@ function getLocalDateString(date) {
 
 /* =========================================================
    APPOINTMENT DATE
-========================================================= */
+   ========================================================= */
 
 const appointmentDate =
     getElement("appointmentDate");
@@ -2287,13 +2515,16 @@ const today =
 const todayString =
     getLocalDateString(today);
 
-appointmentDate.min =
-    todayString;
+if (appointmentDate) {
+
+    appointmentDate.min =
+        todayString;
+}
 
 
 /* =========================================================
    WEEKDAY
-========================================================= */
+   ========================================================= */
 
 function getWeekdayFromDate(dateString) {
 
@@ -2313,7 +2544,7 @@ function getWeekdayFromDate(dateString) {
 
 /* =========================================================
    FORMAT TIME
-========================================================= */
+   ========================================================= */
 
 function formatTime(time) {
 
@@ -2347,7 +2578,7 @@ function formatTime(time) {
 
 /* =========================================================
    FORMAT DATE
-========================================================= */
+   ========================================================= */
 
 function formatDate(dateString) {
 
@@ -2369,7 +2600,7 @@ function formatDate(dateString) {
 
 /* =========================================================
    CLEAR SELECTED SLOT
-========================================================= */
+   ========================================================= */
 
 function clearSelectedSlot() {
 
@@ -2382,7 +2613,6 @@ function clearSelectedSlot() {
             );
 
         });
-
 
     const summary =
         getElement(
@@ -2399,9 +2629,13 @@ function clearSelectedSlot() {
 
 /* =========================================================
    LOAD AVAILABLE SLOTS
-========================================================= */
+   ========================================================= */
 
 async function loadAvailableSlots() {
+
+    if (!appointmentDate) {
+        return;
+    }
 
     const date =
         appointmentDate.value;
@@ -2418,54 +2652,75 @@ async function loadAvailableSlots() {
     const weekdayText =
         getElement("weekdayText");
 
-
     clearSelectedSlot();
 
+    if (selectedDayText) {
 
-    selectedDayText.style.display =
-        "none";
-
+        selectedDayText.style.display =
+            "none";
+    }
 
     if (!date) {
 
-        slot.innerHTML = `
-            <div class="v-no-slots">
-                Please select a date.
-            </div>
-        `;
+        if (slot) {
+
+            slot.innerHTML = `
+                <div class="v-no-slots">
+                    Please select a date.
+                </div>
+            `;
+        }
 
         return;
     }
-
 
     if (date < todayString) {
 
-        slot.innerHTML = `
-            <div class="v-no-slots">
-                Please select today or a future date.
-            </div>
-        `;
+        if (slot) {
+
+            slot.innerHTML = `
+                <div class="v-no-slots">
+                    Please select today or a future date.
+                </div>
+            `;
+        }
 
         return;
     }
-
 
     const day =
         getWeekdayFromDate(date);
 
+    if (weekdayText) {
 
-    weekdayText.textContent =
-        day;
+        weekdayText.textContent =
+            day;
+    }
 
-    selectedDayText.style.display =
-        "block";
+    if (selectedDayText) {
 
-    slotLoading.style.display =
-        "block";
+        selectedDayText.style.display =
+            "block";
+    }
 
-    slot.innerHTML =
-        "";
+    /*
+     * START API LOADING
+     */
 
+    if (slotLoading) {
+
+        slotLoading.style.display =
+            "block";
+    }
+
+    if (slot) {
+
+        slot.classList.add(
+            "api-loading"
+        );
+
+        slot.innerHTML = "";
+    }
 
     try {
 
@@ -2473,7 +2728,6 @@ async function loadAvailableSlots() {
             "/api/method/vishuddhi.api.appointment.get_available_slots"
             + "?day="
             + encodeURIComponent(day);
-
 
         const response =
             await fetch(
@@ -2488,16 +2742,10 @@ async function loadAvailableSlots() {
                 }
             );
 
-
         const result =
             await parseApiResponse(
                 response
             );
-
-
-        slotLoading.style.display =
-            "none";
-
 
         if (!response.ok) {
 
@@ -2509,10 +2757,8 @@ async function loadAvailableSlots() {
             );
         }
 
-
         let slots =
             result.message;
-
 
         if (!Array.isArray(slots)) {
 
@@ -2520,25 +2766,26 @@ async function loadAvailableSlots() {
                 slots?.slots || [];
         }
 
-
         if (!slots.length) {
 
-            slot.innerHTML = `
-                <div class="v-no-slots">
+            if (slot) {
 
-                    <i class="fa-regular fa-calendar-xmark"></i>
+                slot.innerHTML = `
+                    <div class="v-no-slots">
 
-                    &nbsp;
+                        <i class="fa-regular fa-calendar-xmark"></i>
 
-                    No appointments are available
-                    for ${day}.
+                        &nbsp;
 
-                </div>
-            `;
+                        No appointments are available
+                        for ${day}.
+
+                    </div>
+                `;
+            }
 
             return;
         }
-
 
         const grid =
             document.createElement(
@@ -2548,7 +2795,6 @@ async function loadAvailableSlots() {
         grid.className =
             "v-slot-grid";
 
-
         slots.forEach(function(slotData) {
 
             const time =
@@ -2556,11 +2802,9 @@ async function loadAvailableSlots() {
                     ? slotData
                     : slotData.time;
 
-
             if (!time) {
                 return;
             }
-
 
             const label =
                 typeof slotData === "object" &&
@@ -2568,12 +2812,10 @@ async function loadAvailableSlots() {
                     ? slotData.label
                     : formatTime(time);
 
-
             const button =
                 document.createElement(
                     "button"
                 );
-
 
             button.type =
                 "button";
@@ -2593,11 +2835,9 @@ async function loadAvailableSlots() {
             button.dataset.date =
                 date;
 
-
             button.addEventListener(
                 "click",
                 function() {
-
 
                     document
                         .querySelectorAll(
@@ -2613,37 +2853,48 @@ async function loadAvailableSlots() {
                             }
                         );
 
-
                     button.classList.add(
                         "active"
                     );
 
+                    const selectedDate =
+                        getElement(
+                            "selectedDateText"
+                        );
 
-                    getElement(
-                        "selectedDateText"
-                    ).textContent =
-                        formatDate(date);
+                    if (selectedDate) {
 
+                        selectedDate.textContent =
+                            formatDate(date);
+                    }
 
-                    getElement(
-                        "selectedTimeText"
-                    ).textContent =
-                        label;
+                    const selectedTime =
+                        getElement(
+                            "selectedTimeText"
+                        );
 
+                    if (selectedTime) {
 
-                    getElement(
-                        "selectedSummary"
-                    ).style.display =
-                        "block";
+                        selectedTime.textContent =
+                            label;
+                    }
 
+                    const summary =
+                        getElement(
+                            "selectedSummary"
+                        );
+
+                    if (summary) {
+
+                        summary.style.display =
+                            "block";
+                    }
 
                     hideMessage(
                         "bookingMessage"
                     );
-
                 }
             );
-
 
             grid.appendChild(
                 button
@@ -2651,10 +2902,12 @@ async function loadAvailableSlots() {
 
         });
 
+        if (slot) {
 
-        slot.appendChild(
-            grid
-        );
+            slot.appendChild(
+                grid
+            );
+        }
 
     }
     catch (error) {
@@ -2664,50 +2917,71 @@ async function loadAvailableSlots() {
             error
         );
 
+        if (slot) {
 
-        slotLoading.style.display =
-            "none";
+            slot.innerHTML = `
+                <div class="v-no-slots">
 
+                    <i class="fa-solid fa-triangle-exclamation"></i>
 
-        slot.innerHTML = `
-            <div class="v-no-slots">
+                    &nbsp;
 
-                <i class="fa-solid fa-triangle-exclamation"></i>
+                    ${String(
+                        error.message ||
+                        "Unable to load available slots."
+                    )}
 
-                &nbsp;
+                </div>
+            `;
+        }
 
-                ${String(
-                    error.message ||
-                    "Unable to load available slots."
-                )}
+    }
+    finally {
 
-            </div>
-        `;
+        /*
+         * STOP API LOADING
+         */
+
+        if (slotLoading) {
+
+            slotLoading.style.display =
+                "none";
+        }
+
+        if (slot) {
+
+            slot.classList.remove(
+                "api-loading"
+            );
+        }
     }
 }
 
 
 /* =========================================================
    DATE CHANGE
-========================================================= */
+   ========================================================= */
 
-appointmentDate.addEventListener(
-    "change",
-    function() {
+if (appointmentDate) {
 
-        hideMessage(
-            "bookingMessage"
-        );
+    appointmentDate.addEventListener(
+        "change",
+        function() {
 
-        loadAvailableSlots();
+            hideMessage(
+                "bookingMessage"
+            );
 
-    }
-);
+            loadAvailableSlots();
+
+        }
+    );
+}
 
 
 /* =========================================================
    PHONE INPUT
-========================================================= */
+   ========================================================= */
 
 [
     "contactPhone",
@@ -2720,7 +2994,6 @@ appointmentDate.addEventListener(
     if (!input) {
         return;
     }
-
 
     input.addEventListener(
         "input",
@@ -2739,12 +3012,11 @@ appointmentDate.addEventListener(
 
 /* =========================================================
    CONTACT VALIDATION
-========================================================= */
+   ========================================================= */
 
 function validateContactForm() {
 
     let valid = true;
-
 
     const name =
         getElement("contactName")
@@ -2765,7 +3037,6 @@ function validateContactForm() {
         getElement("contactText")
             .value
             .trim();
-
 
     clearFieldState(
         "contactName",
@@ -2926,31 +3197,33 @@ function validateContactForm() {
 
     }
 
-
     return valid;
 }
 
 
 /* =========================================================
    CONTACT FORM SUBMIT
-========================================================= */
+   ========================================================= */
 
-getElement("contactForm")
-    .addEventListener(
+const contactForm =
+    getElement("contactForm");
+
+if (contactForm) {
+
+    contactForm.addEventListener(
         "submit",
         sendContactMessage
     );
+}
 
 
 async function sendContactMessage(event) {
 
     event.preventDefault();
 
-
     hideMessage(
         "contactMessage"
     );
-
 
     if (!validateContactForm()) {
 
@@ -2959,15 +3232,12 @@ async function sendContactMessage(event) {
                 ".v-input.invalid, .v-textarea.invalid"
             );
 
-
         if (firstInvalid) {
             firstInvalid.focus();
         }
 
-
         return;
     }
-
 
     const name =
         getElement("contactName")
@@ -2994,22 +3264,19 @@ async function sendContactMessage(event) {
             .value
             .trim();
 
-
     const button =
         getElement(
             "contactSubmitBtn"
         );
 
+    /*
+     * START API LOADING
+     */
 
-    button.disabled =
-        true;
-
-
-    button.innerHTML = `
-        <i class="fa-solid fa-spinner fa-spin"></i>
-        Sending...
-    `;
-
+    setButtonLoading(
+        button,
+        "Sending..."
+    );
 
     try {
 
@@ -3023,7 +3290,6 @@ async function sendContactMessage(event) {
 
         };
 
-
         if (
             window.frappe &&
             window.frappe.csrf_token
@@ -3035,7 +3301,6 @@ async function sendContactMessage(event) {
                 window.frappe.csrf_token;
 
         }
-
 
         const response =
             await fetch(
@@ -3070,24 +3335,10 @@ async function sendContactMessage(event) {
                 }
             );
 
-
-        /*
-         * IMPORTANT:
-         *
-         * Do NOT use response.json() directly.
-         *
-         * If Frappe returns an HTML error page,
-         * response.json() causes:
-         *
-         * Unexpected token '<'
-         *
-         */
-
         const result =
             await parseApiResponse(
                 response
             );
-
 
         if (!response.ok) {
 
@@ -3099,10 +3350,8 @@ async function sendContactMessage(event) {
             );
         }
 
-
         const contactResult =
             result.message;
-
 
         if (
             !contactResult ||
@@ -3117,18 +3366,15 @@ async function sendContactMessage(event) {
             );
         }
 
-
         showMessage(
             "contactMessage",
             "Thank you! Your message has been sent successfully.",
             "success"
         );
 
-
         getElement(
             "contactForm"
         ).reset();
-
 
         [
             "contactName",
@@ -3154,7 +3400,6 @@ async function sendContactMessage(event) {
             }
 
         });
-
 
         [
             "contactNameError",
@@ -3187,7 +3432,6 @@ async function sendContactMessage(event) {
             error
         );
 
-
         showMessage(
             "contactMessage",
             error.message ||
@@ -3198,21 +3442,20 @@ async function sendContactMessage(event) {
     }
     finally {
 
-        button.disabled =
-            false;
+        /*
+         * STOP API LOADING
+         */
 
-
-        button.innerHTML = `
-            <i class="fa-regular fa-paper-plane"></i>
-            Send Message
-        `;
+        resetButtonLoading(
+            button
+        );
     }
 }
 
 
 /* =========================================================
    APPOINTMENT VALIDATION
-========================================================= */
+   ========================================================= */
 
 function validateAppointment() {
 
@@ -3238,7 +3481,6 @@ function validateAppointment() {
         getElement("customerPhone")
             .value
             .trim();
-
 
     clearFieldState(
         "customerName",
@@ -3419,12 +3661,10 @@ function validateAppointment() {
                 "#customerName.invalid, #customerEmail.invalid, #customerPhone.invalid"
             );
 
-
         if (firstInvalid) {
             firstInvalid.focus();
         }
     }
-
 
     return valid;
 }
@@ -3432,14 +3672,20 @@ function validateAppointment() {
 
 /* =========================================================
    BOOK APPOINTMENT
-========================================================= */
+   ========================================================= */
 
-getElement(
-    "bookAppointmentBtn"
-).addEventListener(
-    "click",
-    bookAppointment
-);
+const bookAppointmentBtn =
+    getElement(
+        "bookAppointmentBtn"
+    );
+
+if (bookAppointmentBtn) {
+
+    bookAppointmentBtn.addEventListener(
+        "click",
+        bookAppointment
+    );
+}
 
 
 async function bookAppointment() {
@@ -3448,25 +3694,24 @@ async function bookAppointment() {
         "bookingMessage"
     );
 
-
     if (!validateAppointment()) {
         return;
     }
 
-
     const date =
         appointmentDate.value;
-
 
     const selectedSlot =
         document.querySelector(
             ".v-slot.active"
         );
 
+    if (!selectedSlot) {
+        return;
+    }
 
     const time =
         selectedSlot.dataset.time;
-
 
     const name =
         getElement("customerName")
@@ -3493,22 +3738,19 @@ async function bookAppointment() {
             .value
             .trim();
 
-
     const button =
         getElement(
             "bookAppointmentBtn"
         );
 
+    /*
+     * START API LOADING
+     */
 
-    button.disabled =
-        true;
-
-
-    button.innerHTML = `
-        <i class="fa-solid fa-spinner fa-spin"></i>
-        Booking...
-    `;
-
+    setButtonLoading(
+        button,
+        "Booking..."
+    );
 
     try {
 
@@ -3522,7 +3764,6 @@ async function bookAppointment() {
 
         };
 
-
         if (
             window.frappe &&
             window.frappe.csrf_token
@@ -3534,7 +3775,6 @@ async function bookAppointment() {
                 window.frappe.csrf_token;
 
         }
-
 
         const response =
             await fetch(
@@ -3572,12 +3812,10 @@ async function bookAppointment() {
                 }
             );
 
-
         const result =
             await parseApiResponse(
                 response
             );
-
 
         if (!response.ok) {
 
@@ -3589,10 +3827,8 @@ async function bookAppointment() {
             );
         }
 
-
         const bookingResult =
             result.message;
-
 
         if (
             !bookingResult ||
@@ -3607,12 +3843,10 @@ async function bookAppointment() {
             );
         }
 
-
         const appointmentId =
             bookingResult.name
                 ? ` Appointment ID: ${bookingResult.name}`
                 : "";
-
 
         showMessage(
             "bookingMessage",
@@ -3662,13 +3896,13 @@ async function bookAppointment() {
                 input.removeAttribute(
                     "aria-invalid"
                 );
+
             }
 
         });
 
 
         clearSelectedSlot();
-
 
         await loadAvailableSlots();
 
@@ -3680,7 +3914,6 @@ async function bookAppointment() {
             error
         );
 
-
         showMessage(
             "bookingMessage",
             error.message ||
@@ -3691,21 +3924,20 @@ async function bookAppointment() {
     }
     finally {
 
-        button.disabled =
-            false;
+        /*
+         * STOP API LOADING
+         */
 
-
-        button.innerHTML = `
-            <i class="fa-regular fa-calendar-check"></i>
-            Book Appointment
-        `;
+        resetButtonLoading(
+            button
+        );
     }
 }
 
 
 /* =========================================================
    BLUR VALIDATION
-========================================================= */
+   ========================================================= */
 
 function setupBlurValidation(
     inputId,
@@ -3719,7 +3951,6 @@ function setupBlurValidation(
     if (!input) {
         return;
     }
-
 
     input.addEventListener(
         "blur",
@@ -3736,7 +3967,7 @@ function setupBlurValidation(
 
 /* =========================================================
    CONTACT NAME
-========================================================= */
+   ========================================================= */
 
 setupBlurValidation(
     "contactName",
@@ -3778,7 +4009,7 @@ setupBlurValidation(
 
 /* =========================================================
    CONTACT EMAIL
-========================================================= */
+   ========================================================= */
 
 setupBlurValidation(
     "contactEmail",
@@ -3817,7 +4048,7 @@ setupBlurValidation(
 
 /* =========================================================
    CONTACT PHONE
-========================================================= */
+   ========================================================= */
 
 setupBlurValidation(
     "contactPhone",
@@ -3858,7 +4089,7 @@ setupBlurValidation(
 
 /* =========================================================
    CONTACT MESSAGE
-========================================================= */
+   ========================================================= */
 
 setupBlurValidation(
     "contactText",
@@ -3897,7 +4128,7 @@ setupBlurValidation(
 
 /* =========================================================
    APPOINTMENT NAME
-========================================================= */
+   ========================================================= */
 
 setupBlurValidation(
     "customerName",
@@ -3939,7 +4170,7 @@ setupBlurValidation(
 
 /* =========================================================
    APPOINTMENT EMAIL
-========================================================= */
+   ========================================================= */
 
 setupBlurValidation(
     "customerEmail",
@@ -3978,7 +4209,7 @@ setupBlurValidation(
 
 /* =========================================================
    APPOINTMENT PHONE
-========================================================= */
+   ========================================================= */
 
 setupBlurValidation(
     "customerPhone",
@@ -4017,17 +4248,24 @@ setupBlurValidation(
 
 /* =========================================================
    INITIAL DATE
-========================================================= */
+   ========================================================= */
 
-appointmentDate.value =
-    todayString;
+if (appointmentDate) {
+
+    appointmentDate.value =
+        todayString;
+}
 
 
 /* =========================================================
    INITIAL SLOT LOAD
-========================================================= */
+   ========================================================= */
 
-loadAvailableSlots();
+if (appointmentDate) {
+
+    loadAvailableSlots();
+}
+
 
 </script>
 
