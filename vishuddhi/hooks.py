@@ -69,6 +69,14 @@ homepage = "homepage"
 website_context = {
     "favicon": "/files/Vishuddhi-logo.png",
 }
+
+
+website_route_rules = [
+    {
+        "from_route": "/login",
+        "to_route": "vishuddhi_login",
+    },
+]
 # Generators
 # ----------
 
