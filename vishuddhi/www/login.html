@@ -6,96 +6,139 @@
 {% endif %}
 {% endblock %}
 
+
 {% block head_include %}
+
 {{ include_style('login.bundle.css') }}
 
-
 <style>
-:root{
-    --qb-purple:#453D89;
-    --qb-purple-dark:#3B155F;
-    --qb-magenta:#B8328F;
-    --qb-pink:#C8499A;
-    --qb-text:#292132;
-    --qb-muted:#75657D;
-    --qb-border:#E7DDF0;
-    --qb-bg:#f7f4f8;
+
+/* =========================================================
+   VISHUDDHI LOGIN
+   ========================================================= */
+
+:root {
+    --vishuddhi-blue: #2753d8;
+    --vishuddhi-teal: #147f78;
+    --vishuddhi-green: #184921;
+
+    --text-dark: #203b27;
+    --text-muted: #75657d;
+    --border: #e7ddf0;
+    --background: #f7f4f8;
 }
+
+
+/* =========================================================
+   GLOBAL
+   ========================================================= */
 
 *,
 *::before,
-*::after{
-    box-sizing:border-box;
+*::after {
+    box-sizing: border-box;
 }
 
 html,
-body{
-    min-height:100%;
-    margin:0;
+body {
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
 }
 
-body{
-    background:var(--qb-bg);
-    font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+body {
+    background: var(--background);
+    font-family:
+        Inter,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
 }
 
 .navbar,
-.web-footer{
-    display:none!important;
+.web-footer {
+    display: none !important;
 }
 
 .page_content,
 .page-content-wrapper,
-.web-page-content{
-    max-width:none!important;
-    width:100%!important;
-    padding:0!important;
-    margin:0!important;
+.web-page-content {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
 }
 
-/* =========================
-   MAIN LOGIN LAYOUT
-   ========================= */
 
-.login-page{
-    min-height:100vh;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:20px;
-   background:
-    radial-gradient(circle at 8% 15%, rgba(39, 83, 216, 0.10), transparent 28%),
-    radial-gradient(circle at 92% 85%, rgba(24, 73, 33, 0.10), transparent 30%),
-    var(--qb-bg);
+/* =========================================================
+   MAIN LOGIN PAGE
+   ========================================================= */
+
+.login-page {
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background:
+        radial-gradient(
+            circle at 8% 15%,
+            rgba(39, 83, 216, 0.10),
+            transparent 28%
+        ),
+        radial-gradient(
+            circle at 92% 85%,
+            rgba(24, 73, 33, 0.10),
+            transparent 30%
+        ),
+        var(--background);
 }
 
-.login-container{
-    width:100%;
-    max-width:960px;
-    min-height:0;
-    height:min(590px, calc(100vh - 40px));
-    display:grid;
-    grid-template-columns:43% 57%;
-    overflow:hidden;
-    border-radius:24px;
-    background:#fff;
-    box-shadow:0 20px 55px rgba(50,18,71,.14);
+
+.login-container {
+    width: 100%;
+    max-width: 960px;
+
+    height: min(590px, calc(100vh - 40px));
+
+    display: grid;
+    grid-template-columns: 43% 57%;
+
+    overflow: hidden;
+
+    border-radius: 24px;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 20px 55px rgba(50, 18, 71, 0.14);
 }
 
-/* =========================
+
+/* =========================================================
    LEFT BRAND PANEL
-   ========================= */
+   ========================================================= */
 
-.login-left{
-    position:relative;
-    overflow:hidden;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    padding:36px 42px;
-    color:#fff;
-       background: linear-gradient(
+.login-left {
+    position: relative;
+
+    overflow: hidden;
+
+    display: flex;
+    flex-direction: column;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 36px 42px;
+
+    color: #ffffff;
+
+    background: linear-gradient(
         135deg,
         #2753d8 0%,
         #147f78 55%,
@@ -103,606 +146,881 @@ body{
     );
 }
 
-.login-left::before{
-    content:"";
-    position:absolute;
-    width:560px;
-    height:560px;
-    border:1px solid rgba(255,255,255,.09);
-    border-radius:50%;
-    top:-315px;
-    right:-285px;
+
+.login-left::before {
+    content: "";
+
+    position: absolute;
+
+    width: 560px;
+    height: 560px;
+
+    border: 1px solid rgba(255, 255, 255, 0.09);
+
+    border-radius: 50%;
+
+    top: -315px;
+    right: -285px;
 }
 
-.login-left::after{
-    content:"";
-    position:absolute;
-    width:460px;
-    height:460px;
-    border:1px solid rgba(255,255,255,.07);
-    border-radius:50%;
-    bottom:-320px;
-    left:-250px;
+
+.login-left::after {
+    content: "";
+
+    position: absolute;
+
+    width: 460px;
+    height: 460px;
+
+    border: 1px solid rgba(255, 255, 255, 0.07);
+
+    border-radius: 50%;
+
+    bottom: -320px;
+    left: -250px;
 }
 
-.brand{
-    position:relative;
-    z-index:2;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    width:100%;
-    margin-bottom:28px;
+
+/* =========================================================
+   LOGO
+   ========================================================= */
+
+.brand {
+    position: relative;
+    z-index: 2;
+
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    margin-bottom: 28px;
 }
 
-.brand img{
-    width:250px;
-    max-width:100%;
-    max-height:78px;
-    object-fit:contain;
-    background:#fff;
-    padding:13px 20px;
-    border-radius:15px;
-    box-shadow:0 12px 30px rgba(20,5,30,.20);
+
+.brand img {
+    width: 250px;
+    max-width: 100%;
+    max-height: 78px;
+
+    object-fit: contain;
+
+    background: #ffffff;
+
+    padding: 13px 20px;
+
+    border-radius: 15px;
+
+    box-shadow:
+        0 12px 30px rgba(20, 5, 30, 0.20);
 }
 
-.welcome-content{
-    position:relative;
-    z-index:2;
-    text-align:center;
-    margin-top:0;
+
+/* =========================================================
+   WELCOME TEXT
+   ========================================================= */
+
+.welcome-content {
+    position: relative;
+    z-index: 2;
+
+    text-align: center;
 }
 
-.welcome-content h1{
-    color:#fff!important;
-    font-size:38px;
-    font-weight:800;
-    line-height:1.12;
-    margin:0;
-    letter-spacing:-.8px;
+
+.welcome-content h1 {
+    margin: 0;
+
+    color: #ffffff !important;
+
+    font-size: 38px;
+    font-weight: 800;
+
+    line-height: 1.12;
+
+    letter-spacing: -0.8px;
 }
 
-.welcome-content p{
-    color:rgba(255,255,255,.86)!important;
-    font-size:15px;
-    line-height:1.55;
-    max-width:330px;
-    margin:14px auto 0;
+
+.welcome-content p {
+    max-width: 330px;
+
+    margin: 14px auto 0;
+
+    color: rgba(255, 255, 255, 0.86) !important;
+
+    font-size: 15px;
+
+    line-height: 1.55;
 }
 
-.company-footer{
-    position:relative;
-    z-index:2;
-    text-align:center;
-    margin-top:40px;
+
+/* =========================================================
+   BRAND FOOTER
+   ========================================================= */
+
+.company-footer {
+    position: relative;
+    z-index: 2;
+
+    margin-top: 40px;
+
+    text-align: center;
 }
 
-.company-footer h3{
-    color:#fff!important;
-    font-size:18px;
-    font-weight:700;
-    margin:0 0 5px;
-    letter-spacing:.1px;
+
+.company-footer h3 {
+    margin: 0 0 5px;
+
+    color: #ffffff !important;
+
+    font-size: 18px;
+    font-weight: 700;
 }
 
-.company-footer p{
-    color:rgba(255,255,255,.68)!important;
-    font-size:11px;
-    margin:0;
-    letter-spacing:.6px;
+
+.company-footer p {
+    margin: 0;
+
+    color: rgba(255, 255, 255, 0.68) !important;
+
+    font-size: 11px;
+
+    letter-spacing: 0.5px;
 }
 
-.dots{
-    position:absolute;
-    z-index:2;
-    display:grid;
-    grid-template-columns:repeat(3,5px);
-    gap:8px;
+
+/* =========================================================
+   DECORATIVE DOTS
+   ========================================================= */
+
+.dots {
+    position: absolute;
+    z-index: 2;
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 5px);
+
+    gap: 8px;
 }
 
-.dots span{
-    width:5px;
-    height:5px;
-    background:rgba(255,255,255,.24);
-    border-radius:50%;
+
+.dots span {
+    width: 5px;
+    height: 5px;
+
+    background: rgba(255, 255, 255, 0.24);
+
+    border-radius: 50%;
 }
 
-.dots-top{
-    top:34px;
-    right:34px;
+
+.dots-top {
+    top: 34px;
+    right: 34px;
 }
 
-.dots-bottom{
-    bottom:28px;
-    left:30px;
+
+.dots-bottom {
+    bottom: 28px;
+    left: 30px;
 }
 
-/* =========================
-   RIGHT LOGIN PANEL
-   ========================= */
 
-.login-right{
-    position:relative;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    padding:26px 26px;
-    background:#fff;
-    box-sizing:border-box;
+/* =========================================================
+   RIGHT PANEL
+   ========================================================= */
+
+.login-right {
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 26px;
+
+    background: #ffffff;
 }
 
-.auth-wrapper{
-    width:100%;
-    max-width:440px;
-    margin:0 auto;
+
+.auth-wrapper {
+    width: 100%;
+    max-width: 440px;
+
+    margin: 0 auto;
 }
 
-.mobile-logo{
-    display:none;
-    text-align:left;
-    margin:0 0 20px;
+
+/* =========================================================
+   MOBILE LOGO
+   ========================================================= */
+
+.mobile-logo {
+    display: none;
+
+    text-align: center;
+
+    margin-bottom: 22px;
 }
 
-.mobile-logo img{
-    width:205px;
-    max-width:100%;
-    max-height:58px;
-    object-fit:contain;
-    object-position:left center;
+
+.mobile-logo img {
+    width: 205px;
+    max-width: 100%;
+    max-height: 58px;
+
+    object-fit: contain;
 }
 
-/* Heading */
 
-.auth-heading{
-    margin-bottom:20px;
+/* =========================================================
+   AUTH HEADING
+   ========================================================= */
+
+.auth-heading {
+    margin-bottom: 20px;
 }
 
-.auth-heading h2{
-    color:#203b27;
-    font-size:28px;
-    line-height:1.18;
-    font-weight:750;
-    letter-spacing:-.6px;
-    margin:0 0 6px;
+
+.auth-heading h2 {
+    margin: 0 0 6px;
+
+    color: var(--text-dark) !important;
+
+    font-size: 28px;
+    font-weight: 750;
+
+    line-height: 1.18;
+
+    letter-spacing: -0.6px;
 }
 
-.auth-heading p{
-    color:#3e7864;
-    font-size:13px;
-    line-height:1.45;
-    margin:0;
+
+.auth-heading p {
+    margin: 0;
+
+    color: #3e7864 !important;
+
+    font-size: 13px;
+
+    line-height: 1.45;
 }
 
-/* Form */
 
-.login-page .form-group{
-    margin-bottom:15px;
+/* =========================================================
+   FORM
+   ========================================================= */
+
+.login-page .form-group {
+    margin-bottom: 15px;
 }
 
-.login-page .field-label{
-    display:block;
-    color:#203b27;
-    font-size:13px;
-    font-weight:650;
-    margin-bottom:6px;
+
+.login-page .field-label {
+    display: block;
+
+    margin-bottom: 6px;
+
+    color: var(--text-dark);
+
+    font-size: 13px;
+    font-weight: 650;
 }
 
-.input-container{
-    position:relative;
+
+/* =========================================================
+   INPUT
+   ========================================================= */
+
+.input-container {
+    position: relative;
 }
 
-.input-container .form-control{
-    width:100%;
-    height:48px;
-    padding:0 52px 0 45px;
-    border:1px solid #E7DDF0;
-    border-radius:9px;
-    background:#fff;
-    color:#301044;
-    font-size:14px;
-    box-sizing:border-box;
-    transition:border-color .2s,box-shadow .2s,background .2s;
-    box-shadow:none!important;
+
+.input-container .form-control {
+    width: 100%;
+    height: 48px;
+
+    padding:
+        0
+        52px
+        0
+        45px;
+
+    border: 1px solid var(--border);
+
+    border-radius: 9px;
+
+    background: #ffffff;
+
+    color: #301044;
+
+    font-size: 14px;
+
+    box-shadow: none !important;
+
+    transition:
+        border-color 0.2s,
+        box-shadow 0.2s,
+        background 0.2s;
 }
 
-.input-container .form-control:hover{
-    border-color:#D8CBE0;
-    background:#FBF8FC;
+
+.input-container .form-control:hover {
+    border-color: #d8cbe0;
+
+    background: #fbf8fc;
 }
 
-.input-container .form-control:focus{
-    border-color:#2753d8;
-    outline:none;
-    background:#fff;
-    box-shadow:0 0 0 3px rgba(73, 200, 168, 0.11)!important;
+
+.input-container .form-control:focus {
+    border-color: var(--vishuddhi-blue);
+
+    outline: none;
+
+    background: #ffffff;
+
+    box-shadow:
+        0 0 0 3px rgba(73, 200, 168, 0.11) !important;
 }
 
-.input-container .form-control::placeholder{
-    color:#9A8FA2;
+
+.input-container .form-control::placeholder {
+    color: #9a8fa2;
 }
 
-.input-icon{
-    position:absolute;
-    top:50%;
-    left:15px;
-    z-index:2;
-    display:flex;
-    align-items:center;
-    color:#75657D;
-    transform:translateY(-50%);
-    pointer-events:none;
+
+/* =========================================================
+   INPUT ICON
+   ========================================================= */
+
+.input-icon {
+    position: absolute;
+
+    top: 50%;
+    left: 15px;
+
+    z-index: 2;
+
+    display: flex;
+
+    align-items: center;
+
+    color: #75657d;
+
+    transform: translateY(-50%);
+
+    pointer-events: none;
 }
 
-.input-icon svg{
-    width:18px;
-    height:18px;
+
+.input-icon svg {
+    width: 18px;
+    height: 18px;
 }
 
-.toggle-password{
-    position:absolute;
-    top:50%;
-    right:15px;
-    z-index:3;
-    color:#453D89!important;
-    font-size:12px;
-    font-weight:650;
-    cursor:pointer;
-    transform:translateY(-50%);
+
+/* =========================================================
+   PASSWORD TOGGLE
+   ========================================================= */
+
+.toggle-password {
+    position: absolute;
+
+    top: 50%;
+    right: 15px;
+
+    z-index: 3;
+
+    color: var(--vishuddhi-blue) !important;
+
+    font-size: 12px;
+    font-weight: 650;
+
+    cursor: pointer;
+
+    transform: translateY(-50%);
 }
 
-/* Login options */
 
-.login-options{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    margin:2px 0 20px;
+/* =========================================================
+   LOGIN OPTIONS
+   ========================================================= */
+
+.login-options {
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    margin: 2px 0 20px;
 }
 
-.remember-me{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    color:#75657D;
-    font-size:13px;
-    margin:0;
-    cursor:pointer;
+
+.remember-me {
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin: 0;
+
+    color: var(--text-muted);
+
+    font-size: 13px;
+
+    cursor: pointer;
 }
 
-.remember-me input{
-    width:15px;
-    height:15px;
-    margin:0;
-    accent-color:#453D89;
+
+.remember-me input {
+    width: 15px;
+    height: 15px;
+
+    margin: 0;
+
+    accent-color: var(--vishuddhi-blue);
 }
 
-.forgot-password-message{
-    margin:0;
+
+.forgot-password-message {
+    margin: 0;
 }
+
 
 .forgot-password-message a,
 .sign-up-message a,
-.auth-back-link a{
-    color:#453D89!important;
-    font-size:13px;
-    font-weight:650;
-    text-decoration:none!important;
+.auth-back-link a {
+    color: var(--vishuddhi-blue) !important;
+
+    font-size: 13px;
+    font-weight: 650;
+
+    text-decoration: none !important;
 }
+
 
 .forgot-password-message a:hover,
 .sign-up-message a:hover,
-.auth-back-link a:hover{
-    color:#2753d8!important;
+.auth-back-link a:hover {
+    color: var(--vishuddhi-green) !important;
 }
 
-/* Main action */
+
+/* =========================================================
+   PRIMARY BUTTON
+   ========================================================= */
 
 .login-page .btn-login,
 .login-page .btn-forgot,
 .login-page .btn-signup,
-.login-page .btn-login-with-email-link{
-    width:100%;
-    height:48px;
-    border:0!important;
-    border-radius:9px!important;
-background: linear-gradient(
+.login-page .btn-login-with-email-link {
+    width: 100%;
+    height: 48px;
+
+    border: 0 !important;
+
+    border-radius: 9px !important;
+
+    background: linear-gradient(
         135deg,
         #2753d8 0%,
         #147f78 55%,
         #184921 100%
-    );    color:#fff!important;
-    font-size:14px!important;
-    font-weight:700!important;
-    box-shadow:0 8px 20px rgba(69,61,137,.22);
-    transition:transform .2s,box-shadow .2s;
+    );
+
+    color: #ffffff !important;
+
+    font-size: 14px !important;
+    font-weight: 700 !important;
+
+    box-shadow:
+        0 8px 20px rgba(69, 61, 137, 0.22);
+
+    transition:
+        transform 0.2s,
+        box-shadow 0.2s;
 }
+
 
 .login-page .btn-login:hover,
 .login-page .btn-forgot:hover,
 .login-page .btn-signup:hover,
-.login-page .btn-login-with-email-link:hover{
-    transform:translateY(-1px);
-    box-shadow:0 11px 24px #2753d8;
+.login-page .btn-login-with-email-link:hover {
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 11px 24px rgba(39, 83, 216, 0.30);
 }
 
-/* Alternative login */
 
-.social-logins{
-    margin-top:18px;
+/* =========================================================
+   SOCIAL LOGIN
+   ========================================================= */
+
+.social-logins {
+    margin-top: 18px;
 }
 
-.login-divider{
-    display:flex;
-    align-items:center;
-    gap:12px;
-    margin:18px 0 14px;
-    color:#9a919f;
-    font-size:11px;
-    text-transform:lowercase;
+
+.login-divider {
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin: 18px 0 14px;
+
+    color: #9a919f;
+
+    font-size: 11px;
+
+    text-transform: lowercase;
 }
+
 
 .login-divider::before,
-.login-divider::after{
-    content:"";
-    flex:1;
-    height:1px;
-    background:#F0EAF4;
+.login-divider::after {
+    content: "";
+
+    flex: 1;
+
+    height: 1px;
+
+    background: #f0eaf4;
 }
 
-.social-login-buttons{
-    display:flex;
-    flex-direction:column;
-    gap:8px;
+
+.social-login-buttons {
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 8px;
 }
 
-.login-button-wrapper{
-    width:100%;
+
+.login-button-wrapper {
+    width: 100%;
 }
 
-.login-page .btn-login-option{
-    width:100%;
-    min-height:44px;
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:9px;
-    border:1px solid #E7DDF0!important;
-    border-radius:9px!important;
-    background:#fff!important;
-    color:#184921!important;
-    font-size:13px;
-    font-weight:600;
-    text-decoration:none!important;
-    box-shadow:none!important;
-    transition:.2s;
+
+.login-page .btn-login-option {
+    width: 100%;
+    min-height: 44px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    gap: 9px;
+
+    border: 1px solid #e7ddf0 !important;
+
+    border-radius: 9px !important;
+
+    background: #ffffff !important;
+
+    color: #184921 !important;
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    text-decoration: none !important;
+
+    box-shadow: none !important;
+
+    transition:
+        background 0.2s,
+        border-color 0.2s;
 }
 
-.login-page .btn-login-option:hover{
-    background:#FBF8FC!important;
-    border-color:#D8CBE0!important;
+
+.login-page .btn-login-option:hover {
+    background: #fbf8fc !important;
+
+    border-color: #d8cbe0 !important;
 }
 
-.login-page .btn-login-option svg{
-    max-width:20px;
-    max-height:20px;
+
+.login-page .btn-login-option svg {
+    width: 20px;
+    height: 20px;
+
+    max-width: 20px;
+    max-height: 20px;
 }
 
-.sign-up-message{
-    margin-top:18px;
-    text-align:center;
-    color:#75657D;
-    font-size:13px;
+
+/* =========================================================
+   GOOGLE
+   ========================================================= */
+
+.login-page .btn-google {
+    border-color: #dadce0 !important;
+
+    background: #ffffff !important;
+
+    color: #3c4043 !important;
 }
 
-.auth-back-link{
-    margin-top:18px;
-    text-align:center;
+
+.login-page .btn-google:hover {
+    background: #f8f9fa !important;
+
+    border-color: #c7c9cc !important;
 }
+
+
+.login-page .btn-google svg {
+    width: 20px;
+    height: 20px;
+
+    flex: 0 0 20px;
+}
+
+
+/* =========================================================
+   SIGNUP
+   ========================================================= */
+
+.sign-up-message {
+    margin-top: 18px;
+
+    text-align: center;
+
+    color: var(--text-muted);
+
+    font-size: 13px;
+}
+
+
+.auth-back-link {
+    margin-top: 18px;
+
+    text-align: center;
+}
+
+
+/* =========================================================
+   AUTH SECTIONS
+   ========================================================= */
 
 .for-email-login,
 .for-signup,
 .for-forgot,
-.for-login-with-email-link{
-    width:100%;
+.for-login-with-email-link {
+    width: 100%;
 }
 
-.login-right::after{
-    content:"Secure access • Quantumberg Technologies Pvt Ltd";
-    position:absolute;
-    right:22px;
-    bottom:12px;
-    color:#9A8FA2;
-    font-size:9px;
+
+/* =========================================================
+   SECURITY FOOTER
+   ========================================================= */
+
+.login-right::after {
+    content: "Secure access • Vishuddhi Home Garden";
+
+    position: absolute;
+
+    right: 22px;
+    bottom: 12px;
+
+    color: #9a8fa2;
+
+    font-size: 9px;
 }
 
-/* =========================
+
+/* =========================================================
    RESPONSIVE
-   ========================= */
+   ========================================================= */
 
-@media(max-width:1000px){
-    .login-page{
-        padding:16px;
+@media (max-width: 1000px) {
+
+    .login-page {
+        padding: 16px;
     }
 
-    .login-container{
-        height:min(600px,calc(100vh - 32px));
-        max-width:900px;
-        grid-template-columns:42% 58%;
+    .login-container {
+        height: min(600px, calc(100vh - 32px));
+
+        max-width: 900px;
+
+        grid-template-columns: 42% 58%;
     }
 
-    .login-left{
-        padding:30px;
+    .login-left {
+        padding: 30px;
     }
 
-    .brand img{
-        width:220px;
+    .brand img {
+        width: 220px;
     }
 
-    .welcome-content h1{
-        font-size:34px;
+    .welcome-content h1 {
+        font-size: 34px;
     }
 
-    .login-right{
-        padding:28px 42px;
-    }
-}
-
-@media(max-width:768px){
-    .login-page{
-        min-height:100vh;
-        padding:0;
-        background:#fff;
-    }
-
-    .login-container{
-        display:block;
-        width:100%;
-        height:auto;
-        min-height:100vh;
-        border-radius:0;
-        box-shadow:none;
-    }
-
-    .login-left{
-        display:none;
-    }
-
-    .login-right{
-        min-height:100vh;
-        padding:34px 24px 55px;
-    }
-
-    .mobile-logo{
-        display:block;
-        text-align:center;
-        margin-bottom:22px;
-    }
-
-    .mobile-logo img{
-        max-width:165px;
-        max-height:55px;
-        object-fit:contain;
-        object-position:center;
-    }
-
-    .auth-heading{
-        text-align:center;
-        margin-bottom:22px;
-    }
-
-    .auth-heading h2{
-        font-size:26px;
-    }
-
-    .login-right::after{
-        right:18px;
-        bottom:13px;
+    .login-right {
+        padding: 28px 42px;
     }
 }
 
-@media(max-width:480px){
-    .login-right{
-        padding:28px 18px 52px;
+
+@media (max-width: 768px) {
+
+    .login-page {
+        min-height: 100vh;
+
+        padding: 0;
+
+        background: #ffffff;
     }
 
-    .auth-wrapper{
-        max-width:100%;
+    .login-container {
+        display: block;
+
+        width: 100%;
+
+        height: auto;
+
+        min-height: 100vh;
+
+        border-radius: 0;
+
+        box-shadow: none;
     }
 
-    .mobile-logo{
-        margin-bottom:20px;
+    .login-left {
+        display: none;
     }
 
-    .mobile-logo img{
-        max-width:150px;
+    .login-right {
+        min-height: 100vh;
+
+        padding: 34px 24px 55px;
     }
 
-    .auth-heading h2{
-        font-size:24px;
+    .mobile-logo {
+        display: block;
     }
 
-    .login-options{
-        gap:12px;
+    .mobile-logo img {
+        max-width: 165px;
+        max-height: 55px;
+    }
+
+    .auth-heading {
+        text-align: center;
+
+        margin-bottom: 22px;
+    }
+
+    .auth-heading h2 {
+        font-size: 26px;
+    }
+
+    .login-right::after {
+        right: 18px;
+        bottom: 13px;
+    }
+}
+
+
+@media (max-width: 480px) {
+
+    .login-right {
+        padding: 28px 18px 52px;
+    }
+
+    .auth-wrapper {
+        max-width: 100%;
+    }
+
+    .mobile-logo {
+        margin-bottom: 20px;
+    }
+
+    .mobile-logo img {
+        max-width: 150px;
+    }
+
+    .auth-heading h2 {
+        font-size: 24px;
+    }
+
+    .login-options {
+        gap: 12px;
     }
 }
 
-/* On short desktop screens, compact the layout further */
-@media(min-width:769px) and (max-height:760px){
-    .login-page{
-        padding:12px;
+
+@media (min-width: 769px) and (max-height: 760px) {
+
+    .login-page {
+        padding: 12px;
     }
 
-    .login-container{
-        height:calc(100vh - 24px);
-        max-height:610px;
+    .login-container {
+        height: calc(100vh - 24px);
+
+        max-height: 610px;
     }
 
-    .login-left{
-        padding:25px 34px;
+    .login-left {
+        padding: 25px 34px;
     }
 
-    .brand{
-        margin-bottom:20px;
+    .brand {
+        margin-bottom: 20px;
     }
 
-    .brand img{
-        width:225px;
-        max-height:70px;
-        padding:11px 18px;
+    .brand img {
+        width: 225px;
+
+        max-height: 70px;
+
+        padding: 11px 18px;
     }
 
-    .welcome-content h1{
-        font-size:34px;
+    .welcome-content h1 {
+        font-size: 34px;
     }
 
-    .welcome-content p{
-        margin-top:10px;
-        font-size:14px;
+    .welcome-content p {
+        margin-top: 10px;
+
+        font-size: 14px;
     }
 
-    .company-footer{
-        margin-top:28px;
+    .company-footer {
+        margin-top: 28px;
     }
 
-    .login-right{
-        padding:24px 30px;
+    .login-right {
+        padding: 24px 30px;
     }
 
-    .mobile-logo{
-        display:none;
+    .auth-heading {
+        margin-bottom: 16px;
     }
 
-    .auth-heading{
-        margin-bottom:16px;
+    .login-page .form-group {
+        margin-bottom: 12px;
     }
 
-    .login-page .form-group{
-        margin-bottom:12px;
+    .login-options {
+        margin-bottom: 16px;
     }
-
-    .login-options{
-        margin-bottom:16px;
-    }
-}
-/* =========================
-   GOOGLE LOGIN BUTTON
-   ========================= */
-
-.login-page .btn-google {
-    border-color:#dadce0 !important;
-    background:#fff !important;
-    color:#3c4043 !important;
-}
-
-.login-page .btn-google:hover {
-    background:#f8f9fa !important;
-    border-color:#c7c9cc !important;
-}
-
-.login-page .btn-google svg {
-    width:20px;
-    height:20px;
-    flex:0 0 20px;
 }
 
 </style>
@@ -711,64 +1029,121 @@ background: linear-gradient(
 
 
 {% macro auth_heading(title, description) %}
+
 <div class="auth-heading">
+
     <h2>{{ _(title) }}</h2>
+
     <p>{{ _(description) }}</p>
+
 </div>
+
 {% endmacro %}
 
 
 {% macro email_login_body() %}
 
-{% if not disable_user_pass_login or (ldap_settings and ldap_settings.enabled) %}
+{% if not disable_user_pass_login or
+      (ldap_settings and ldap_settings.enabled) %}
 
 <div class="page-card-body">
 
+    <!-- EMAIL / USERNAME -->
+
     <div class="form-group">
 
-        <label class="field-label" for="login_email">
+        <label
+            class="field-label"
+            for="login_email"
+        >
             {{ login_label or _("Email or Username") }}
         </label>
 
         <div class="email-field input-container">
 
             <span class="input-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round">
+
+                <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                >
                     <path d="M20 21a8 8 0 0 0-16 0"></path>
                     <circle cx="12" cy="7" r="4"></circle>
                 </svg>
+
             </span>
 
-            <input type="text" id="login_email" class="form-control"
+            <input
+                type="text"
+                id="login_email"
+                class="form-control"
                 placeholder="{% if login_name_placeholder %}{{ login_name_placeholder }}{% else %}{{ _('Enter your email or username') }}{% endif %}"
-                required autofocus autocomplete="username">
+                required
+                autofocus
+                autocomplete="username"
+            >
 
         </div>
 
     </div>
 
 
+    <!-- PASSWORD -->
+
     <div class="form-group">
 
-        <label class="field-label" for="login_password">
+        <label
+            class="field-label"
+            for="login_password"
+        >
             {{ _("Password") }}
         </label>
 
         <div class="password-field input-container">
 
             <span class="input-icon">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round">
-                    <rect x="3" y="11" width="18" height="10" rx="2"></rect>
+
+                <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                >
+                    <rect
+                        x="3"
+                        y="11"
+                        width="18"
+                        height="10"
+                        rx="2"
+                    ></rect>
+
                     <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+
                 </svg>
+
             </span>
 
-            <input type="password" id="login_password" class="form-control" placeholder="{{ _('Enter your password') }}"
-                autocomplete="current-password" required>
 
-            <span toggle="#login_password" class="toggle-password text-muted">
+            <input
+                type="password"
+                id="login_password"
+                class="form-control"
+                placeholder="{{ _('Enter your password') }}"
+                autocomplete="current-password"
+                required
+            >
+
+
+            <span
+                toggle="#login_password"
+                class="toggle-password text-muted"
+            >
                 {{ _("Show") }}
             </span>
 
@@ -782,14 +1157,25 @@ background: linear-gradient(
     <div class="login-options">
 
         <label class="remember-me">
-            <input type="checkbox" id="remember_me">
-            <span>{{ _("Remember me") }}</span>
+
+            <input
+                type="checkbox"
+                id="remember_me"
+            >
+
+            <span>
+                {{ _("Remember me") }}
+            </span>
+
         </label>
 
+
         <p class="forgot-password-message">
+
             <a href="#forgot">
                 {{ _("Forgot Password?") }}
             </a>
+
         </p>
 
     </div>
@@ -805,7 +1191,10 @@ background: linear-gradient(
 
     {% if not disable_user_pass_login %}
 
-    <button class="btn btn-primary btn-login" type="submit">
+    <button
+        class="btn btn-primary btn-login"
+        type="submit"
+    >
         {{ _("Sign In") }}
     </button>
 
@@ -814,7 +1203,10 @@ background: linear-gradient(
 
     {% if ldap_settings and ldap_settings.enabled %}
 
-    <button class="btn btn-login btn-ldap-login" type="button">
+    <button
+        class="btn btn-login btn-ldap-login"
+        type="button"
+    >
         {{ _("Login with LDAP") }}
     </button>
 
@@ -830,45 +1222,58 @@ background: linear-gradient(
 <div class="login-page">
 
     <noscript>
+
         <div class="text-center my-5">
-            <h4>{{ _("Javascript is disabled on your browser") }}</h4>
+
+            <h4>
+                {{ _("Javascript is disabled on your browser") }}
+            </h4>
+
             <p class="text-muted">
                 {{ _("You need to enable JavaScript for your app to work.") }}
             </p>
+
         </div>
+
     </noscript>
 
 
     <div class="login-container">
 
+
         <!-- =====================================================
-                     LEFT BRAND PANEL
-                ====================================================== -->
+             LEFT BRAND PANEL
+             ===================================================== -->
 
         <div class="login-left">
 
             <div class="dots dots-top">
+
                 <span></span>
                 <span></span>
                 <span></span>
+
                 <span></span>
                 <span></span>
                 <span></span>
+
                 <span></span>
                 <span></span>
                 <span></span>
+
             </div>
 
 
             <div class="brand">
 
                 {% if logo %}
-                <img src="{{ logo }}" alt="">
-                {% endif %}
 
-                <span>
-                     <!-- {{ app_name or _("Quantumberg Technologies Pvt Ltd") }} -->
-                </span>
+                <img
+                    src="{{ logo }}"
+                    alt="Vishuddhi Home Garden"
+                >
+
+                {% endif %}
 
             </div>
 
@@ -878,37 +1283,45 @@ background: linear-gradient(
                 <h1>
                     {{ _("Welcome!") }}
                 </h1>
+
                 <p>
-                    <!-- {{ _("Sign in securely to access your Quantumberg workspace.") }} -->
-                      {{ _("Sign in securely to access your {0} workspace").format(app_name or _("Quantumberg")) }}.
+                    {{ _("Sign in securely to access your Vishuddhi Home Garden account.") }}
                 </p>
+
             </div>
 
 
             <div class="company-footer">
 
-    <h3>{{ app_name or _("Quantumberg Technologies Pvt Ltd") }}</h3>
+                <h3>
+                    Vishuddhi Home Garden
+                </h3>
 
-    <p>Technology • Innovation • Transformation</p>
+                <p>
+                    Indoor & Outdoor Plants • Gardening Essentials
+                </p>
 
-</div>
+            </div>
 
 
             <div class="dots dots-bottom">
+
                 <span></span>
                 <span></span>
                 <span></span>
+
                 <span></span>
                 <span></span>
                 <span></span>
+
             </div>
 
         </div>
 
 
         <!-- =====================================================
-                     RIGHT AUTH PANEL
-                ====================================================== -->
+             RIGHT AUTH PANEL
+             ===================================================== -->
 
         <div class="login-right">
 
@@ -920,30 +1333,40 @@ background: linear-gradient(
                 <div class="mobile-logo">
 
                     {% if logo %}
-                    <img src="{{ logo }}" alt="{{ app_name or _('Quantumberg Technologies Pvt Ltd') }}">
+
+                    <img
+                        src="{{ logo }}"
+                        alt="Vishuddhi Home Garden"
+                    >
+
                     {% endif %}
 
                 </div>
 
 
                 <!-- =================================================
-                                     LOGIN
-                                ================================================== -->
+                     LOGIN
+                     ================================================= -->
 
                 <section class="for-login">
 
                     {{ auth_heading(
-                    "Sign in to your account",
-                    "Enter your credentials below to continue"
+                        "Sign in to your account",
+                        "Enter your credentials below to continue"
                     ) }}
 
 
-                    <form class="form-signin form-login" role="form">
+                    <form
+                        class="form-signin form-login"
+                        role="form"
+                    >
 
                         {{ email_login_body() }}
 
                     </form>
 
+
+                    <!-- SOCIAL LOGIN -->
 
                     {% if social_login or login_with_email_link %}
 
@@ -951,16 +1374,20 @@ background: linear-gradient(
 
 
                         {% if not disable_user_pass_login or
-                        (ldap_settings and ldap_settings.enabled) %}
+                              (ldap_settings and ldap_settings.enabled) %}
 
                         <div class="login-divider">
+
                             <span>
                                 {{ _("or continue with") }}
                             </span>
+
                         </div>
 
                         {% endif %}
 
+
+                        <!-- GOOGLE / OTHER SOCIAL PROVIDERS -->
 
                         {% if provider_logins %}
 
@@ -970,7 +1397,10 @@ background: linear-gradient(
 
                             <div class="login-button-wrapper">
 
-                                <a href="{{ provider.auth_url }}" class="btn btn-login-option btn-{{ provider.name }}">
+                                <a
+                                    href="{{ provider.auth_url }}"
+                                    class="btn btn-login-option btn-{{ provider.name }}"
+                                >
 
                                     {% if provider.icon %}
 
@@ -993,17 +1423,22 @@ background: linear-gradient(
                         {% endif %}
 
 
+                        <!-- FRAPPE CLOUD -->
+
                         {% if login_with_frappe_cloud_url %}
 
-                        <div class="social-login-buttons" style="margin-top:12px;">
+                        <div
+                            class="social-login-buttons"
+                            style="margin-top:12px;"
+                        >
 
                             <div class="login-button-wrapper">
 
-                                <a href="{{ login_with_frappe_cloud_url }}"
-                                    class="btn btn-login-option btn-login-with-frappe-cloud">
-
+                                <a
+                                    href="{{ login_with_frappe_cloud_url }}"
+                                    class="btn btn-login-option btn-login-with-frappe-cloud"
+                                >
                                     {{ _("Continue with Frappe Cloud") }}
-
                                 </a>
 
                             </div>
@@ -1013,16 +1448,22 @@ background: linear-gradient(
                         {% endif %}
 
 
+                        <!-- EMAIL LOGIN LINK -->
+
                         {% if login_with_email_link %}
 
-                        <div class="login-with-email-link social-login-buttons" style="margin-top:12px;">
+                        <div
+                            class="login-with-email-link social-login-buttons"
+                            style="margin-top:12px;"
+                        >
 
                             <div class="login-button-wrapper">
 
-                                <a href="#login-with-email-link" class="btn btn-login-option btn-login-with-email-link">
-
+                                <a
+                                    href="#login-with-email-link"
+                                    class="btn btn-login-option btn-login-with-email-link"
+                                >
                                     {{ _("Login with Email Link") }}
-
                                 </a>
 
                             </div>
@@ -1036,7 +1477,10 @@ background: linear-gradient(
                     {% endif %}
 
 
-                    {% if not disable_signup and not disable_user_pass_login %}
+                    <!-- SIGNUP LINK -->
+
+                    {% if not disable_signup and
+                          not disable_user_pass_login %}
 
                     <div class="sign-up-message">
 
@@ -1054,19 +1498,23 @@ background: linear-gradient(
 
 
                 <!-- =================================================
-                                     EMAIL LOGIN
-                                ================================================== -->
+                     EMAIL LOGIN
+                     ================================================= -->
 
                 {% if social_login %}
 
                 <section class="for-email-login">
 
                     {{ auth_heading(
-                    "Login with Email",
-                    "Enter your account credentials to continue"
+                        "Login with Email",
+                        "Enter your account credentials to continue"
                     ) }}
 
-                    <form class="form-signin form-login" role="form">
+
+                    <form
+                        class="form-signin form-login"
+                        role="form"
+                    >
 
                         {{ email_login_body() }}
 
@@ -1087,14 +1535,16 @@ background: linear-gradient(
 
 
                 <!-- =================================================
-                                     SIGNUP
-                                ================================================== -->
+                     SIGNUP
+                     ================================================= -->
 
-                <section class="for-signup {{ 'signup-disabled' if disable_signup else '' }}">
+                <section
+                    class="for-signup {{ 'signup-disabled' if disable_signup else '' }}"
+                >
 
                     {{ auth_heading(
-                    "Create your account",
-                    "Enter your information to get started"
+                        "Create your account",
+                        "Enter your information to get started"
                     ) }}
 
 
@@ -1107,13 +1557,16 @@ background: linear-gradient(
                     <div class="text-center">
 
                         <p class="text-muted">
+
                             {{ _("Signups have been disabled for this website.") }}
+
                         </p>
 
-                        <a href="/" class="btn btn-primary">
-
+                        <a
+                            href="/"
+                            class="btn btn-primary"
+                        >
                             {{ _("Home") }}
-
                         </a>
 
                     </div>
@@ -1133,27 +1586,31 @@ background: linear-gradient(
 
 
                 <!-- =================================================
-                                     FORGOT PASSWORD
-                                ================================================== -->
+                     FORGOT PASSWORD
+                     ================================================= -->
 
                 <section class="for-forgot">
 
                     {{ auth_heading(
-                    "Forgot Password?",
-                    "Enter your email address and we'll send you a reset link"
+                        "Forgot Password?",
+                        "Enter your email address and we'll send you a reset link"
                     ) }}
 
 
-                    <form class="form-signin form-forgot" role="form">
+                    <form
+                        class="form-signin form-forgot"
+                        role="form"
+                    >
 
                         <div class="page-card-body">
 
                             <div class="form-group">
 
-                                <label class="field-label" for="forgot_email">
-
+                                <label
+                                    class="field-label"
+                                    for="forgot_email"
+                                >
                                     {{ _("Email Address") }}
-
                                 </label>
 
 
@@ -1161,9 +1618,17 @@ background: linear-gradient(
 
                                     <span class="input-icon">
 
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <svg
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            stroke-width="2"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        >
 
                                             <path d="M4 4h16v16H4z"></path>
+
                                             <path d="M4 6l8 6 8-6"></path>
 
                                         </svg>
@@ -1171,9 +1636,14 @@ background: linear-gradient(
                                     </span>
 
 
-                                    <input type="email" id="forgot_email" class="form-control"
-                                        placeholder="{{ _('Enter your email address') }}" required
-                                        autocomplete="username">
+                                    <input
+                                        type="email"
+                                        id="forgot_email"
+                                        class="form-control"
+                                        placeholder="{{ _('Enter your email address') }}"
+                                        required
+                                        autocomplete="username"
+                                    >
 
                                 </div>
 
@@ -1184,10 +1654,11 @@ background: linear-gradient(
 
                         <div class="page-card-actions">
 
-                            <button class="btn btn-primary btn-forgot" type="submit">
-
+                            <button
+                                class="btn btn-primary btn-forgot"
+                                type="submit"
+                            >
                                 {{ _("Reset Password") }}
-
                             </button>
 
                         </div>
@@ -1207,27 +1678,31 @@ background: linear-gradient(
 
 
                 <!-- =================================================
-                                     EMAIL LINK LOGIN
-                                ================================================== -->
+                     EMAIL LINK LOGIN
+                     ================================================= -->
 
                 <section class="for-login-with-email-link">
 
                     {{ auth_heading(
-                    "Login with Email Link",
-                    "We will send a secure login link to your email"
+                        "Login with Email Link",
+                        "We will send a secure login link to your email"
                     ) }}
 
 
-                    <form class="form-signin form-login-with-email-link" role="form">
+                    <form
+                        class="form-signin form-login-with-email-link"
+                        role="form"
+                    >
 
                         <div class="page-card-body">
 
                             <div class="form-group">
 
-                                <label class="field-label" for="login_with_email_link_email">
-
+                                <label
+                                    class="field-label"
+                                    for="login_with_email_link_email"
+                                >
                                     {{ _("Email Address") }}
-
                                 </label>
 
 
@@ -1235,9 +1710,17 @@ background: linear-gradient(
 
                                     <span class="input-icon">
 
-                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <svg
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            stroke-width="2"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                        >
 
                                             <path d="M4 4h16v16H4z"></path>
+
                                             <path d="M4 6l8 6 8-6"></path>
 
                                         </svg>
@@ -1245,9 +1728,14 @@ background: linear-gradient(
                                     </span>
 
 
-                                    <input type="email" id="login_with_email_link_email" class="form-control"
-                                        placeholder="{{ _('Enter your email address') }}" required
-                                        autocomplete="username">
+                                    <input
+                                        type="email"
+                                        id="login_with_email_link_email"
+                                        class="form-control"
+                                        placeholder="{{ _('Enter your email address') }}"
+                                        required
+                                        autocomplete="username"
+                                    >
 
                                 </div>
 
@@ -1258,10 +1746,11 @@ background: linear-gradient(
 
                         <div class="page-card-actions">
 
-                            <button class="btn btn-primary btn-login-with-email-link" type="submit">
-
+                            <button
+                                class="btn btn-primary btn-login-with-email-link"
+                                type="submit"
+                            >
                                 {{ _("Send Login Link") }}
-
                             </button>
 
                         </div>
@@ -1292,7 +1781,11 @@ background: linear-gradient(
 
 
 {% block script %}
+
 <script>
+
     {% include "templates/includes/login/login.js" %}
+
 </script>
+
 {% endblock %}
