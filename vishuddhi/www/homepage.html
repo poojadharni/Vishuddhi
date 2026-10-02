@@ -1991,6 +1991,20 @@ html {
     }
 
 }
+.msgprint-dialog .modal-content {
+    min-height: 120px !important;
+    margin-top: 130px !important;
+}
+.modal.show .modal-dialog {
+    transform: none;
+    margin-top: 140px !important;
+}
+
+[class*="col-"],
+.col {
+    padding: 0 !important;
+}
+
 </style>
 
 
@@ -3867,16 +3881,6 @@ function createProductCard(product) {
     card.innerHTML = `
 
         ${badgeHtml}
-
-
-        <button
-            type="button"
-            class="product-wishlist"
-            aria-label="Add to wishlist"
-            title="Add to wishlist"
-        >
-            ♡
-        </button>
 
 
         <div class="product-image">
