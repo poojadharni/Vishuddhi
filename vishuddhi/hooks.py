@@ -1,8 +1,11 @@
+from . import __version__ as app_version
+
+
 app_name = "vishuddhi"
-app_title = "vishuddhi"
+app_title = "Vishuddhi"
 app_publisher = "pooja"
 app_description = "Vishuddhi Custom Application"
-app_email = "poojarajuhe@gmail.com"
+app_email = "pooja@example.com"
 app_license = "mit"
 
 # Apps
@@ -55,7 +58,7 @@ app_license = "mit"
 
 # Home Pages
 # ----------
-
+homepage = "homepage"
 # application home page (will override Website Settings)
 # home_page = "login"
 
@@ -63,7 +66,9 @@ app_license = "mit"
 # role_home_page = {
 # 	"Role": "home_page"
 # }
-
+website_context = {
+    "favicon": "/files/Vishuddhi-logo.png",
+}
 # Generators
 # ----------
 
