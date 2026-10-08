@@ -398,8 +398,8 @@ html {
 }
 
 .category-image {
-    width: 100px;
-    height: 100px;
+    width: 110px;
+    height: 110px;
     margin: auto;
     border-radius: 50%;
     background: #e5f0e4;
@@ -1995,11 +1995,252 @@ html {
     min-height: 120px !important;
     margin-top: 130px !important;
 }
-.modal.show .modal-dialog {
-    margin-top: 140px !important;
+.modal.show .modal-dialog .modal-content {
+    margin-top: 135px !important;
+}
+
+/* =========================================================
+SHOP BY CATEGORY CAROUSEL
+========================================================= */
+
+.category-section {
+width: 100%;
+}
+
+.category-box {
+width: 100%;
+}
+
+.category-top {
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 20px;
+margin-bottom: 20px;
+}
+
+.category-top h3 {
+margin: 0;
+}
+
+.view-all {
+text-decoration: none;
+}
+
+/* CAROUSEL WRAPPER */
+
+.category-carousel {
+position: relative;
+width: 100%;
+overflow: hidden;
+}
+
+/* CATEGORY SCROLL AREA */
+
+#shopByCategoryItems {
+display: flex !important;
+flex-direction: row !important;
+flex-wrap: nowrap !important;
+
+
+align-items: stretch;
+
+gap: 10px;
+
+width: 100%;
+max-width: 100%;
+
+overflow-x: auto;
+overflow-y: hidden;
+
+scroll-behavior: smooth;
+
+scrollbar-width: none;
+-ms-overflow-style: none;
+
+padding: 5px 0px;
+
+box-sizing: border-box;
+
+
+}
+
+#shopByCategoryItems::-webkit-scrollbar {
+display: none;
+}
+
+/* IMPORTANT:
+Fixed card width makes horizontal overflow work.
+*/
+
+#shopByCategoryItems > .category-item {
+flex: 0 0 180px !important;
+width: 180px !important;
+min-width: 180px !important;
+}
+
+/* LOADING / EMPTY MESSAGE */
+
+#shopByCategoryItems > .category-loading {
+width: 100%;
+min-width: 100%;
+
+
+flex: 0 0 100%;
+
+display: flex;
+align-items: center;
+justify-content: center;
+
+gap: 6px;
+
+padding: 20px 0px;
+
+color: #687873;
+
+box-sizing: border-box;
+
+
+}
+
+/* ARROW BUTTON */
+
+.category-carousel-btn {
+position: absolute;
+
+
+top: 40%;
+
+transform: translateY(-50%);
+
+z-index: 50;
+
+width: 40px;
+height: 40px;
+
+padding: 0;
+
+border: 1px solid #d9e2de;
+border-radius: 50%;
+
+background: #ffffff;
+color: #003d1f;
+
+display: flex;
+align-items: center;
+justify-content: center;
+
+cursor: pointer;
+
+box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+
+transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+
+
+}
+
+.category-carousel-btn:hover {
+background: #003d1f;
+color: #ffffff;
+border-color: #003d1f;
+
+
+transform: translateY(-50%) scale(1.05);
+
+
+}
+
+/* LEFT / RIGHT POSITION */
+
+.category-carousel-left {
+left: 2px;
+}
+
+.category-carousel-right {
+right: 2px;
+}
+
+/* HIDE ARROW */
+
+.category-carousel-btn.is-hidden {
+display: none !important;
+}
+
+/* =========================================================
+TABLET
+========================================================= */
+
+@media (max-width: 768px) {
+
+
+.category-top {
+    margin-bottom: 15px;
+}
+
+#shopByCategoryItems {
+    gap: 8px;
+
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
+#shopByCategoryItems > .category-item {
+    flex: 0 0 150px !important;
+    width: 150px !important;
+    min-width: 150px !important;
+}
+
+.category-carousel-btn {
+    width: 34px;
+    height: 34px;
+
+    font-size: 12px;
+}
+
+.category-carousel-left {
+    left: 3px;
+}
+
+.category-carousel-right {
+    right: 3px;
 }
 
 
+}
+
+/* =========================================================
+MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+
+
+#shopByCategoryItems {
+    gap: 8px;
+
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+#shopByCategoryItems > .category-item {
+    flex: 0 0 135px !important;
+    width: 135px !important;
+    min-width: 135px !important;
+}
+
+.category-carousel-btn {
+    width: 30px;
+    height: 30px;
+
+    font-size: 11px;
+}
+
+
+}
 
 </style>
 
@@ -2092,55 +2333,61 @@ html {
 </section>
 
 
-<!-- =====================================================
-     SHOP BY CATEGORY
-===================================================== -->
-
 <section class="category-section">
-
     <div class="vishuddhi-container">
 
-        <div class="category-box">
 
-            <div class="category-top">
+    <div class="category-box">
 
-                <h3>
-                    Shop by Category
-                </h3>
+        <div class="category-top">
+            <h3>Shop by Category</h3>
 
-                <a
-                    href="/shop-by-category"
-                    class="view-all"
-                >
-                    Explore All →
-                </a>
+            <a href="/shop-by-category" class="view-all">
+                Explore All →
+            </a>
+        </div>
 
-            </div>
+        <div class="category-carousel">
 
-
-            <!-- Categories are loaded from ERPNext Item Group -->
-            <div
-                class="category-items"
-                id="shopByCategoryItems"
+            <!-- LEFT ARROW -->
+            <button
+                type="button"
+                id="categoryCarouselLeft"
+                class="category-carousel-btn category-carousel-left is-hidden"
+                aria-label="Previous categories"
             >
+                <i class="fas fa-chevron-left"></i>
+            </button>
 
-                <div class="category-loading" style="grid-column: 1 / -1; text-align: center; padding: 30px; color: #687873;">
+            <!-- CATEGORY ITEMS -->
+            <div id="shopByCategoryItems" class="category-items">
 
+                <div class="category-loading">
                     <i class="fas fa-spinner fa-spin"></i>
-
-                    <span>
-                        Loading categories...
-                    </span>
-
+                    <span>Loading categories...</span>
                 </div>
 
             </div>
+
+            <!-- RIGHT ARROW -->
+            <button
+                type="button"
+                id="categoryCarouselRight"
+                class="category-carousel-btn category-carousel-right is-hidden"
+                aria-label="Next categories"
+            >
+                <i class="fas fa-chevron-right"></i>
+            </button>
 
         </div>
 
     </div>
 
+</div>
+
+
 </section>
+
 
 
 <!-- =====================================================
@@ -2924,30 +3171,23 @@ html {
 
             <div class="testimonial-item active">
 
-                <img
-                    class="testimonial-avatar"
-                    src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=150&q=90"
-                    alt="Customer"
-                    loading="lazy"
-                >
+               <div class="testimonial-name">
+                Sangeetha Sadagopan                
+               </div>
+
+                <div class="testimonial-location">
+                    Bangalore
+                </div>
 
                 <div class="stars">
                     ★★★★★
                 </div>
 
                 <div class="testimonial-text">
-                    "Amazing quality plants and super fast delivery!
-                    My home looks so much greener now. Highly recommend
-                    Vishuddhi!"
+                    "We recently got some gardening and plant work done by Jacklin and her team, and it was a wonderful experience. Ashish did a fantastic job changing all the pots and arranging everything beautifully. The plants look so fresh and lively now! Highly recommend their service for anyone looking to give their garden a lovely makeover."
                 </div>
 
-                <div class="testimonial-name">
-                    Pooja
-                </div>
-
-                <div class="testimonial-location">
-                    Bangalore
-                </div>
+                
 
             </div>
 
@@ -2958,29 +3198,20 @@ html {
 
             <div class="testimonial-item">
 
-                <img
-                    class="testimonial-avatar"
-                    src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=150&q=90"
-                    alt="Customer"
-                    loading="lazy"
-                >
+              <div class="testimonial-name">
+                    Shivani Singh
+                </div>
+
+                <div class="testimonial-location">
+                    Bangalore
+                </div>
 
                 <div class="stars">
                     ★★★★★
                 </div>
 
                 <div class="testimonial-text">
-                    "The plants arrived fresh, healthy and beautifully
-                    packed. The quality was excellent and the entire
-                    shopping experience was very smooth."
-                </div>
-
-                <div class="testimonial-name">
-                    Rahul Mehta
-                </div>
-
-                <div class="testimonial-location">
-                    Bangalore
+                    "Amazing place to buy plants if you are a true plant lover, every plant bought from this nursery flourishes and blooms. The owners and the help in nursery truly love plants and take very good care of them. Recommended to go and visit the place."
                 </div>
 
             </div>
@@ -2991,22 +3222,19 @@ html {
             ====================================================== -->
 
             <div class="testimonial-item">
+              <div class="testimonial-name">
+                    Asheej Kommery
+                </div>
 
-                <img
-                    class="testimonial-avatar"
-                    src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=150&q=90"
-                    alt="Customer"
-                    loading="lazy"
-                >
-
+                <div class="testimonial-location">
+                    Bangalore
+                </div>
                 <div class="stars">
                     ★★★★★
                 </div>
 
                 <div class="testimonial-text">
-                    "I loved the variety of plants available at Vishuddhi.
-                    The plants were healthy and exactly as shown on the
-                    website. I will definitely order again!"
+                    "Excellent place for all types of plants. You wont get thier price anywhere in NRI layout. They are very polite and once you visit there you will never go anywhere else to buy plants. I am one of their regular happy customer."
                 </div>
 
                 <div class="testimonial-name">
@@ -3124,8 +3352,247 @@ html {
 <script>
 
 /* =========================================================
-   VISHUDDHI HOMEPAGE JAVASCRIPT
-   ========================================================= */
+SHOP BY CATEGORY - CAROUSEL ONLY
+========================================================= */
+
+(function () {
+
+
+"use strict";
+
+function updateCategoryCarousel() {
+
+    const container = document.getElementById(
+        "shopByCategoryItems"
+    );
+
+    const leftButton = document.getElementById(
+        "categoryCarouselLeft"
+    );
+
+    const rightButton = document.getElementById(
+        "categoryCarouselRight"
+    );
+
+    if (!container || !leftButton || !rightButton) {
+        return;
+    }
+
+    const maxScroll =
+        container.scrollWidth - container.clientWidth;
+
+    const currentScroll =
+        container.scrollLeft;
+
+
+    /* ---------------------------------------------
+       NO OVERFLOW
+       All categories are already visible
+       --------------------------------------------- */
+
+    if (maxScroll <= 5) {
+
+        leftButton.classList.add("is-hidden");
+        rightButton.classList.add("is-hidden");
+
+        return;
+    }
+
+
+    /* ---------------------------------------------
+       LEFT ARROW
+       Hidden at beginning
+       --------------------------------------------- */
+
+    if (currentScroll <= 5) {
+
+        leftButton.classList.add("is-hidden");
+
+    } else {
+
+        leftButton.classList.remove("is-hidden");
+    }
+
+
+    /* ---------------------------------------------
+       RIGHT ARROW
+       Hidden at end
+       --------------------------------------------- */
+
+    if (currentScroll >= maxScroll - 5) {
+
+        rightButton.classList.add("is-hidden");
+
+    } else {
+
+        rightButton.classList.remove("is-hidden");
+    }
+}
+
+
+/* ---------------------------------------------
+   RIGHT ARROW CLICK
+   --------------------------------------------- */
+
+document.addEventListener("click", function (event) {
+
+    const rightButton =
+        event.target.closest("#categoryCarouselRight");
+
+    if (!rightButton) {
+        return;
+    }
+
+    const container =
+        document.getElementById("shopByCategoryItems");
+
+    if (!container) {
+        return;
+    }
+
+    container.scrollBy({
+        left: container.clientWidth * 0.8,
+        behavior: "smooth"
+    });
+
+});
+
+
+/* ---------------------------------------------
+   LEFT ARROW CLICK
+   --------------------------------------------- */
+
+document.addEventListener("click", function (event) {
+
+    const leftButton =
+        event.target.closest("#categoryCarouselLeft");
+
+    if (!leftButton) {
+        return;
+    }
+
+    const container =
+        document.getElementById("shopByCategoryItems");
+
+    if (!container) {
+        return;
+    }
+
+    container.scrollBy({
+        left: -(container.clientWidth * 0.8),
+        behavior: "smooth"
+    });
+
+});
+
+
+/* ---------------------------------------------
+   DETECT SCROLL POSITION
+   --------------------------------------------- */
+
+document.addEventListener("scroll", function (event) {
+
+    if (
+        event.target &&
+        event.target.id === "shopByCategoryItems"
+    ) {
+        updateCategoryCarousel();
+    }
+
+}, true);
+
+
+/* ---------------------------------------------
+   WINDOW RESIZE
+   --------------------------------------------- */
+
+window.addEventListener(
+    "resize",
+    updateCategoryCarousel
+);
+
+
+/* ---------------------------------------------
+   INITIAL CHECK
+   Important because categories are loaded
+   dynamically by your existing API.
+   --------------------------------------------- */
+
+function checkCarousel() {
+
+    updateCategoryCarousel();
+
+    setTimeout(
+        updateCategoryCarousel,
+        100
+    );
+
+    setTimeout(
+        updateCategoryCarousel,
+        300
+    );
+
+    setTimeout(
+        updateCategoryCarousel,
+        600
+    );
+}
+
+
+/* ---------------------------------------------
+   RUN AFTER PAGE LOAD
+   --------------------------------------------- */
+
+if (document.readyState === "loading") {
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        checkCarousel
+    );
+
+} else {
+
+    checkCarousel();
+}
+
+
+/* ---------------------------------------------
+   OBSERVE YOUR EXISTING CATEGORY CONTAINER
+   This detects when your existing
+   loadShopByCategory() inserts the cards.
+   --------------------------------------------- */
+
+const observer = new MutationObserver(function () {
+
+    checkCarousel();
+
+});
+
+
+function startObserver() {
+
+    const container =
+        document.getElementById("shopByCategoryItems");
+
+    if (!container) {
+        setTimeout(startObserver, 300);
+        return;
+    }
+
+    observer.observe(container, {
+        childList: true,
+        subtree: true
+    });
+
+    checkCarousel();
+}
+
+
+startObserver();
+
+
+})();
+
 
 
 /* =========================================================

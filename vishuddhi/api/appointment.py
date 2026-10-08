@@ -1,3 +1,4 @@
+
 import frappe
 from frappe import _
 from datetime import datetime, timedelta
@@ -44,10 +45,7 @@ def _get_time_seconds(value):
     if value is None:
         return None
 
-    if hasattr(
-        value,
-        "total_seconds"
-    ):
+    if hasattr(value, "total_seconds"):
 
         return int(
             value.total_seconds()
@@ -57,32 +55,534 @@ def _get_time_seconds(value):
 
 
 # ============================================================
+# HELPER: GET APPOINTMENT BOOKING SETTINGS
+#
+# SOURCE:
+# Appointment Booking Settings
+#
+# This is the ONLY source for:
+#
+# - Appointment Duration
+# - Availability Of Slots
+# - Number Of Concurrent Appointments
+# - Holiday List
+# - Advance Booking
+# ============================================================
+
+def _get_booking_settings():
+
+    settings = frappe.get_single(
+        "Appointment Booking Settings"
+    )
+
+    if not settings:
+
+        frappe.throw(
+            "Appointment Booking Settings could not be found."
+        )
+
+    # --------------------------------------------------------
+    # Check scheduling enabled
+    # --------------------------------------------------------
+
+    if not settings.enable_scheduling:
+
+        frappe.throw(
+            "Appointment scheduling is currently disabled."
+        )
+
+    # --------------------------------------------------------
+    # Appointment Duration
+    # --------------------------------------------------------
+
+    try:
+
+        appointment_duration = int(
+            settings.appointment_duration or 0
+        )
+
+    except (TypeError, ValueError):
+
+        appointment_duration = 0
+
+    if appointment_duration <= 0:
+
+        frappe.throw(
+            "Please configure a valid Appointment Duration "
+            "(In Minutes) in Appointment Booking Settings."
+        )
+
+    return (
+        settings,
+        appointment_duration
+    )
+
+
+# ============================================================
+# HELPER: GET CONFIGURED AVAILABILITY GROUPS
+#
+# Example:
+#
+# Tuesday
+#   Group 1 = 10:00 - 13:00
+#   Group 2 = 15:00 - 19:00
+#
+# Every row in Availability Of Slots is treated as ONE
+# independent booking group.
+# ============================================================
+
+def _get_configured_groups(day):
+
+    settings, appointment_duration = (
+        _get_booking_settings()
+    )
+
+    groups = []
+
+    availability_rows = (
+        settings.get("availability_of_slots") or []
+    )
+
+    for index, row in enumerate(
+        availability_rows,
+        start=1
+    ):
+
+        row_day = (
+            row.get("day_of_week")
+            if hasattr(row, "get")
+            else getattr(
+                row,
+                "day_of_week",
+                None
+            )
+        )
+
+        if not row_day:
+            continue
+
+        row_day = str(
+            row_day
+        ).strip().capitalize()
+
+        if row_day != day:
+            continue
+
+        from_time = (
+            row.get("from_time")
+            if hasattr(row, "get")
+            else getattr(
+                row,
+                "from_time",
+                None
+            )
+        )
+
+        to_time = (
+            row.get("to_time")
+            if hasattr(row, "get")
+            else getattr(
+                row,
+                "to_time",
+                None
+            )
+        )
+
+        if from_time is None:
+            continue
+
+        if to_time is None:
+            continue
+
+        start_seconds = _get_time_seconds(
+            from_time
+        )
+
+        end_seconds = _get_time_seconds(
+            to_time
+        )
+
+        if start_seconds is None:
+            continue
+
+        if end_seconds is None:
+            continue
+
+        if end_seconds <= start_seconds:
+            continue
+
+        groups.append(
+            {
+                "group": len(groups) + 1,
+                "day": row_day,
+                "from_time": str(from_time),
+                "to_time": str(to_time),
+                "start_seconds": start_seconds,
+                "end_seconds": end_seconds,
+            }
+        )
+
+    groups.sort(
+        key=lambda row: row[
+            "start_seconds"
+        ]
+    )
+
+    # Re-number after sorting
+
+    for index, group in enumerate(
+        groups,
+        start=1
+    ):
+
+        group["group"] = index
+
+    return (
+        settings,
+        appointment_duration,
+        groups
+    )
+
+
+# ============================================================
+# HELPER: GET DATETIME RANGE FOR A GROUP
+# ============================================================
+
+def _get_group_datetime_range(
+    selected_date,
+    group
+):
+
+    start_seconds = group[
+        "start_seconds"
+    ]
+
+    end_seconds = group[
+        "end_seconds"
+    ]
+
+    start_datetime = (
+        datetime.combine(
+            selected_date,
+            datetime.min.time()
+        )
+        + timedelta(
+            seconds=start_seconds
+        )
+    )
+
+    end_datetime = (
+        datetime.combine(
+            selected_date,
+            datetime.min.time()
+        )
+        + timedelta(
+            seconds=end_seconds
+        )
+    )
+
+    return (
+        start_datetime,
+        end_datetime
+    )
+
+
+# ============================================================
+# HELPER: CHECK WHETHER A GROUP IS ALREADY BOOKED
+#
+# If ANY appointment exists inside the group:
+#
+# 10:00 - 13:00
+#
+# the whole group becomes unavailable.
+#
+# Group 2:
+#
+# 15:00 - 19:00
+#
+# remains available.
+# ============================================================
+
+def _is_group_booked(
+    selected_date,
+    group
+):
+
+    start_datetime, end_datetime = (
+        _get_group_datetime_range(
+            selected_date,
+            group
+        )
+    )
+
+    appointments = frappe.get_all(
+        "Appointment",
+        filters={
+            "scheduled_time": [
+                "between",
+                [
+                    start_datetime,
+                    end_datetime
+                ]
+            ],
+            "status": [
+                "in",
+                [
+                    "Open",
+                    "Unverified"
+                ]
+            ]
+        },
+        fields=[
+            "name",
+            "scheduled_time",
+            "status"
+        ],
+        limit=1
+    )
+
+    return bool(
+        appointments
+    )
+
+
+# ============================================================
+# HELPER: FIND GROUP FOR SELECTED TIME
+# ============================================================
+
+def _find_group_for_time(
+    selected_seconds,
+    groups,
+    appointment_duration
+):
+
+    duration_seconds = (
+        appointment_duration * 60
+    )
+
+    for group in groups:
+
+        start_seconds = group[
+            "start_seconds"
+        ]
+
+        end_seconds = group[
+            "end_seconds"
+        ]
+
+        # ----------------------------------------------------
+        # Selected time must be inside group
+        # and have enough duration remaining.
+        # ----------------------------------------------------
+
+        if (
+            selected_seconds >= start_seconds
+            and
+            selected_seconds + duration_seconds
+            <= end_seconds
+        ):
+
+            # ------------------------------------------------
+            # Must align exactly with appointment duration.
+            # ------------------------------------------------
+
+            if (
+                (
+                    selected_seconds
+                    - start_seconds
+                )
+                % duration_seconds
+                == 0
+            ):
+
+                return group
+
+    return None
+
+
+# ============================================================
+# HELPER: CHECK HOLIDAY
+# ============================================================
+
+def _is_holiday(
+    settings,
+    selected_date
+):
+
+    holiday_list = settings.get(
+        "holiday_list"
+    )
+
+    if not holiday_list:
+        return False
+
+    try:
+
+        holiday_exists = frappe.db.exists(
+            "Holiday",
+            {
+                "parent": holiday_list,
+                "parenttype": "Holiday List",
+                "holiday_date": selected_date
+            }
+        )
+
+        return bool(
+            holiday_exists
+        )
+
+    except Exception:
+
+        return False
+
+
+# ============================================================
+# HELPER: CHECK ADVANCE BOOKING LIMIT
+# ============================================================
+
+def _check_advance_booking_limit(
+    settings,
+    selected_date
+):
+
+    advance_booking_days = settings.get(
+        "advance_booking_days"
+    )
+
+    try:
+
+        advance_booking_days = int(
+            advance_booking_days or 0
+        )
+
+    except (TypeError, ValueError):
+
+        advance_booking_days = 0
+
+    if advance_booking_days <= 0:
+        return
+
+    today = frappe.utils.getdate(
+        frappe.utils.nowdate()
+    )
+
+    selected_date = frappe.utils.getdate(
+        selected_date
+    )
+
+    max_date = (
+        today
+        + timedelta(
+            days=advance_booking_days
+        )
+    )
+
+    if selected_date > max_date:
+
+        frappe.throw(
+            "Appointments can only be booked "
+            f"up to {advance_booking_days} days in advance."
+        )
+
+
+# ============================================================
 # GET AVAILABLE APPOINTMENT SLOTS
 #
-# Frontend sends:
+# PRIMARY FRONTEND API:
 #
-# ?day=Monday
+# ?date=2026-10-09
+#
+# The API automatically converts:
+#
+# 2026-10-09
+#       ↓
+# Friday
+#
+# Then it loads Friday's availability.
+#
+# BACKWARD COMPATIBILITY:
+#
 # ?day=Tuesday
 #
-# Availability is recurring weekly.
+# Also supported.
+#
+# OPTIONAL:
+#
+# ?day=Tuesday&date=2026-10-06
+#
 # ============================================================
 
 @frappe.whitelist(allow_guest=True)
-def get_available_slots(day=None):
+def get_available_slots(
+    day=None,
+    date=None
+):
 
-    # --------------------------------------------------------
-    # Validate day
-    # --------------------------------------------------------
+    # ========================================================
+    # 1. DATE IS THE PRIMARY INPUT
+    # ========================================================
+
+    selected_date = None
+
+    if date:
+
+        try:
+
+            selected_date = frappe.utils.getdate(
+                date
+            )
+
+        except Exception:
+
+            frappe.throw(
+                "Invalid date. Expected YYYY-MM-DD."
+            )
+
+        # ----------------------------------------------------
+        # Automatically determine weekday
+        # ----------------------------------------------------
+
+        actual_day = selected_date.strftime(
+            "%A"
+        )
+
+        # ----------------------------------------------------
+        # DATE ALWAYS TAKES PRIORITY
+        #
+        # Example:
+        #
+        # date=2026-10-09
+        #
+        # automatically becomes:
+        #
+        # Friday
+        # ----------------------------------------------------
+
+        day = actual_day
+
+    # ========================================================
+    # 2. BACKWARD COMPATIBILITY
+    #
+    # If no date is supplied but day is supplied:
+    #
+    # ?day=Tuesday
+    #
+    # this still works.
+    # ========================================================
 
     if not day:
 
         frappe.throw(
-            "Day is required"
+            "Date is required."
         )
 
     day = str(
         day
     ).strip().capitalize()
+
+    # ========================================================
+    # 3. VALIDATE DAY
+    # ========================================================
 
     valid_days = [
         "Monday",
@@ -97,94 +597,126 @@ def get_available_slots(day=None):
     if day not in valid_days:
 
         frappe.throw(
-            "Invalid day. Expected Monday, Tuesday, Wednesday, "
-            "Thursday, Friday, Saturday or Sunday."
+            "Invalid day. Expected Monday, Tuesday, "
+            "Wednesday, Thursday, Friday, Saturday "
+            "or Sunday."
         )
 
-    # --------------------------------------------------------
-    # Get recurring availability
-    # --------------------------------------------------------
+    # ========================================================
+    # 4. IF DATE EXISTS, VERIFY THE DAY
+    #
+    # This is mostly useful when somebody manually sends:
+    #
+    # ?date=2026-10-09&day=Tuesday
+    #
+    # Since date takes priority, we already converted it.
+    # ========================================================
 
-    availability = frappe.db.get_value(
-        "User Appointment Availability",
-        "Administrator",
-        [
-            "name",
-            "enable_scheduling",
-            "slug"
-        ],
-        as_dict=True
+    if selected_date:
+
+        actual_day = selected_date.strftime(
+            "%A"
+        )
+
+        day = actual_day
+
+    # ========================================================
+    # 5. GET CONFIGURED GROUPS
+    # ========================================================
+
+    (
+        settings,
+        appointment_duration,
+        groups
+    ) = _get_configured_groups(
+        day
     )
 
-    if not availability:
+    # ========================================================
+    # 6. NO AVAILABILITY
+    # ========================================================
+
+    if not groups:
 
         return []
 
-    # --------------------------------------------------------
-    # Check scheduling enabled
-    # --------------------------------------------------------
+    # ========================================================
+    # 7. CHECK HOLIDAY
+    # ========================================================
 
-    if not availability.enable_scheduling:
-
-        return []
-
-    # --------------------------------------------------------
-    # Get configured time ranges
-    # --------------------------------------------------------
-
-    time_slots = frappe.get_all(
-        "Appointment Time Slot",
-        filters={
-            "parent": availability.name,
-            "parenttype": "User Appointment Availability",
-            "day": day
-        },
-        fields=[
-            "day",
-            "start_time",
-            "end_time"
-        ],
-        order_by="start_time asc"
-    )
-
-    if not time_slots:
+    if (
+        selected_date
+        and
+        _is_holiday(
+            settings,
+            selected_date
+        )
+    ):
 
         return []
+
+    # ========================================================
+    # 8. CHECK ADVANCE BOOKING
+    # ========================================================
+
+    if selected_date:
+
+        _check_advance_booking_limit(
+            settings,
+            selected_date
+        )
+
+    # ========================================================
+    # 9. GENERATE SLOTS
+    # ========================================================
 
     slots = []
 
-    # --------------------------------------------------------
-    # Generate 30-minute slots
-    # --------------------------------------------------------
+    # ========================================================
+    # PROCESS EACH GROUP SEPARATELY
+    #
+    # Example:
+    #
+    # Group 1:
+    # 10:00 - 13:00
+    #
+    # Group 2:
+    # 15:00 - 19:00
+    #
+    # If Group 1 is booked:
+    #
+    # Group 1 -> hidden
+    # Group 2 -> available
+    #
+    # ========================================================
 
-    for row in time_slots:
+    for group in groups:
 
-        if row.start_time is None:
-            continue
+        group_booked = False
 
-        if row.end_time is None:
-            continue
+        if selected_date:
 
-        start_seconds = _get_time_seconds(
-            row.start_time
-        )
-
-        end_seconds = _get_time_seconds(
-            row.end_time
-        )
-
-        if start_seconds is None:
-            continue
-
-        if end_seconds is None:
-            continue
-
-        if end_seconds <= start_seconds:
-            continue
+            group_booked = (
+                _is_group_booked(
+                    selected_date,
+                    group
+                )
+            )
 
         # ----------------------------------------------------
-        # Convert seconds to datetime
+        # Entire group is unavailable
         # ----------------------------------------------------
+
+        if group_booked:
+            continue
+
+        start_seconds = group[
+            "start_seconds"
+        ]
+
+        end_seconds = group[
+            "end_seconds"
+        ]
 
         current = (
             datetime.min
@@ -201,7 +733,7 @@ def get_available_slots(day=None):
         )
 
         # ----------------------------------------------------
-        # Generate 30-minute intervals
+        # Generate slots
         # ----------------------------------------------------
 
         while current < end_dt:
@@ -209,16 +741,44 @@ def get_available_slots(day=None):
             slot_end = (
                 current
                 + timedelta(
-                    minutes=30
+                    minutes=appointment_duration
                 )
             )
 
-            # Only complete 30-minute slots
+            # ------------------------------------------------
+            # Only return complete slots
+            # ------------------------------------------------
+
             if slot_end <= end_dt:
 
                 slots.append(
                     {
                         "day": day,
+
+                        "date": (
+                            str(selected_date)
+                            if selected_date
+                            else None
+                        ),
+
+                        "group": group[
+                            "group"
+                        ],
+
+                        "group_from": (
+                            datetime.min
+                            + timedelta(
+                                seconds=group[
+                                    "start_seconds"
+                                ]
+                            )
+                        ).strftime(
+                            "%H:%M:%S"
+                        ),
+
+                        "group_to": end_dt.strftime(
+                            "%H:%M:%S"
+                        ),
 
                         "time": current.strftime(
                             "%H:%M:%S"
@@ -226,31 +786,31 @@ def get_available_slots(day=None):
 
                         "label": current.strftime(
                             "%I:%M %p"
-                        )
+                        ),
+
+                        "end_time": slot_end.strftime(
+                            "%H:%M:%S"
+                        ),
+
+                        "duration": (
+                            appointment_duration
+                        ),
+
+                        "available": True
                     }
                 )
 
             current = slot_end
+
+    # ========================================================
+    # RETURN SLOTS
+    # ========================================================
 
     return slots
 
 
 # ============================================================
 # BOOK APPOINTMENT
-#
-# Creates ERPNext Appointment.
-#
-# NO EMAIL IS SENT.
-#
-# Actual Appointment fields:
-#
-# scheduled_time
-# status
-# created_through_portal
-# customer_name
-# customer_phone_number
-# customer_email
-# customer_details
 # ============================================================
 
 @frappe.whitelist(allow_guest=True)
@@ -302,11 +862,25 @@ def book_appointment(
     # Clean values
     # --------------------------------------------------------
 
-    date = str(date).strip()
-    time = str(time).strip()
-    name = str(name).strip()
-    email = str(email).strip()
-    phone = str(phone).strip()
+    date = str(
+        date
+    ).strip()
+
+    time = str(
+        time
+    ).strip()
+
+    name = str(
+        name
+    ).strip()
+
+    email = str(
+        email
+    ).strip()
+
+    phone = str(
+        phone
+    ).strip()
 
     if subject:
 
@@ -321,7 +895,7 @@ def book_appointment(
         ).strip()
 
     # --------------------------------------------------------
-    # Validate date/time format
+    # Parse date/time
     # --------------------------------------------------------
 
     try:
@@ -333,23 +907,49 @@ def book_appointment(
 
     except ValueError:
 
-        frappe.throw(
-            "Invalid date or time format. "
-            "Expected date YYYY-MM-DD and time HH:MM:SS."
+        try:
+
+            scheduled_datetime = datetime.strptime(
+                f"{date} {time}",
+                "%Y-%m-%d %H:%M"
+            )
+
+        except ValueError:
+
+            frappe.throw(
+                "Invalid date or time format. "
+                "Expected date YYYY-MM-DD and "
+                "time HH:MM or HH:MM:SS."
+            )
+
+    # --------------------------------------------------------
+    # Current datetime
+    # --------------------------------------------------------
+
+    current_datetime = (
+        frappe.utils.get_datetime(
+            frappe.utils.now_datetime()
         )
+    )
 
-    # --------------------------------------------------------
-    # Prevent booking in the past
-    # --------------------------------------------------------
-
-    if scheduled_datetime <= datetime.now():
+    if scheduled_datetime <= current_datetime:
 
         frappe.throw(
             "Please select a future date and time."
         )
 
     # --------------------------------------------------------
-    # Determine weekday
+    # Selected date
+    # --------------------------------------------------------
+
+    selected_date = (
+        frappe.utils.getdate(
+            date
+        )
+    )
+
+    # --------------------------------------------------------
+    # Determine weekday automatically
     # --------------------------------------------------------
 
     selected_day = (
@@ -359,62 +959,49 @@ def book_appointment(
     )
 
     # --------------------------------------------------------
-    # Get appointment availability
+    # Get Appointment Booking Settings
     # --------------------------------------------------------
 
-    availability = frappe.db.get_value(
-        "User Appointment Availability",
-        "Administrator",
-        [
-            "name",
-            "enable_scheduling",
-            "slug"
-        ],
-        as_dict=True
+    (
+        settings,
+        appointment_duration,
+        groups
+    ) = _get_configured_groups(
+        selected_day
     )
 
-    if not availability:
+    if not groups:
 
         frappe.throw(
-            "Appointment scheduling is not configured."
+            f"Appointments are not available on "
+            f"{selected_day}."
         )
 
     # --------------------------------------------------------
-    # Check scheduling enabled
+    # Check Holiday
     # --------------------------------------------------------
 
-    if not availability.enable_scheduling:
+    if _is_holiday(
+        settings,
+        selected_date
+    ):
 
         frappe.throw(
-            "Appointment scheduling is currently disabled."
+            "Appointments are not available "
+            "on this holiday."
         )
 
     # --------------------------------------------------------
-    # Get configured availability for weekday
+    # Check advance booking
     # --------------------------------------------------------
 
-    configured_slots = frappe.get_all(
-        "Appointment Time Slot",
-        filters={
-            "parent": availability.name,
-            "parenttype": "User Appointment Availability",
-            "day": selected_day
-        },
-        fields=[
-            "start_time",
-            "end_time"
-        ],
-        order_by="start_time asc"
+    _check_advance_booking_limit(
+        settings,
+        selected_date
     )
 
-    if not configured_slots:
-
-        frappe.throw(
-            f"Appointments are not available on {selected_day}."
-        )
-
     # --------------------------------------------------------
-    # Convert requested time to seconds
+    # Convert selected time to seconds
     # --------------------------------------------------------
 
     selected_seconds = (
@@ -424,83 +1011,41 @@ def book_appointment(
     )
 
     # --------------------------------------------------------
-    # Validate selected 30-minute slot
+    # Find selected GROUP
     # --------------------------------------------------------
 
-    selected_slot_is_valid = False
-
-    for row in configured_slots:
-
-        if row.start_time is None:
-            continue
-
-        if row.end_time is None:
-            continue
-
-        start_seconds = _get_time_seconds(
-            row.start_time
+    selected_group = (
+        _find_group_for_time(
+            selected_seconds,
+            groups,
+            appointment_duration
         )
-
-        end_seconds = _get_time_seconds(
-            row.end_time
-        )
-
-        if start_seconds is None:
-            continue
-
-        if end_seconds is None:
-            continue
-
-        # ----------------------------------------------------
-        # Selected slot must:
-        #
-        # 1. Start inside configured range
-        # 2. Have full 30 minutes available
-        # 3. Start exactly on 30-minute boundary
-        # ----------------------------------------------------
-
-        if (
-            selected_seconds >= start_seconds
-            and
-            selected_seconds + 1800 <= end_seconds
-            and
-            selected_seconds % 1800 == 0
-        ):
-
-            selected_slot_is_valid = True
-
-            break
-
-    if not selected_slot_is_valid:
-
-        frappe.throw(
-            "The selected time is not an available appointment slot."
-        )
-
-    # --------------------------------------------------------
-    # Prevent duplicate booking
-    # --------------------------------------------------------
-
-    existing_appointment = frappe.db.exists(
-        "Appointment",
-        {
-            "scheduled_time": scheduled_datetime,
-
-            "status": [
-                "in",
-                [
-                    "Open",
-                    "Unverified"
-                ]
-            ]
-        }
     )
 
-    if existing_appointment:
+    # --------------------------------------------------------
+    # Invalid slot
+    # --------------------------------------------------------
+
+    if not selected_group:
 
         frappe.throw(
-            "This appointment slot has already been booked. "
-            "Please select another time."
+            "The selected time is not an available "
+            "appointment slot."
+        )
+
+    # --------------------------------------------------------
+    # Check whole group
+    # --------------------------------------------------------
+
+    if _is_group_booked(
+        selected_date,
+        selected_group
+    ):
+
+        frappe.throw(
+            "This appointment time group has already "
+            "been booked. Please select another "
+            "available time group."
         )
 
     # --------------------------------------------------------
@@ -532,7 +1077,7 @@ def book_appointment(
             )
 
     # --------------------------------------------------------
-    # Create Appointment document
+    # Create ERPNext Appointment
     # --------------------------------------------------------
 
     appointment = frappe.new_doc(
@@ -558,12 +1103,7 @@ def book_appointment(
     )
 
     # --------------------------------------------------------
-    # IMPORTANT
-    #
-    # ERPNext Appointment.after_insert()
-    # automatically calls send_confirmation_email().
-    #
-    # We do NOT want that for this website booking.
+    # Disable automatic Appointment after_insert
     # --------------------------------------------------------
 
     original_after_insert = getattr(
@@ -591,7 +1131,7 @@ def book_appointment(
             )
 
     # --------------------------------------------------------
-    # Commit database transaction
+    # Commit
     # --------------------------------------------------------
 
     frappe.db.commit()
@@ -601,6 +1141,7 @@ def book_appointment(
     # --------------------------------------------------------
 
     return {
+
         "success": True,
 
         "name": appointment.name,
@@ -611,6 +1152,24 @@ def book_appointment(
             )
         ),
 
+        "date": date,
+
+        "day": selected_day,
+
+        "group": selected_group[
+            "group"
+        ],
+
+        "group_from": selected_group[
+            "from_time"
+        ],
+
+        "group_to": selected_group[
+            "to_time"
+        ],
+
+        "duration": appointment_duration,
+
         "message": (
             "Appointment booked successfully."
         )
@@ -619,12 +1178,6 @@ def book_appointment(
 
 # ============================================================
 # CONTACT US
-#
-# Sends Contact Us form directly to:
-#
-# vishuddhihomegardens@gmail.com
-#
-# NO DocType is created.
 # ============================================================
 
 @frappe.whitelist(allow_guest=True)
@@ -640,13 +1193,25 @@ def send_contact_message(
     # Clean input
     # --------------------------------------------------------
 
-    name = (name or "").strip()
-    email = (email or "").strip()
-    phone = (phone or "").strip()
+    name = (
+        name or ""
+    ).strip()
+
+    email = (
+        email or ""
+    ).strip()
+
+    phone = (
+        phone or ""
+    ).strip()
+
     source = (
         source or "Website Contact Form"
     ).strip()
-    message = (message or "").strip()
+
+    message = (
+        message or ""
+    ).strip()
 
     # --------------------------------------------------------
     # Validate name
@@ -702,8 +1267,6 @@ def send_contact_message(
     # Validate phone
     #
     # Phone is optional.
-    # If entered, it must be a valid
-    # 10-digit Indian mobile number.
     # --------------------------------------------------------
 
     if phone:
@@ -736,20 +1299,29 @@ def send_contact_message(
 
     # --------------------------------------------------------
     # Safely escape user input
-    #
-    # Prevents HTML entered by the visitor
-    # from being interpreted as email HTML.
     # --------------------------------------------------------
 
     import html
 
-    safe_name = html.escape(name)
-    safe_email = html.escape(email)
+    safe_name = html.escape(
+        name
+    )
+
+    safe_email = html.escape(
+        email
+    )
+
     safe_phone = html.escape(
         phone or "Not provided"
     )
-    safe_source = html.escape(source)
-    safe_message = html.escape(message)
+
+    safe_source = html.escape(
+        source
+    )
+
+    safe_message = html.escape(
+        message
+    )
 
     # --------------------------------------------------------
     # Email HTML
@@ -883,9 +1455,6 @@ def send_contact_message(
 
     # --------------------------------------------------------
     # SEND EMAIL
-    #
-    # This sends directly to the Vishuddhi Gmail address.
-    # No Contact document is created.
     # --------------------------------------------------------
 
     frappe.sendmail(
@@ -893,8 +1462,7 @@ def send_contact_message(
             "vishuddhihomegardens@gmail.com"
         ],
         subject=email_subject,
-        message=email_message,
-        # now=True
+        message=email_message
     )
 
     # --------------------------------------------------------
@@ -903,7 +1471,9 @@ def send_contact_message(
 
     return {
         "success": True,
+
         "message": (
             "Your message has been sent successfully."
         )
     }
+

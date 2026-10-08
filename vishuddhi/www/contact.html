@@ -201,7 +201,7 @@
 
 .v-section {
     width: 100%;
-    padding: 68px 4%;
+    padding: 40px 2%;
 }
 
 .v-section-soft {
@@ -233,7 +233,7 @@
 .v-section-heading h2 {
     color: var(--v-text);
 
-    font-size: clamp(29px, 4vw, 32px);
+    font-size: clamp(28px, 4vw, 28px);
 
     font-weight: 700;
 
@@ -402,7 +402,7 @@
 
     border-radius: 24px;
 
-    padding: 30px;
+    padding: 22px;
 
     box-shadow:
         0 12px 35px rgba(25, 56, 34, 0.06);
@@ -478,11 +478,11 @@
 }
 
 .v-input {
-    height: 46px;
+    height: 36px;
 
-    min-height: 46px;
+    min-height: 36px;
 
-    padding: 0 13px 0 42px;
+    padding: 0 10px 0 42px;
 
     font-size: 13px;
 }
@@ -492,7 +492,7 @@
 }
 
 .v-textarea {
-    min-height: 105px;
+    min-height: 100px;
 
     padding: 12px 13px;
 
@@ -676,7 +676,7 @@
 
     border-radius: 26px;
 
-    padding: 32px;
+    padding: 22px;
 
     box-shadow:
         0 14px 40px rgba(25,56,34,0.07);
@@ -788,6 +788,84 @@
     font-size: 13px;
 }
 
+
+/* =========================================================
+   APPOINTMENT SLOT GROUPS
+========================================================= */
+
+.v-slot-groups {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.v-slot-group {
+    border: 1px solid var(--v-border);
+    border-radius: 15px;
+    background: #ffffff;
+    padding: 12px;
+}
+
+.v-slot-group.is-booked {
+    background: #fafafa;
+    border-color: #e5e5e5;
+}
+
+.v-slot-group-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.v-slot-group-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    color: var(--v-text);
+
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.v-slot-group-title i {
+    color: var(--v-green);
+}
+
+.v-slot-group-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+
+    padding: 5px 9px;
+
+    border-radius: 20px;
+
+    font-size: 10px;
+    font-weight: 700;
+
+    white-space: nowrap;
+}
+
+.v-slot-group-status.available {
+    color: #216b3a;
+    background: #edf8ef;
+}
+
+.v-slot-group-status.booked {
+    color: #8b4b4b;
+    background: #fff1f1;
+}
+
+.v-slot-group-description {
+    color: var(--v-muted);
+    font-size: 11px;
+    line-height: 1.5;
+    margin: -3px 0 12px;
+}
+
 .v-slot-grid {
     display: grid;
 
@@ -836,6 +914,48 @@
         0 6px 15px rgba(32,59,39,0.17);
 }
 
+
+/* =========================================================
+   DISABLED / BOOKED SLOT
+========================================================= */
+
+.v-slot.v-slot-disabled,
+.v-slot:disabled {
+    background: #f3f4f3 !important;
+    border-color: #e1e5e1 !important;
+    color: #9aa39d !important;
+    cursor: not-allowed !important;
+    opacity: 0.65;
+    transform: none !important;
+    box-shadow: none !important;
+}
+
+.v-slot.v-slot-disabled:hover,
+.v-slot:disabled:hover {
+    background: #f3f4f3 !important;
+    border-color: #e1e5e1 !important;
+    color: #9aa39d !important;
+    transform: none !important;
+}
+
+.v-slot-group.is-booked .v-slot {
+    background: #f3f4f3;
+    border-color: #e1e5e1;
+    color: #9aa39d;
+    cursor: not-allowed;
+}
+
+.v-slot-group.is-booked .v-slot:hover {
+    transform: none;
+    border-color: #e1e5e1;
+    color: #9aa39d;
+}
+
+
+/* =========================================================
+   NO SLOTS
+========================================================= */
+
 .v-no-slots {
     padding: 18px;
 
@@ -851,6 +971,11 @@
 
     font-size: 13px;
 }
+
+
+/* =========================================================
+   SELECTED SUMMARY
+========================================================= */
 
 .v-selected-summary {
     display: none;
@@ -1044,6 +1169,118 @@
 
 
 /* =========================================================
+   API LOADING
+========================================================= */
+
+.v-api-spinner {
+    display: inline-block;
+
+    width: 16px;
+    height: 16px;
+
+    border: 2px solid rgba(255, 255, 255, 0.35);
+
+    border-top-color: #ffffff;
+
+    border-radius: 50%;
+
+    animation: vApiSpin 0.7s linear infinite;
+
+    vertical-align: -3px;
+
+    margin-right: 8px;
+}
+
+@keyframes vApiSpin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+#contactSubmitBtn,
+#bookAppointmentBtn {
+    position: relative;
+
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
+}
+
+#contactSubmitBtn:disabled,
+#bookAppointmentBtn:disabled {
+    cursor: not-allowed;
+    opacity: 0.75;
+}
+
+#contactSubmitBtn .v-api-spinner,
+#bookAppointmentBtn .v-api-spinner {
+    width: 15px;
+    height: 15px;
+    border-width: 2px;
+}
+
+#slotLoading {
+    display: none;
+
+    width: 100%;
+
+    text-align: center;
+
+    padding: 18px 10px;
+
+    color: #003d1f;
+
+    font-size: 14px;
+}
+
+#slotLoading .v-slot-spinner {
+    display: inline-block;
+
+    width: 22px;
+    height: 22px;
+
+    border: 3px solid rgba(0, 61, 31, 0.20);
+
+    border-top-color: #003d1f;
+
+    border-radius: 50%;
+
+    animation: vApiSpin 0.7s linear infinite;
+
+    vertical-align: middle;
+
+    margin-right: 8px;
+}
+
+#slot.api-loading {
+    min-height: 70px;
+
+    position: relative;
+}
+
+#slot.api-loading .v-slot-groups,
+#slot.api-loading .v-slot-grid {
+    opacity: 0.35;
+
+    pointer-events: none;
+}
+
+.v-alert {
+    transition:
+        opacity 0.2s ease,
+        transform 0.2s ease;
+}
+
+.v-alert.success {
+    color: #166534;
+}
+
+.v-alert.error {
+    color: #b91c1c;
+}
+
+
+/* =========================================================
    TABLET
 ========================================================= */
 
@@ -1062,7 +1299,7 @@
     }
 
     .v-section {
-        padding: 58px 4%;
+        padding: 40px 2%;
     }
 
     .v-slot-grid {
@@ -1103,7 +1340,7 @@
     }
 
     .v-section {
-        padding: 50px 22px;
+        padding: 25px 10px;
     }
 
     .v-info-card,
@@ -1126,6 +1363,20 @@
     .v-book-btn {
         width: 100%;
     }
+
+    .v-slot-group-header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .v-slot-group-status {
+        align-self: flex-start;
+    }
+    
+    .v-contact-cta {
+    margin-bottom: 80px;
+}
 }
 
 
@@ -1173,163 +1424,16 @@
     .v-contact-cta h2 {
         font-size: 27px;
     }
-}
 
-/* =========================================================
-   VISHUDDHI API LOADING STATES
-   ========================================================= */
-
-/* ---------------------------------------------------------
-   COMMON SPINNER
-   --------------------------------------------------------- */
-
-.v-api-spinner {
-    display: inline-block;
-    width: 16px;
-    height: 16px;
-    border: 2px solid rgba(255, 255, 255, 0.35);
-    border-top-color: #ffffff;
-    border-radius: 50%;
-    animation: vApiSpin 0.7s linear infinite;
-    vertical-align: -3px;
-    margin-right: 8px;
-}
-
-@keyframes vApiSpin {
-    to {
-        transform: rotate(360deg);
+    .v-slot-group {
+        padding: 13px;
     }
 }
 
 
-/* ---------------------------------------------------------
-   CONTACT / APPOINTMENT BUTTON LOADING
-   --------------------------------------------------------- */
-
-#contactSubmitBtn,
-#bookAppointmentBtn {
-    position: relative;
-    transition:
-        opacity 0.2s ease,
-        transform 0.2s ease;
-}
-
-#contactSubmitBtn:disabled,
-#bookAppointmentBtn:disabled {
-    cursor: not-allowed;
-    opacity: 0.75;
-}
-
-
-/* Prevent button content from jumping */
-
-#contactSubmitBtn .v-api-spinner,
-#bookAppointmentBtn .v-api-spinner {
-    width: 15px;
-    height: 15px;
-    border-width: 2px;
-}
-
-
-/* ---------------------------------------------------------
-   SLOT LOADING
-   --------------------------------------------------------- */
-
-#slotLoading {
-    display: none;
-    width: 100%;
-    text-align: center;
-    padding: 18px 10px;
-    color: #003d1f;
-    font-size: 14px;
-}
-
-#slotLoading .v-slot-spinner {
-    display: inline-block;
-    width: 22px;
-    height: 22px;
-    border: 3px solid rgba(0, 61, 31, 0.20);
-    border-top-color: #003d1f;
-    border-radius: 50%;
-    animation: vApiSpin 0.7s linear infinite;
-    vertical-align: middle;
-    margin-right: 8px;
-}
-
-
-/* ---------------------------------------------------------
-   SLOT AREA WHILE API IS LOADING
-   --------------------------------------------------------- */
-
-#slot.api-loading {
-    min-height: 70px;
-    position: relative;
-}
-
-#slot.api-loading .v-slot-grid {
-    opacity: 0.35;
-    pointer-events: none;
-}
-
-
-/* ---------------------------------------------------------
-   LOADING OVERLAY
-   --------------------------------------------------------- */
-
-.v-api-loading-overlay {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(255, 255, 255, 0.75);
-    z-index: 10;
-    border-radius: 10px;
-}
-
-.v-api-loading-overlay .v-api-spinner {
-    width: 25px;
-    height: 25px;
-    border-width: 3px;
-    border-color: rgba(0, 61, 31, 0.20);
-    border-top-color: #003d1f;
-    margin-right: 0;
-}
-
-
-/* ---------------------------------------------------------
-   API MESSAGE
-   --------------------------------------------------------- */
-
-.v-api-loading-text {
-    color: #003d1f;
-    font-size: 14px;
-    margin-top: 8px;
-}
-
-
-/* ---------------------------------------------------------
-   SUCCESS / ERROR MESSAGE
-   --------------------------------------------------------- */
-
-.v-alert {
-    transition:
-        opacity 0.2s ease,
-        transform 0.2s ease;
-}
-
-.v-alert.success {
-    color: #166534;
-}
-
-.v-alert.error {
-    color: #b91c1c;
-}
-
-
-/* ---------------------------------------------------------
-   MOBILE
-   --------------------------------------------------------- */
+/* =========================================================
+   MOBILE API
+========================================================= */
 
 @media (max-width: 576px) {
 
@@ -1347,9 +1451,10 @@
         width: 20px;
         height: 20px;
     }
-
 }
+
 </style>
+
 
 <div class="v-contact-page">
 
@@ -1359,32 +1464,31 @@
 
 <section class="v-contact-hero">
 
+    <div class="v-contact-hero-inner">
 
-<div class="v-contact-hero-inner">
+        <div class="v-contact-hero-content">
 
-    <div class="v-contact-hero-content">
+            <div class="v-contact-eyebrow">
+                Vishuddhi Plants
+            </div>
 
-        <div class="v-contact-eyebrow">
-            Vishuddhi Plants
+            <h1>
+                Let's Grow
+                <span>Together.</span>
+            </h1>
+
+            <p>
+                Have a question about our plants, gardening essentials,
+                orders or plant care? Our team is here to help you create
+                a greener and healthier space.
+            </p>
+
         </div>
-
-        <h1>
-            Let's Grow
-            <span>Together.</span>
-        </h1>
-
-        <p>
-            Have a question about our plants, gardening essentials,
-            orders or plant care? Our team is here to help you create
-            a greener and healthier space.
-        </p>
 
     </div>
 
-</div>
-
-
 </section>
+
 
 <!-- =========================================================
      CONTACT SECTION
@@ -1392,292 +1496,719 @@
 
 <section class="v-section">
 
+    <div>
 
-<div>
+        <div class="v-section-heading center">
 
-    <div class="v-section-heading center">
+            <div class="v-section-kicker">
+                Get In Touch
+            </div>
 
-        <div class="v-section-kicker">
-            Get In Touch
+            <h2>
+                We'd Love to Hear From You
+            </h2>
+
+            <p>
+                Whether you need help choosing a plant or simply want
+                to know more about our products, feel free to reach out.
+            </p>
+
         </div>
 
-        <h2>
-            We'd Love to Hear From You
-        </h2>
 
-        <p>
-            Whether you need help choosing a plant or simply want
-            to know more about our products, feel free to reach out.
-        </p>
+        <div class="row g-4">
+
+
+            <!-- =================================================
+                 CONTACT INFORMATION
+            ================================================= -->
+
+            <div class="col-lg-5">
+
+                <div class="v-info-card">
+
+                    <h3>
+                        Contact Information
+                    </h3>
+
+                    <p class="v-info-intro">
+                        Connect with the Vishuddhi team for plant recommendations,
+                        product information and support.
+                    </p>
+
+
+                    <!-- ADDRESS -->
+
+                    <div class="v-info-item">
+
+                        <div class="v-info-icon">
+                            <i class="fa-solid fa-location-dot"></i>
+                        </div>
+
+                        <div>
+
+                            <h5>
+                                Visit Us
+                            </h5>
+
+                            <p>
+
+                                <a
+                                    href="https://www.google.com/maps/place/Vishuddhi+Home+Garden/@13.027101,77.679349,16z/data=!4m6!3m5!1s0x3bae11cde6e615b1:0x5d8d0b9255391d2d!8m2!3d13.027101!4d77.6793492!16s%2Fg%2F11sj29cd07?hl=en-US&entry=ttu&g_ep=EgoyMDI2MDkyMi4wIKXMDSoASAFQAw%3D%3D"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                >
+                                    NRI Layout Main Road,<br>
+                                    Ramamurthy Nagar,<br>
+                                    Bengaluru, Karnataka 560016
+                                </a>
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- PHONE -->
+
+                    <div class="v-info-item">
+
+                        <div class="v-info-icon">
+                            <i class="fa-solid fa-phone"></i>
+                        </div>
+
+                        <div>
+
+                            <h5>
+                                Call Us
+                            </h5>
+
+                            <p>
+
+                                <a href="tel:+917338619696">
+                                    +91 733-8619696
+                                </a>
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- EMAIL -->
+
+                    <div class="v-info-item">
+
+                        <div class="v-info-icon">
+                            <i class="fa-regular fa-envelope"></i>
+                        </div>
+
+                        <div>
+
+                            <h5>
+                                Email Us
+                            </h5>
+
+                            <p>
+
+                                <a href="mailto:vishuddhihomegardens@gmail.com">
+                                    vishuddhihomegardens@gmail.com
+                                </a>
+
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- HOURS -->
+
+                    <div class="v-info-item">
+
+                        <div class="v-info-icon">
+                            <i class="fa-regular fa-clock"></i>
+                        </div>
+
+                        <div>
+
+                            <h5>
+                                Working Hours
+                            </h5>
+
+                            <p>
+                                Tuesday - Sunday<br>
+                                10:00 AM - 09:00 PM<br>
+                                Monday Holiday
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 CONTACT FORM
+            ================================================= -->
+
+            <div class="col-lg-7">
+
+                <div class="v-form-card">
+
+                    <h3>
+                        Send Us a Message
+                    </h3>
+
+                    <p class="v-form-description">
+                        Fill in the details below and our team will
+                        get back to you.
+                    </p>
+
+
+                    <form
+                        id="contactForm"
+                        novalidate
+                    >
+
+                        <div class="row">
+
+
+                            <!-- NAME -->
+
+                            <div class="col-md-6">
+
+                                <div class="v-field">
+
+                                    <label
+                                        class="v-label"
+                                        for="contactName"
+                                    >
+                                        Full Name
+                                        <span class="required">*</span>
+                                    </label>
+
+                                    <div class="v-input-wrap">
+
+                                        <i
+                                            class="fa-regular fa-user v-input-icon"
+                                        ></i>
+
+                                        <input
+                                            type="text"
+                                            id="contactName"
+                                            class="v-input"
+                                            placeholder="Enter your name"
+                                            autocomplete="name"
+                                            maxlength="80"
+                                        >
+
+                                    </div>
+
+                                    <div
+                                        id="contactNameError"
+                                        class="v-error"
+                                    ></div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- EMAIL - OPTIONAL -->
+
+                            <div class="col-md-6">
+
+                                <div class="v-field">
+
+                                    <label
+                                        class="v-label"
+                                        for="contactEmail"
+                                    >
+                                        Email Address
+                                    </label>
+
+                                    <div class="v-input-wrap">
+
+                                        <i
+                                            class="fa-regular fa-envelope v-input-icon"
+                                        ></i>
+
+                                        <input
+                                            type="email"
+                                            id="contactEmail"
+                                            class="v-input"
+                                            placeholder="you@example.com (optional)"
+                                            autocomplete="email"
+                                            maxlength="120"
+                                        >
+
+                                    </div>
+
+                                    <div
+                                        id="contactEmailError"
+                                        class="v-error"
+                                    ></div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- PHONE -->
+
+                            <div class="col-md-6">
+
+                                <div class="v-field">
+
+                                    <label
+                                        class="v-label"
+                                        for="contactPhone"
+                                    >
+                                        Phone Number
+                                    </label>
+
+                                    <div class="v-input-wrap">
+
+                                        <i
+                                            class="fa-solid fa-phone v-input-icon"
+                                        ></i>
+
+                                        <input
+                                            type="tel"
+                                            id="contactPhone"
+                                            class="v-input"
+                                            placeholder="10-digit mobile number"
+                                            maxlength="10"
+                                            inputmode="numeric"
+                                            autocomplete="tel"
+                                        >
+
+                                    </div>
+
+                                    <div
+                                        id="contactPhoneError"
+                                        class="v-error"
+                                    ></div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- SUBJECT -->
+
+                            <div class="col-md-6">
+
+                                <div class="v-field">
+
+                                    <label
+                                        class="v-label"
+                                        for="contactSubject"
+                                    >
+                                        Subject
+                                    </label>
+
+                                    <div class="v-input-wrap">
+
+                                        <i
+                                            class="fa-regular fa-comment-dots v-input-icon"
+                                        ></i>
+
+                                        <input
+                                            type="text"
+                                            id="contactSubject"
+                                            class="v-input"
+                                            placeholder="How can we help?"
+                                            maxlength="150"
+                                        >
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- MESSAGE -->
+
+                            <div class="col-12">
+
+                                <div class="v-field">
+
+                                    <label
+                                        class="v-label"
+                                        for="contactText"
+                                    >
+                                        Message
+                                        <span class="required">*</span>
+                                    </label>
+
+                                    <textarea
+                                        id="contactText"
+                                        class="v-textarea"
+                                        placeholder="Tell us how we can help you..."
+                                        maxlength="1000"
+                                    ></textarea>
+
+                                    <div
+                                        id="contactTextError"
+                                        class="v-error"
+                                    ></div>
+
+                                </div>
+
+                            </div>
+
+
+                            <!-- SUBMIT -->
+
+                            <div class="col-12">
+
+                                <button
+                                    type="submit"
+                                    id="contactSubmitBtn"
+                                    class="v-submit"
+                                >
+
+                                    <i class="fa-regular fa-paper-plane"></i>
+
+                                    Send Message
+
+                                </button>
+
+                            </div>
+
+
+                            <!-- CONTACT MESSAGE -->
+
+                            <div class="col-12">
+
+                                <div
+                                    id="contactMessage"
+                                    class="v-alert"
+                                ></div>
+
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+            </div>
+
+        </div>
 
     </div>
 
+</section>
 
-    <div class="row g-4">
 
+<!-- =========================================================
+     APPOINTMENT SECTION
+========================================================= -->
 
-        <!-- =================================================
-             CONTACT INFORMATION
-        ================================================= -->
-<div class="col-lg-5">
-    <div class="v-info-card">
+<section
+    id="book-appointment"
+    class="v-section v-appointment-section"
+>
 
-        <h3>Contact Information</h3>
+    <div>
 
-        <p class="v-info-intro">
-            Connect with the Vishuddhi team for plant recommendations,
-            product information and support.
-        </p>
+        <div class="v-section-heading center">
 
-        <!-- ADDRESS -->
-        <div class="v-info-item">
-            <div class="v-info-icon">
-                <i class="fa-solid fa-location-dot"></i>
+            <div class="v-section-kicker">
+                Plant Consultation
             </div>
 
-            <div>
-                <h5>Visit Us</h5>
+            <h2>
+                Book an Appointment
+            </h2>
 
-                <p>
-                    <a href="https://www.google.com/maps/place/Vishuddhi+Home+Garden/@13.027101,77.679349,16z/data=!4m6!3m5!1s0x3bae11cde6e615b1:0x5d8d0b9255391d2d!8m2!3d13.027101!4d77.6793492!16s%2Fg%2F11sj29cd07?hl=en-US&entry=ttu&g_ep=EgoyMDI2MDkyMi4wIKXMDSoASAFQAw%3D%3D"
-                       target="_blank"
-                       rel="noopener noreferrer">
-                        NRI Layout Main Road,<br>
-                        Ramamurthy Nagar,<br>
-                        Bengaluru, Karnataka 560016
-                    </a>
-                </p>
-            </div>
+            <p>
+                Need personalised help choosing plants or planning
+                your green space? Schedule a convenient time with us.
+            </p>
+
         </div>
 
-        <!-- PHONE -->
-        <div class="v-info-item">
-            <div class="v-info-icon">
-                <i class="fa-solid fa-phone"></i>
-            </div>
 
-            <div>
-                <h5>Call Us</h5>
+        <div class="row justify-content-center">
 
-                <p>
-                    <a href="tel:+917338619696">
-                        +91 733-8619696
-                    </a>
-                </p>
-            </div>
-        </div>
+            <div class="col-xl-9 col-lg-10">
 
-        <!-- EMAIL -->
-        <div class="v-info-item">
-            <div class="v-info-icon">
-                <i class="fa-regular fa-envelope"></i>
-            </div>
-
-            <div>
-                <h5>Email Us</h5>
-
-                <p>
-                    <a href="mailto:vishuddhihomegardens@gmail.com">
-                        vishuddhihomegardens@gmail.com
-                    </a>
-                </p>
-            </div>
-        </div>
-
-        <!-- HOURS -->
-        <div class="v-info-item">
-            <div class="v-info-icon">
-                <i class="fa-regular fa-clock"></i>
-            </div>
-
-            <div>
-                <h5>Working Hours</h5>
-
-                <p>
-                    Open Daily<br>
-                    10:00 AM - 7:30 PM
-                </p>
-            </div>
-        </div>
-
-    </div>
-</div>
-        <!-- =================================================
-             CONTACT FORM
-        ================================================= -->
-
-        <div class="col-lg-7">
-
-            <div class="v-form-card">
-
-                <h3>
-                    Send Us a Message
-                </h3>
-
-                <p class="v-form-description">
-                    Fill in the details below and our team will
-                    get back to you.
-                </p>
+                <div class="v-appointment-card">
 
 
-                <form
-                    id="contactForm"
-                    novalidate>
+                    <!-- =================================================
+                         STEP 1
+                    ================================================= -->
 
-                    <div class="row">
+                    <div class="v-step">
+
+                        <div class="v-step-heading">
+
+                            <span class="v-step-number">
+                                1
+                            </span>
+
+                            <h4>
+                                Select a Date
+                            </h4>
+
+                        </div>
+
+                        <input
+                            type="date"
+                            id="appointmentDate"
+                            class="v-date-input"
+                        >
+
+                    </div>
 
 
-                        <!-- NAME -->
+                    <!-- =================================================
+                         STEP 2
+                    ================================================= -->
 
-                        <div class="col-md-6">
+                    <div class="v-step">
 
-                            <div class="v-field">
+                        <div class="v-step-heading">
 
-                                <label
-                                    class="v-label"
-                                    for="contactName">
+                            <span class="v-step-number">
+                                2
+                            </span>
 
-                                    Full Name
-                                    <span class="required">*</span>
+                            <h4>
+                                Choose a Time
+                            </h4>
 
-                                </label>
+                        </div>
 
-                                <div class="v-input-wrap">
 
-                                    <i
-                                        class="fa-regular fa-user v-input-icon">
-                                    </i>
+                        <div
+                            id="selectedDayText"
+                            class="v-available-day"
+                        >
+
+                            Available appointments for
+
+                            <strong id="weekdayText"></strong>
+
+                        </div>
+
+
+                        <div
+                            id="slotLoading"
+                            class="v-loading"
+                            style="display:none;"
+                        >
+
+                            <i class="fa-solid fa-spinner fa-spin"></i>
+
+                            Checking available times...
+
+                        </div>
+
+
+                        <div id="slot">
+
+                            <div class="v-no-slots">
+
+                                <i class="fa-regular fa-calendar"></i>
+
+                                &nbsp;
+
+                                Please select a date to see
+                                available appointment times.
+
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            id="selectedSummary"
+                            class="v-selected-summary"
+                        >
+
+                            <i class="fa-solid fa-circle-check"></i>
+
+                            &nbsp;
+
+                            Selected:
+
+                            <strong id="selectedDateText"></strong>
+
+                            at
+
+                            <strong id="selectedTimeText"></strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================================
+                         STEP 3
+                    ================================================= -->
+
+                    <div class="v-step">
+
+                        <div class="v-step-heading">
+
+                            <span class="v-step-number">
+                                3
+                            </span>
+
+                            <h4>
+                                Your Details
+                            </h4>
+
+                        </div>
+
+
+                        <div class="row g-3">
+
+
+                            <!-- NAME -->
+
+                            <div class="col-md-6">
+
+                                <div class="v-field">
+
+                                    <label
+                                        class="v-label"
+                                        for="customerName"
+                                    >
+
+                                        Full Name
+
+                                        <span class="required">*</span>
+
+                                    </label>
 
                                     <input
                                         type="text"
-                                        id="contactName"
+                                        id="customerName"
                                         class="v-input"
-                                        placeholder="Enter your name"
+                                        style="padding-left:13px;"
+                                        placeholder="Enter your full name"
                                         autocomplete="name"
                                         maxlength="80"
                                     >
 
-                                </div>
+                                    <div
+                                        id="customerNameError"
+                                        class="v-error"
+                                    ></div>
 
-                                <div
-                                    id="contactNameError"
-                                    class="v-error">
                                 </div>
 
                             </div>
 
-                        </div>
 
+                            <!-- EMAIL -->
 
-                        <!-- EMAIL -->
+                            <div class="col-md-6">
 
-                        <div class="col-md-6">
+                                <div class="v-field">
 
-                            <div class="v-field">
+                                    <label
+                                        class="v-label"
+                                        for="customerEmail"
+                                    >
 
-                                <label
-                                    class="v-label"
-                                    for="contactEmail">
+                                        Email
 
-                                    Email Address
-                                    <span class="required">*</span>
+                                        <span class="required">*</span>
 
-                                </label>
-
-                                <div class="v-input-wrap">
-
-                                    <i
-                                        class="fa-regular fa-envelope v-input-icon">
-                                    </i>
+                                    </label>
 
                                     <input
                                         type="email"
-                                        id="contactEmail"
+                                        id="customerEmail"
                                         class="v-input"
-                                        placeholder="you@example.com"
+                                        style="padding-left:13px;"
+                                        placeholder="Enter your email"
                                         autocomplete="email"
                                         maxlength="120"
                                     >
 
-                                </div>
+                                    <div
+                                        id="customerEmailError"
+                                        class="v-error"
+                                    ></div>
 
-                                <div
-                                    id="contactEmailError"
-                                    class="v-error">
                                 </div>
 
                             </div>
 
-                        </div>
 
+                            <!-- PHONE -->
 
-                        <!-- PHONE -->
+                            <div class="col-md-6">
 
-                        <div class="col-md-6">
+                                <div class="v-field">
 
-                            <div class="v-field">
+                                    <label
+                                        class="v-label"
+                                        for="customerPhone"
+                                    >
 
-                                <label
-                                    class="v-label"
-                                    for="contactPhone">
+                                        Phone
 
-                                    Phone Number
+                                        <span class="required">*</span>
 
-                                </label>
-
-                                <div class="v-input-wrap">
-
-                                    <i
-                                        class="fa-solid fa-phone v-input-icon">
-                                    </i>
+                                    </label>
 
                                     <input
                                         type="tel"
-                                        id="contactPhone"
+                                        id="customerPhone"
                                         class="v-input"
-                                        placeholder="10-digit mobile number"
+                                        style="padding-left:13px;"
                                         maxlength="10"
                                         inputmode="numeric"
                                         autocomplete="tel"
+                                        placeholder="10-digit mobile number"
                                     >
 
-                                </div>
+                                    <div
+                                        id="customerPhoneError"
+                                        class="v-error"
+                                    ></div>
 
-                                <div
-                                    id="contactPhoneError"
-                                    class="v-error">
                                 </div>
 
                             </div>
 
-                        </div>
 
+                            <!-- SUBJECT -->
 
-                        <!-- SUBJECT -->
+                            <div class="col-md-6">
 
-                        <div class="col-md-6">
+                                <div class="v-field">
 
-                            <div class="v-field">
-
-                                <label
-                                    class="v-label"
-                                    for="contactSubject">
-
-                                    Subject
-
-                                </label>
-
-                                <div class="v-input-wrap">
-
-                                    <i
-                                        class="fa-regular fa-comment-dots v-input-icon">
-                                    </i>
+                                    <label
+                                        class="v-label"
+                                        for="appointmentSubject"
+                                    >
+                                        Subject
+                                    </label>
 
                                     <input
                                         type="text"
-                                        id="contactSubject"
+                                        id="appointmentSubject"
                                         class="v-input"
-                                        placeholder="How can we help?"
+                                        style="padding-left:13px;"
+                                        placeholder="Appointment subject"
                                         maxlength="150"
                                     >
 
@@ -1685,428 +2216,67 @@
 
                             </div>
 
-                        </div>
 
+                            <!-- MESSAGE -->
 
-                        <!-- MESSAGE -->
+                            <div class="col-12">
 
-                        <div class="col-12">
+                                <div class="v-field">
 
-                            <div class="v-field">
+                                    <label
+                                        class="v-label"
+                                        for="appointmentMessage"
+                                    >
+                                        Message
+                                    </label>
 
-                                <label
-                                    class="v-label"
-                                    for="contactText">
+                                    <textarea
+                                        id="appointmentMessage"
+                                        class="v-textarea"
+                                        placeholder="Tell us anything we should know..."
+                                        maxlength="1000"
+                                    ></textarea>
 
-                                    Message
-                                    <span class="required">*</span>
-
-                                </label>
-
-                                <textarea
-                                    id="contactText"
-                                    class="v-textarea"
-                                    placeholder="Tell us how we can help you..."
-                                    maxlength="1000"></textarea>
-
-                                <div
-                                    id="contactTextError"
-                                    class="v-error">
                                 </div>
 
                             </div>
 
                         </div>
 
-
-                        <!-- SUBMIT -->
-
-                        <div class="col-12">
-
-                            <button
-                                type="submit"
-                                id="contactSubmitBtn"
-                                class="v-submit">
-
-                                <i class="fa-regular fa-paper-plane"></i>
-
-                                Send Message
-
-                            </button>
-
-                        </div>
+                    </div>
 
 
-                        <!-- CONTACT MESSAGE -->
+                    <!-- BOOK BUTTON -->
 
-                        <div class="col-12">
+                    <div class="text-center">
 
-                            <div
-                                id="contactMessage"
-                                class="v-alert">
-                            </div>
+                        <button
+                            type="button"
+                            id="bookAppointmentBtn"
+                            class="v-book-btn"
+                        >
 
-                        </div>
+                            <i class="fa-regular fa-calendar-check"></i>
+
+                            Book Appointment
+
+                        </button>
 
                     </div>
 
-                </form>
 
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
-
-
-</section>
-
-<!-- =========================================================
-     APPOINTMENT SECTION
-========================================================= -->
-
-<section id="book-appointment" class="v-section v-appointment-section">
-
-<div>
-
-    <div class="v-section-heading center">
-
-        <div class="v-section-kicker">
-            Plant Consultation
-        </div>
-
-        <h2>
-            Book an Appointment
-        </h2>
-
-        <p>
-            Need personalised help choosing plants or planning
-            your green space? Schedule a convenient time with us.
-        </p>
-
-    </div>
-
-
-    <div class="row justify-content-center">
-
-        <div class="col-xl-9 col-lg-10">
-
-            <div class="v-appointment-card">
-
-
-                <!-- STEP 1 -->
-
-                <div class="v-step">
-
-                    <div class="v-step-heading">
-
-                        <span class="v-step-number">
-                            1
-                        </span>
-
-                        <h4>
-                            Select a Date
-                        </h4>
-
-                    </div>
-
-                    <input
-                        type="date"
-                        id="appointmentDate"
-                        class="v-date-input"
-                    >
-
-                </div>
-
-
-                <!-- STEP 2 -->
-
-                <div class="v-step">
-
-                    <div class="v-step-heading">
-
-                        <span class="v-step-number">
-                            2
-                        </span>
-
-                        <h4>
-                            Choose a Time
-                        </h4>
-
-                    </div>
-
+                    <!-- BOOKING MESSAGE -->
 
                     <div
-                        id="selectedDayText"
-                        class="v-available-day">
+                        id="bookingMessage"
+                        class="v-alert"
+                        style="
+                            margin-top:14px;
+                            margin-bottom:0;
+                            text-align:center;
+                        "
+                    ></div>
 
-                        Available appointments for
-
-                        <strong id="weekdayText"></strong>
-
-                    </div>
-
-
-                    <div
-                        id="slotLoading"
-                        class="v-loading"
-                        style="display:none;">
-
-                        <i class="fa-solid fa-spinner fa-spin"></i>
-
-                        Checking available times...
-
-                    </div>
-
-
-                    <div id="slot">
-
-                        <div class="v-no-slots">
-
-                            <i class="fa-regular fa-calendar"></i>
-
-                            &nbsp;
-
-                            Please select a date to see
-                            available appointment times.
-
-                        </div>
-
-                    </div>
-
-
-                    <div
-                        id="selectedSummary"
-                        class="v-selected-summary">
-
-                        <i class="fa-solid fa-circle-check"></i>
-
-                        &nbsp;
-
-                        Selected:
-
-                        <strong id="selectedDateText"></strong>
-
-                        at
-
-                        <strong id="selectedTimeText"></strong>
-
-                    </div>
-
-                </div>
-
-
-                <!-- STEP 3 -->
-
-                <div class="v-step">
-
-                    <div class="v-step-heading">
-
-                        <span class="v-step-number">
-                            3
-                        </span>
-
-                        <h4>
-                            Your Details
-                        </h4>
-
-                    </div>
-
-
-                    <div class="row g-3">
-
-
-                        <!-- NAME -->
-
-                        <div class="col-md-6">
-
-                            <div class="v-field">
-
-                                <label
-                                    class="v-label"
-                                    for="customerName">
-
-                                    Full Name
-                                    <span class="required">*</span>
-
-                                </label>
-
-                                <input
-                                    type="text"
-                                    id="customerName"
-                                    class="v-input"
-                                    style="padding-left:13px;"
-                                    placeholder="Enter your full name"
-                                    autocomplete="name"
-                                    maxlength="80"
-                                >
-
-                                <div
-                                    id="customerNameError"
-                                    class="v-error">
-                                </div>
-
-                            </div>
-
-                        </div>
-
-
-                        <!-- EMAIL -->
-
-                        <div class="col-md-6">
-
-                            <div class="v-field">
-
-                                <label
-                                    class="v-label"
-                                    for="customerEmail">
-
-                                    Email
-                                    <span class="required">*</span>
-
-                                </label>
-
-                                <input
-                                    type="email"
-                                    id="customerEmail"
-                                    class="v-input"
-                                    style="padding-left:13px;"
-                                    placeholder="Enter your email"
-                                    autocomplete="email"
-                                    maxlength="120"
-                                >
-
-                                <div
-                                    id="customerEmailError"
-                                    class="v-error">
-                                </div>
-
-                            </div>
-
-                        </div>
-
-
-                        <!-- PHONE -->
-
-                        <div class="col-md-6">
-
-                            <div class="v-field">
-
-                                <label
-                                    class="v-label"
-                                    for="customerPhone">
-
-                                    Phone
-                                    <span class="required">*</span>
-
-                                </label>
-
-                                <input
-                                    type="tel"
-                                    id="customerPhone"
-                                    class="v-input"
-                                    style="padding-left:13px;"
-                                    maxlength="10"
-                                    inputmode="numeric"
-                                    autocomplete="tel"
-                                    placeholder="10-digit mobile number"
-                                >
-
-                                <div
-                                    id="customerPhoneError"
-                                    class="v-error">
-                                </div>
-
-                            </div>
-
-                        </div>
-
-
-                        <!-- SUBJECT -->
-
-                        <div class="col-md-6">
-
-                            <div class="v-field">
-
-                                <label
-                                    class="v-label"
-                                    for="appointmentSubject">
-
-                                    Subject
-
-                                </label>
-
-                                <input
-                                    type="text"
-                                    id="appointmentSubject"
-                                    class="v-input"
-                                    style="padding-left:13px;"
-                                    placeholder="Appointment subject"
-                                    maxlength="150"
-                                >
-
-                            </div>
-
-                        </div>
-
-
-                        <!-- MESSAGE -->
-
-                        <div class="col-12">
-
-                            <div class="v-field">
-
-                                <label
-                                    class="v-label"
-                                    for="appointmentMessage">
-
-                                    Message
-
-                                </label>
-
-                                <textarea
-                                    id="appointmentMessage"
-                                    class="v-textarea"
-                                    placeholder="Tell us anything we should know..."
-                                    maxlength="1000"></textarea>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                <!-- BOOK BUTTON -->
-
-                <div class="text-center">
-
-                    <button
-                        type="button"
-                        id="bookAppointmentBtn"
-                        class="v-book-btn">
-
-                        <i class="fa-regular fa-calendar-check"></i>
-
-                        Book Appointment
-
-                    </button>
-
-                </div>
-
-
-                <div
-                    id="bookingMessage"
-                    class="v-alert"
-                    style="
-                        margin-top:14px;
-                        margin-bottom:0;
-                        text-align:center;
-                    ">
                 </div>
 
             </div>
@@ -2115,10 +2285,8 @@
 
     </div>
 
-</div>
-
-
 </section>
+
 
 <!-- =========================================================
      CTA
@@ -2126,44 +2294,44 @@
 
 <section class="v-contact-cta">
 
+    <div>
 
-<div>
+        <div class="v-contact-cta-content">
 
-    <div class="v-contact-cta-content">
+            <h2>
+                Let's Make Your Space Greener
+            </h2>
 
-        <h2>
-            Let's Make Your Space Greener
-        </h2>
+            <p>
+                Discover plants that bring freshness, beauty and life
+                closer to home.
+            </p>
 
-        <p>
-            Discover plants that bring freshness, beauty and life
-            closer to home.
-        </p>
+            <a
+                href="/all-products"
+                class="v-cta-btn"
+            >
 
-        <a
-            href="/all-products"
-            class="v-cta-btn">
+                Explore Plants
 
-            Explore Plants
+                <i class="fa-solid fa-arrow-right"></i>
 
-            <i class="fa-solid fa-arrow-right"></i>
+            </a>
 
-        </a>
+        </div>
 
     </div>
-
-</div>
-
 
 </section>
 
 </div>
 
+
 <script>
 
 /* =========================================================
    BASIC HELPERS
-   ========================================================= */
+========================================================= */
 
 function getElement(id) {
     return document.getElementById(id);
@@ -2172,7 +2340,7 @@ function getElement(id) {
 
 /* =========================================================
    ALERT
-   ========================================================= */
+========================================================= */
 
 function showMessage(id, message, type) {
 
@@ -2183,6 +2351,7 @@ function showMessage(id, message, type) {
     }
 
     element.className = "v-alert " + type;
+
     element.textContent = message;
 }
 
@@ -2196,13 +2365,14 @@ function hideMessage(id) {
     }
 
     element.className = "v-alert";
+
     element.textContent = "";
 }
 
 
 /* =========================================================
    FRAPPE API ERROR
-   ========================================================= */
+========================================================= */
 
 function getApiError(result, fallback) {
 
@@ -2241,7 +2411,6 @@ function getApiError(result, fallback) {
                 "Unable to parse Frappe error:",
                 error
             );
-
         }
     }
 
@@ -2270,7 +2439,7 @@ function getApiError(result, fallback) {
 
 /* =========================================================
    SAFE API RESPONSE PARSER
-   ========================================================= */
+========================================================= */
 
 async function parseApiResponse(response) {
 
@@ -2315,7 +2484,7 @@ async function parseApiResponse(response) {
 
 /* =========================================================
    VALIDATION
-   ========================================================= */
+========================================================= */
 
 function isValidEmail(email) {
 
@@ -2337,7 +2506,7 @@ function isValidName(name) {
 
 /* =========================================================
    FIELD STATE
-   ========================================================= */
+========================================================= */
 
 function setFieldError(
     inputId,
@@ -2424,13 +2593,12 @@ function clearFieldState(
 
 
 /* =========================================================
-   API LOADING HELPERS
-   ========================================================= */
+   API LOADING
+========================================================= */
 
 function setButtonLoading(
     button,
-    loadingText,
-    icon
+    loadingText
 ) {
 
     if (!button) {
@@ -2481,7 +2649,7 @@ function resetButtonLoading(button) {
 
 /* =========================================================
    LOCAL DATE
-   ========================================================= */
+========================================================= */
 
 function getLocalDateString(date) {
 
@@ -2503,8 +2671,8 @@ function getLocalDateString(date) {
 
 
 /* =========================================================
-   APPOINTMENT DATE
-   ========================================================= */
+   DATE
+========================================================= */
 
 const appointmentDate =
     getElement("appointmentDate");
@@ -2524,7 +2692,7 @@ if (appointmentDate) {
 
 /* =========================================================
    WEEKDAY
-   ========================================================= */
+========================================================= */
 
 function getWeekdayFromDate(dateString) {
 
@@ -2544,7 +2712,7 @@ function getWeekdayFromDate(dateString) {
 
 /* =========================================================
    FORMAT TIME
-   ========================================================= */
+========================================================= */
 
 function formatTime(time) {
 
@@ -2578,7 +2746,7 @@ function formatTime(time) {
 
 /* =========================================================
    FORMAT DATE
-   ========================================================= */
+========================================================= */
 
 function formatDate(dateString) {
 
@@ -2600,7 +2768,7 @@ function formatDate(dateString) {
 
 /* =========================================================
    CLEAR SELECTED SLOT
-   ========================================================= */
+========================================================= */
 
 function clearSelectedSlot() {
 
@@ -2628,8 +2796,320 @@ function clearSelectedSlot() {
 
 
 /* =========================================================
+   GET GROUPS FROM API RESPONSE
+========================================================= */
+
+/*
+    Supported backend response formats:
+
+    FORMAT 1:
+
+    {
+        "message": {
+            "groups": [
+                {
+                    "group_id": "group-1",
+                    "from_time": "10:00:00",
+                    "to_time": "13:00:00",
+                    "booked": false,
+                    "slots": [
+                        {
+                            "time": "10:00:00",
+                            "label": "10:00 AM"
+                        },
+                        {
+                            "time": "11:00:00",
+                            "label": "11:00 AM"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+
+    FORMAT 2:
+
+    {
+        "message": {
+            "slots": [...]
+        }
+    }
+
+    The first format is preferred.
+*/
+
+function normalizeSlotGroups(result) {
+
+    let message =
+        result
+            ? result.message
+            : null;
+
+    if (!message) {
+        return [];
+    }
+
+
+    /* -----------------------------------------
+       DIRECT GROUP RESPONSE
+    ----------------------------------------- */
+
+    if (
+        message &&
+        Array.isArray(message.groups)
+    ) {
+
+        return message.groups;
+    }
+
+
+    /* -----------------------------------------
+       MESSAGE ITSELF IS ARRAY
+    ----------------------------------------- */
+
+    if (Array.isArray(message)) {
+
+        const groups = [];
+
+        message.forEach(function(item, index) {
+
+            if (!item) {
+                return;
+            }
+
+            /*
+             * Already a group
+             */
+
+            if (
+                Array.isArray(item.slots)
+            ) {
+
+                groups.push(item);
+
+                return;
+            }
+
+            /*
+             * Flat slot
+             */
+
+            const groupId =
+                item.group_id ||
+                item.group ||
+                item.group_name ||
+                "default";
+
+            let group =
+                groups.find(function(existing) {
+
+                    return String(
+                        existing.group_id
+                    ) === String(groupId);
+
+                });
+
+            if (!group) {
+
+                group = {
+                    group_id: groupId,
+                    from_time:
+                        item.from_time || "",
+                    to_time:
+                        item.to_time || "",
+                    booked:
+                        item.booked === true ||
+                        item.available === false,
+                    slots: []
+                };
+
+                groups.push(group);
+            }
+
+            group.slots.push(item);
+        });
+
+        return groups;
+    }
+
+
+    /* -----------------------------------------
+       message.slots
+    ----------------------------------------- */
+
+    if (
+        Array.isArray(message.slots)
+    ) {
+
+        const slots =
+            message.slots;
+
+        /*
+         * If backend already sends group
+         * information on each slot,
+         * group them here.
+         */
+
+        const groups = [];
+
+        slots.forEach(function(item, index) {
+
+            if (
+                typeof item === "string"
+            ) {
+
+                let group =
+                    groups[0];
+
+                if (!group) {
+
+                    group = {
+                        group_id: "default",
+                        from_time: "",
+                        to_time: "",
+                        booked: false,
+                        slots: []
+                    };
+
+                    groups.push(group);
+                }
+
+                group.slots.push({
+                    time: item,
+                    label: formatTime(item)
+                });
+
+                return;
+            }
+
+            if (!item) {
+                return;
+            }
+
+            /*
+             * Group object
+             */
+
+            if (
+                Array.isArray(item.slots)
+            ) {
+
+                groups.push(item);
+
+                return;
+            }
+
+            /*
+             * Individual slot
+             */
+
+            const groupId =
+                item.group_id ||
+                item.group ||
+                item.group_name ||
+                "default";
+
+            let group =
+                groups.find(function(existing) {
+
+                    return String(
+                        existing.group_id
+                    ) === String(groupId);
+
+                });
+
+            if (!group) {
+
+                group = {
+                    group_id: groupId,
+                    from_time:
+                        item.from_time || "",
+                    to_time:
+                        item.to_time || "",
+                    booked:
+                        item.booked === true ||
+                        item.available === false,
+                    slots: []
+                };
+
+                groups.push(group);
+            }
+
+            group.slots.push(item);
+
+        });
+
+        return groups;
+    }
+
+
+    return [];
+}
+
+
+/* =========================================================
+   GROUP LABEL
+========================================================= */
+
+function getGroupLabel(group, index) {
+
+    if (!group) {
+        return `Time Slots ${index + 1}`;
+    }
+
+    if (
+        group.label &&
+        String(group.label).trim()
+    ) {
+
+        return String(
+            group.label
+        );
+    }
+
+    const from =
+        group.from_time ||
+        group.start_time ||
+        group.from ||
+        "";
+
+    const to =
+        group.to_time ||
+        group.end_time ||
+        group.to ||
+        "";
+
+    if (from && to) {
+
+        return `${formatTime(from)} - ${formatTime(to)}`;
+    }
+
+    return `Time Slots ${index + 1}`;
+}
+
+
+/* =========================================================
+   GROUP BOOKED STATE
+========================================================= */
+
+function isGroupBooked(group) {
+
+    if (!group) {
+        return false;
+    }
+
+    return (
+        group.booked === true ||
+        group.is_booked === true ||
+        group.available === false ||
+        group.is_available === false
+    );
+}
+
+
+/* =========================================================
    LOAD AVAILABLE SLOTS
-   ========================================================= */
+========================================================= */
 
 async function loadAvailableSlots() {
 
@@ -2652,13 +3132,16 @@ async function loadAvailableSlots() {
     const weekdayText =
         getElement("weekdayText");
 
+
     clearSelectedSlot();
+
 
     if (selectedDayText) {
 
         selectedDayText.style.display =
             "none";
     }
+
 
     if (!date) {
 
@@ -2674,6 +3157,7 @@ async function loadAvailableSlots() {
         return;
     }
 
+
     if (date < todayString) {
 
         if (slot) {
@@ -2688,8 +3172,10 @@ async function loadAvailableSlots() {
         return;
     }
 
+
     const day =
         getWeekdayFromDate(date);
+
 
     if (weekdayText) {
 
@@ -2697,15 +3183,17 @@ async function loadAvailableSlots() {
             day;
     }
 
+
     if (selectedDayText) {
 
         selectedDayText.style.display =
             "block";
     }
 
-    /*
-     * START API LOADING
-     */
+
+    /* -----------------------------------------
+       START LOADING
+    ----------------------------------------- */
 
     if (slotLoading) {
 
@@ -2722,12 +3210,22 @@ async function loadAvailableSlots() {
         slot.innerHTML = "";
     }
 
+
     try {
+
+        /*
+         * IMPORTANT:
+         * Send DATE instead of only weekday.
+         *
+         * Backend can therefore check existing
+         * appointments for this exact date.
+         */
 
         const url =
             "/api/method/vishuddhi.api.appointment.get_available_slots"
-            + "?day="
-            + encodeURIComponent(day);
+            + "?date="
+            + encodeURIComponent(date);
+
 
         const response =
             await fetch(
@@ -2742,10 +3240,12 @@ async function loadAvailableSlots() {
                 }
             );
 
+
         const result =
             await parseApiResponse(
                 response
             );
+
 
         if (!response.ok) {
 
@@ -2757,16 +3257,14 @@ async function loadAvailableSlots() {
             );
         }
 
-        let slots =
-            result.message;
 
-        if (!Array.isArray(slots)) {
+        const groups =
+            normalizeSlotGroups(
+                result
+            );
 
-            slots =
-                slots?.slots || [];
-        }
 
-        if (!slots.length) {
+        if (!groups.length) {
 
             if (slot) {
 
@@ -2787,125 +3285,487 @@ async function loadAvailableSlots() {
             return;
         }
 
-        const grid =
+
+        /*
+         * GROUP CONTAINER
+         */
+
+        const groupsContainer =
             document.createElement(
                 "div"
             );
 
-        grid.className =
-            "v-slot-grid";
+        groupsContainer.className =
+            "v-slot-groups";
 
-        slots.forEach(function(slotData) {
 
-            const time =
-                typeof slotData === "string"
-                    ? slotData
-                    : slotData.time;
+        groups.forEach(
+            function(group, groupIndex) {
 
-            if (!time) {
-                return;
-            }
+                if (!group) {
+                    return;
+                }
 
-            const label =
-                typeof slotData === "object" &&
-                slotData.label
-                    ? slotData.label
-                    : formatTime(time);
 
-            const button =
-                document.createElement(
-                    "button"
-                );
+                const groupBooked =
+                    isGroupBooked(group);
 
-            button.type =
-                "button";
 
-            button.className =
-                "v-slot";
+                /*
+                 * GROUP CARD
+                 */
 
-            button.textContent =
-                label;
-
-            button.dataset.time =
-                time;
-
-            button.dataset.day =
-                day;
-
-            button.dataset.date =
-                date;
-
-            button.addEventListener(
-                "click",
-                function() {
-
-                    document
-                        .querySelectorAll(
-                            ".v-slot"
-                        )
-                        .forEach(
-                            function(btn) {
-
-                                btn.classList.remove(
-                                    "active"
-                                );
-
-                            }
-                        );
-
-                    button.classList.add(
-                        "active"
+                const groupElement =
+                    document.createElement(
+                        "div"
                     );
 
-                    const selectedDate =
-                        getElement(
-                            "selectedDateText"
-                        );
+                groupElement.className =
+                    "v-slot-group";
 
-                    if (selectedDate) {
 
-                        selectedDate.textContent =
-                            formatDate(date);
-                    }
+                if (groupBooked) {
 
-                    const selectedTime =
-                        getElement(
-                            "selectedTimeText"
-                        );
-
-                    if (selectedTime) {
-
-                        selectedTime.textContent =
-                            label;
-                    }
-
-                    const summary =
-                        getElement(
-                            "selectedSummary"
-                        );
-
-                    if (summary) {
-
-                        summary.style.display =
-                            "block";
-                    }
-
-                    hideMessage(
-                        "bookingMessage"
+                    groupElement.classList.add(
+                        "is-booked"
                     );
                 }
-            );
 
-            grid.appendChild(
-                button
-            );
 
-        });
+                /*
+                 * HEADER
+                 */
+
+                const header =
+                    document.createElement(
+                        "div"
+                    );
+
+                header.className =
+                    "v-slot-group-header";
+
+
+                /*
+                 * TITLE
+                 */
+
+                const title =
+                    document.createElement(
+                        "div"
+                    );
+
+                title.className =
+                    "v-slot-group-title";
+
+
+                const titleIcon =
+                    document.createElement(
+                        "i"
+                    );
+
+                titleIcon.className =
+                    groupBooked
+                        ? "fa-solid fa-lock"
+                        : "fa-regular fa-clock";
+
+
+                title.appendChild(
+                    titleIcon
+                );
+
+
+                const titleText =
+                    document.createElement(
+                        "span"
+                    );
+
+                titleText.textContent =
+                    getGroupLabel(
+                        group,
+                        groupIndex
+                    );
+
+
+                title.appendChild(
+                    titleText
+                );
+
+
+                /*
+                 * STATUS
+                 */
+
+                const status =
+                    document.createElement(
+                        "span"
+                    );
+
+                status.className =
+                    "v-slot-group-status " +
+                    (
+                        groupBooked
+                            ? "booked"
+                            : "available"
+                    );
+
+
+                if (groupBooked) {
+
+                    status.innerHTML =
+                        `
+                        <i class="fa-solid fa-lock"></i>
+                        Already booked
+                        `;
+
+                }
+                else {
+
+                    status.innerHTML =
+                        `
+                        <i class="fa-solid fa-circle-check"></i>
+                        Available
+                        `;
+                }
+
+
+                header.appendChild(
+                    title
+                );
+
+                header.appendChild(
+                    status
+                );
+
+
+                groupElement.appendChild(
+                    header
+                );
+
+
+                /*
+                 * DESCRIPTION
+                 */
+
+                const description =
+                    document.createElement(
+                        "div"
+                    );
+
+                description.className =
+                    "v-slot-group-description";
+
+
+                if (groupBooked) {
+
+                    description.textContent =
+                        "An appointment has already been booked in this time window. Other slots in this group are unavailable.";
+
+                }
+                else {
+
+                    description.textContent =
+                        "Select one available time from this time window.";
+                }
+
+
+                groupElement.appendChild(
+                    description
+                );
+
+
+                /*
+                 * SLOT GRID
+                 */
+
+                const grid =
+                    document.createElement(
+                        "div"
+                    );
+
+                grid.className =
+                    "v-slot-grid";
+
+
+                let groupSlots =
+                    Array.isArray(group.slots)
+                        ? group.slots
+                        : [];
+
+
+                /*
+                 * FALLBACK:
+                 * Some APIs may call this
+                 * "available_slots".
+                 */
+
+                if (
+                    !groupSlots.length &&
+                    Array.isArray(
+                        group.available_slots
+                    )
+                ) {
+
+                    groupSlots =
+                        group.available_slots;
+                }
+
+
+                /*
+                 * NO SLOTS INSIDE GROUP
+                 */
+
+                if (!groupSlots.length) {
+
+                    const noSlots =
+                        document.createElement(
+                            "div"
+                        );
+
+                    noSlots.className =
+                        "v-no-slots";
+
+                    noSlots.style.gridColumn =
+                        "1 / -1";
+
+                    noSlots.textContent =
+                        groupBooked
+                            ? "This time slot is already booked."
+                            : "No slots are available in this time.";
+
+                    grid.appendChild(
+                        noSlots
+                    );
+
+                }
+
+
+                /*
+                 * CREATE SLOTS
+                 */
+
+                groupSlots.forEach(
+                    function(slotData) {
+
+                        if (!slotData) {
+                            return;
+                        }
+
+
+                        const time =
+                            typeof slotData === "string"
+                                ? slotData
+                                : (
+                                    slotData.time ||
+                                    slotData.start_time ||
+                                    slotData.from_time
+                                );
+
+
+                        if (!time) {
+                            return;
+                        }
+
+
+                        const label =
+                            typeof slotData === "object" &&
+                            slotData.label
+                                ? slotData.label
+                                : formatTime(time);
+
+
+                        const slotAvailable =
+                            typeof slotData === "object"
+                                ? (
+                                    slotData.available !== false &&
+                                    slotData.booked !== true &&
+                                    slotData.is_available !== false
+                                )
+                                : true;
+
+
+                        /*
+                         * GROUP STATUS OVERRIDES
+                         */
+
+                        const disabled =
+                            groupBooked ||
+                            !slotAvailable;
+
+
+                        const button =
+                            document.createElement(
+                                "button"
+                            );
+
+
+                        button.type =
+                            "button";
+
+
+                        button.className =
+                            "v-slot";
+
+
+                        button.textContent =
+                            label;
+
+
+                        button.dataset.time =
+                            time;
+
+
+                        button.dataset.day =
+                            day;
+
+
+                        button.dataset.date =
+                            date;
+
+
+                        button.dataset.groupId =
+                            group.group_id ||
+                            groupIndex;
+
+
+                        if (disabled) {
+
+                            button.disabled =
+                                true;
+
+                            button.classList.add(
+                                "v-slot-disabled"
+                            );
+
+                            button.title =
+                                groupBooked
+                                    ? "This time slot is already booked."
+                                    : "This slot is unavailable.";
+
+                        }
+                        else {
+
+                            button.addEventListener(
+                                "click",
+                                function() {
+
+                                    /*
+                                     * Remove active
+                                     * from all slots.
+                                     */
+
+                                    document
+                                        .querySelectorAll(
+                                            ".v-slot"
+                                        )
+                                        .forEach(
+                                            function(btn) {
+
+                                                btn.classList.remove(
+                                                    "active"
+                                                );
+
+                                            }
+                                        );
+
+
+                                    /*
+                                     * Select current slot.
+                                     */
+
+                                    button.classList.add(
+                                        "active"
+                                    );
+
+
+                                    /*
+                                     * Selected date.
+                                     */
+
+                                    const selectedDate =
+                                        getElement(
+                                            "selectedDateText"
+                                        );
+
+                                    if (selectedDate) {
+
+                                        selectedDate.textContent =
+                                            formatDate(
+                                                date
+                                            );
+                                    }
+
+
+                                    /*
+                                     * Selected time.
+                                     */
+
+                                    const selectedTime =
+                                        getElement(
+                                            "selectedTimeText"
+                                        );
+
+                                    if (selectedTime) {
+
+                                        selectedTime.textContent =
+                                            label;
+                                    }
+
+
+                                    /*
+                                     * Show summary.
+                                     */
+
+                                    const summary =
+                                        getElement(
+                                            "selectedSummary"
+                                        );
+
+                                    if (summary) {
+
+                                        summary.style.display =
+                                            "block";
+                                    }
+
+
+                                    /*
+                                     * Hide previous
+                                     * booking message.
+                                     */
+
+                                    hideMessage(
+                                        "bookingMessage"
+                                    );
+
+                                }
+                            );
+                        }
+
+
+                        grid.appendChild(
+                            button
+                        );
+
+                    }
+                );
+
+
+                groupElement.appendChild(
+                    grid
+                );
+
+
+                groupsContainer.appendChild(
+                    groupElement
+                );
+
+            }
+        );
+
 
         if (slot) {
 
             slot.appendChild(
-                grid
+                groupsContainer
             );
         }
 
@@ -2916,6 +3776,7 @@ async function loadAvailableSlots() {
             "Slot loading error:",
             error
         );
+
 
         if (slot) {
 
@@ -2939,7 +3800,7 @@ async function loadAvailableSlots() {
     finally {
 
         /*
-         * STOP API LOADING
+         * STOP LOADING
          */
 
         if (slotLoading) {
@@ -2960,7 +3821,7 @@ async function loadAvailableSlots() {
 
 /* =========================================================
    DATE CHANGE
-   ========================================================= */
+========================================================= */
 
 if (appointmentDate) {
 
@@ -2981,7 +3842,7 @@ if (appointmentDate) {
 
 /* =========================================================
    PHONE INPUT
-   ========================================================= */
+========================================================= */
 
 [
     "contactPhone",
@@ -3012,31 +3873,36 @@ if (appointmentDate) {
 
 /* =========================================================
    CONTACT VALIDATION
-   ========================================================= */
+========================================================= */
 
 function validateContactForm() {
 
     let valid = true;
+
 
     const name =
         getElement("contactName")
             .value
             .trim();
 
+
     const email =
         getElement("contactEmail")
             .value
             .trim();
+
 
     const phone =
         getElement("contactPhone")
             .value
             .trim();
 
+
     const message =
         getElement("contactText")
             .value
             .trim();
+
 
     clearFieldState(
         "contactName",
@@ -3059,7 +3925,9 @@ function validateContactForm() {
     );
 
 
-    /* NAME */
+    /* -----------------------------------------
+       NAME
+    ----------------------------------------- */
 
     if (!name) {
 
@@ -3100,45 +3968,51 @@ function validateContactForm() {
             "contactName",
             "contactNameError"
         );
-
     }
 
 
-    /* EMAIL */
+    /* -----------------------------------------
+       EMAIL - OPTIONAL
+    ----------------------------------------- */
 
-    if (!email) {
+    if (email) {
 
-        setFieldError(
-            "contactEmail",
-            "contactEmailError",
-            "Please enter your email address."
-        );
+        if (!isValidEmail(email)) {
 
-        valid = false;
+            setFieldError(
+                "contactEmail",
+                "contactEmailError",
+                "Please enter a valid email address."
+            );
 
-    }
-    else if (!isValidEmail(email)) {
+            valid = false;
 
-        setFieldError(
-            "contactEmail",
-            "contactEmailError",
-            "Please enter a valid email address."
-        );
+        }
+        else {
 
-        valid = false;
+            setFieldValid(
+                "contactEmail",
+                "contactEmailError"
+            );
+        }
 
     }
     else {
 
-        setFieldValid(
+        /*
+         * Empty email is valid.
+         */
+
+        clearFieldState(
             "contactEmail",
             "contactEmailError"
         );
-
     }
 
 
-    /* PHONE - OPTIONAL */
+    /* -----------------------------------------
+       PHONE - OPTIONAL
+    ----------------------------------------- */
 
     if (
         phone &&
@@ -3160,11 +4034,12 @@ function validateContactForm() {
             "contactPhone",
             "contactPhoneError"
         );
-
     }
 
 
-    /* MESSAGE */
+    /* -----------------------------------------
+       MESSAGE
+    ----------------------------------------- */
 
     if (!message) {
 
@@ -3194,19 +4069,20 @@ function validateContactForm() {
             "contactText",
             "contactTextError"
         );
-
     }
+
 
     return valid;
 }
 
 
 /* =========================================================
-   CONTACT FORM SUBMIT
-   ========================================================= */
+   CONTACT FORM
+========================================================= */
 
 const contactForm =
     getElement("contactForm");
+
 
 if (contactForm) {
 
@@ -3221,9 +4097,11 @@ async function sendContactMessage(event) {
 
     event.preventDefault();
 
+
     hideMessage(
         "contactMessage"
     );
+
 
     if (!validateContactForm()) {
 
@@ -3239,44 +4117,48 @@ async function sendContactMessage(event) {
         return;
     }
 
+
     const name =
         getElement("contactName")
             .value
             .trim();
+
 
     const email =
         getElement("contactEmail")
             .value
             .trim();
 
+
     const phone =
         getElement("contactPhone")
             .value
             .trim();
+
 
     const subject =
         getElement("contactSubject")
             .value
             .trim();
 
+
     const message =
         getElement("contactText")
             .value
             .trim();
+
 
     const button =
         getElement(
             "contactSubmitBtn"
         );
 
-    /*
-     * START API LOADING
-     */
 
     setButtonLoading(
         button,
         "Sending..."
     );
+
 
     try {
 
@@ -3287,8 +4169,8 @@ async function sendContactMessage(event) {
 
             "Accept":
                 "application/json"
-
         };
+
 
         if (
             window.frappe &&
@@ -3299,8 +4181,8 @@ async function sendContactMessage(event) {
                 "X-Frappe-CSRF-Token"
             ] =
                 window.frappe.csrf_token;
-
         }
+
 
         const response =
             await fetch(
@@ -3330,15 +4212,16 @@ async function sendContactMessage(event) {
 
                             message:
                                 message
-
                         })
                 }
             );
+
 
         const result =
             await parseApiResponse(
                 response
             );
+
 
         if (!response.ok) {
 
@@ -3350,8 +4233,10 @@ async function sendContactMessage(event) {
             );
         }
 
+
         const contactResult =
             result.message;
+
 
         if (
             !contactResult ||
@@ -3366,15 +4251,18 @@ async function sendContactMessage(event) {
             );
         }
 
+
         showMessage(
             "contactMessage",
             "Thank you! Your message has been sent successfully.",
             "success"
         );
 
+
         getElement(
             "contactForm"
         ).reset();
+
 
         [
             "contactName",
@@ -3396,10 +4284,10 @@ async function sendContactMessage(event) {
                 input.removeAttribute(
                     "aria-invalid"
                 );
-
             }
 
         });
+
 
         [
             "contactNameError",
@@ -3419,7 +4307,6 @@ async function sendContactMessage(event) {
                 error.classList.remove(
                     "show"
                 );
-
             }
 
         });
@@ -3432,6 +4319,7 @@ async function sendContactMessage(event) {
             error
         );
 
+
         showMessage(
             "contactMessage",
             error.message ||
@@ -3442,10 +4330,6 @@ async function sendContactMessage(event) {
     }
     finally {
 
-        /*
-         * STOP API LOADING
-         */
-
         resetButtonLoading(
             button
         );
@@ -3455,32 +4339,37 @@ async function sendContactMessage(event) {
 
 /* =========================================================
    APPOINTMENT VALIDATION
-   ========================================================= */
+========================================================= */
 
 function validateAppointment() {
 
     const date =
         appointmentDate.value;
 
+
     const selectedSlot =
         document.querySelector(
             ".v-slot.active"
         );
+
 
     const name =
         getElement("customerName")
             .value
             .trim();
 
+
     const email =
         getElement("customerEmail")
             .value
             .trim();
 
+
     const phone =
         getElement("customerPhone")
             .value
             .trim();
+
 
     clearFieldState(
         "customerName",
@@ -3541,7 +4430,9 @@ function validateAppointment() {
     let valid = true;
 
 
-    /* NAME */
+    /* -----------------------------------------
+       NAME
+    ----------------------------------------- */
 
     if (!name) {
 
@@ -3582,11 +4473,12 @@ function validateAppointment() {
             "customerName",
             "customerNameError"
         );
-
     }
 
 
-    /* EMAIL */
+    /* -----------------------------------------
+       EMAIL
+    ----------------------------------------- */
 
     if (!email) {
 
@@ -3616,11 +4508,12 @@ function validateAppointment() {
             "customerEmail",
             "customerEmailError"
         );
-
     }
 
 
-    /* PHONE */
+    /* -----------------------------------------
+       PHONE
+    ----------------------------------------- */
 
     if (!phone) {
 
@@ -3650,7 +4543,6 @@ function validateAppointment() {
             "customerPhone",
             "customerPhoneError"
         );
-
     }
 
 
@@ -3666,18 +4558,20 @@ function validateAppointment() {
         }
     }
 
+
     return valid;
 }
 
 
 /* =========================================================
    BOOK APPOINTMENT
-   ========================================================= */
+========================================================= */
 
 const bookAppointmentBtn =
     getElement(
         "bookAppointmentBtn"
     );
+
 
 if (bookAppointmentBtn) {
 
@@ -3694,63 +4588,72 @@ async function bookAppointment() {
         "bookingMessage"
     );
 
+
     if (!validateAppointment()) {
         return;
     }
 
+
     const date =
         appointmentDate.value;
+
 
     const selectedSlot =
         document.querySelector(
             ".v-slot.active"
         );
 
+
     if (!selectedSlot) {
         return;
     }
 
+
     const time =
         selectedSlot.dataset.time;
+
 
     const name =
         getElement("customerName")
             .value
             .trim();
 
+
     const email =
         getElement("customerEmail")
             .value
             .trim();
+
 
     const phone =
         getElement("customerPhone")
             .value
             .trim();
 
+
     const subject =
         getElement("appointmentSubject")
             .value
             .trim();
+
 
     const message =
         getElement("appointmentMessage")
             .value
             .trim();
 
+
     const button =
         getElement(
             "bookAppointmentBtn"
         );
 
-    /*
-     * START API LOADING
-     */
 
     setButtonLoading(
         button,
         "Booking..."
     );
+
 
     try {
 
@@ -3761,8 +4664,8 @@ async function bookAppointment() {
 
             "Accept":
                 "application/json"
-
         };
+
 
         if (
             window.frappe &&
@@ -3773,8 +4676,8 @@ async function bookAppointment() {
                 "X-Frappe-CSRF-Token"
             ] =
                 window.frappe.csrf_token;
-
         }
+
 
         const response =
             await fetch(
@@ -3807,15 +4710,16 @@ async function bookAppointment() {
 
                             message:
                                 message
-
                         })
                 }
             );
+
 
         const result =
             await parseApiResponse(
                 response
             );
+
 
         if (!response.ok) {
 
@@ -3827,8 +4731,10 @@ async function bookAppointment() {
             );
         }
 
+
         const bookingResult =
             result.message;
+
 
         if (
             !bookingResult ||
@@ -3843,10 +4749,12 @@ async function bookAppointment() {
             );
         }
 
+
         const appointmentId =
             bookingResult.name
                 ? ` Appointment ID: ${bookingResult.name}`
                 : "";
+
 
         showMessage(
             "bookingMessage",
@@ -3856,21 +4764,29 @@ async function bookAppointment() {
         );
 
 
+        /*
+         * CLEAR CUSTOMER FORM
+         */
+
         getElement(
             "customerName"
         ).value = "";
+
 
         getElement(
             "customerEmail"
         ).value = "";
 
+
         getElement(
             "customerPhone"
         ).value = "";
 
+
         getElement(
             "appointmentSubject"
         ).value = "";
+
 
         getElement(
             "appointmentMessage"
@@ -3896,13 +4812,26 @@ async function bookAppointment() {
                 input.removeAttribute(
                     "aria-invalid"
                 );
-
             }
 
         });
 
 
+        /*
+         * CLEAR SELECTED SLOT
+         */
+
         clearSelectedSlot();
+
+
+        /*
+         * IMPORTANT:
+         *
+         * Reload the exact selected date.
+         *
+         * Backend should now mark the booked
+         * group as unavailable.
+         */
 
         await loadAvailableSlots();
 
@@ -3914,6 +4843,7 @@ async function bookAppointment() {
             error
         );
 
+
         showMessage(
             "bookingMessage",
             error.message ||
@@ -3924,10 +4854,6 @@ async function bookAppointment() {
     }
     finally {
 
-        /*
-         * STOP API LOADING
-         */
-
         resetButtonLoading(
             button
         );
@@ -3937,7 +4863,7 @@ async function bookAppointment() {
 
 /* =========================================================
    BLUR VALIDATION
-   ========================================================= */
+========================================================= */
 
 function setupBlurValidation(
     inputId,
@@ -3967,7 +4893,7 @@ function setupBlurValidation(
 
 /* =========================================================
    CONTACT NAME
-   ========================================================= */
+========================================================= */
 
 setupBlurValidation(
     "contactName",
@@ -4008,20 +4934,23 @@ setupBlurValidation(
 
 
 /* =========================================================
-   CONTACT EMAIL
-   ========================================================= */
+   CONTACT EMAIL - OPTIONAL
+========================================================= */
 
 setupBlurValidation(
     "contactEmail",
     "contactEmailError",
     function(value) {
 
+        /*
+         * Empty email is allowed.
+         */
+
         if (!value) {
 
-            setFieldError(
+            clearFieldState(
                 "contactEmail",
-                "contactEmailError",
-                "Please enter your email address."
+                "contactEmailError"
             );
 
         }
@@ -4048,7 +4977,7 @@ setupBlurValidation(
 
 /* =========================================================
    CONTACT PHONE
-   ========================================================= */
+========================================================= */
 
 setupBlurValidation(
     "contactPhone",
@@ -4089,7 +5018,7 @@ setupBlurValidation(
 
 /* =========================================================
    CONTACT MESSAGE
-   ========================================================= */
+========================================================= */
 
 setupBlurValidation(
     "contactText",
@@ -4128,7 +5057,7 @@ setupBlurValidation(
 
 /* =========================================================
    APPOINTMENT NAME
-   ========================================================= */
+========================================================= */
 
 setupBlurValidation(
     "customerName",
@@ -4170,7 +5099,7 @@ setupBlurValidation(
 
 /* =========================================================
    APPOINTMENT EMAIL
-   ========================================================= */
+========================================================= */
 
 setupBlurValidation(
     "customerEmail",
@@ -4209,7 +5138,7 @@ setupBlurValidation(
 
 /* =========================================================
    APPOINTMENT PHONE
-   ========================================================= */
+========================================================= */
 
 setupBlurValidation(
     "customerPhone",
@@ -4248,7 +5177,7 @@ setupBlurValidation(
 
 /* =========================================================
    INITIAL DATE
-   ========================================================= */
+========================================================= */
 
 if (appointmentDate) {
 
@@ -4259,13 +5188,12 @@ if (appointmentDate) {
 
 /* =========================================================
    INITIAL SLOT LOAD
-   ========================================================= */
+========================================================= */
 
 if (appointmentDate) {
 
     loadAvailableSlots();
 }
-
 
 </script>
 

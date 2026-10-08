@@ -218,6 +218,28 @@ body {
 
 
 /* =========================================================
+   CLICKABLE VISHUDDHI LOGO
+   ========================================================= */
+
+.vishuddhi-logo-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    text-decoration: none !important;
+    cursor: pointer;
+}
+
+.vishuddhi-logo-link:hover {
+    text-decoration: none !important;
+}
+
+.vishuddhi-logo-link img {
+    cursor: pointer;
+}
+
+
+/* =========================================================
    WELCOME TEXT
    ========================================================= */
 
@@ -1268,10 +1290,16 @@ body {
 
                 {% if logo %}
 
-                <img
-                    src="{{ logo }}"
-                    alt="Vishuddhi Home Garden"
+                <a
+                    href="/"
+                    class="vishuddhi-logo-link"
+                    aria-label="Vishuddhi Home"
                 >
+                    <img
+                        src="{{ logo }}"
+                        alt="Vishuddhi Home Garden"
+                    >
+                </a>
 
                 {% endif %}
 
@@ -1334,10 +1362,16 @@ body {
 
                     {% if logo %}
 
-                    <img
-                        src="{{ logo }}"
-                        alt="Vishuddhi Home Garden"
+                    <a
+                        href="/"
+                        class="vishuddhi-logo-link"
+                        aria-label="Vishuddhi Home"
                     >
+                        <img
+                            src="{{ logo }}"
+                            alt="Vishuddhi Home Garden"
+                        >
+                    </a>
 
                     {% endif %}
 
