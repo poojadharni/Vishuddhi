@@ -83,8 +83,10 @@ web_include_js = [
 ]
 
 
-"Item": {
-    "on_update": "vishuddhi.api.website_item.sync_website_item"
+doc_events = {
+    "Item": {
+        "on_update": "vishuddhi.api.website_item.sync_website_item"
+    }
 }
 
 # Generators
