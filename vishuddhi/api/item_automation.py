@@ -3,11 +3,11 @@ import frappe
 from frappe.utils import flt
 
 
-@frappe.whitelist()
 def create_item_records(item_code):
     """
     Create or update Website Item and Item Price.
-    Create an opening Stock Entry when opening stock is supplied.
+    Use Item.valuation_rate for the Standard Selling Item Price.
+    Create opening stock only once per item and company.
     """
 
     if not item_code:
@@ -33,9 +33,7 @@ def create_item_records(item_code):
             website_item = frappe.new_doc("Website Item")
 
         website_item.item_code = item.name
-        website_item.web_item_name = (
-            item.get("item_name") or item.name
-        )
+        website_item.web_item_name = item.item_name or item.name
         website_item.published = 1
 
         if item.get("item_group"):
@@ -50,11 +48,11 @@ def create_item_records(item_code):
         website_item.save(ignore_permissions=True)
 
     # --------------------------------------------------
-    # 2. CREATE OR UPDATE ITEM PRICE
+    # 2. CREATE OR UPDATE ITEM PRICE FROM VALUATION RATE
     # --------------------------------------------------
-    selling_rate = flt(item.get("custom_selling_rate"))
+    valuation_rate = flt(item.get("valuation_rate"))
 
-    if selling_rate > 0:
+    if valuation_rate > 0:
         price_list = "Standard Selling"
 
         if not frappe.db.exists("Price List", price_list):
@@ -62,7 +60,7 @@ def create_item_records(item_code):
                 f"Price List '{price_list}' does not exist."
             )
 
-        existing_price = frappe.db.get_value(
+        price_name = frappe.db.get_value(
             "Item Price",
             {
                 "item_code": item.name,
@@ -72,31 +70,36 @@ def create_item_records(item_code):
             "name",
         )
 
-        if existing_price:
-            price = frappe.get_doc(
-                "Item Price", existing_price
-            )
+        if price_name:
+            price = frappe.get_doc("Item Price", price_name)
         else:
             price = frappe.new_doc("Item Price")
             price.item_code = item.name
             price.price_list = price_list
             price.selling = 1
 
-        price.price_list_rate = selling_rate
+        price.price_list_rate = valuation_rate
         price.save(ignore_permissions=True)
 
     # --------------------------------------------------
-    # 3. CREATE OPENING STOCK ENTRY
+    # 3. CREATE OPENING STOCK ONLY ONCE
     # --------------------------------------------------
     opening_qty = flt(item.get("opening_stock"))
 
-    if opening_qty > 0:
+    # A template item is not a stock-bearing variant.
+    if opening_qty > 0 and item.get("has_variants"):
+        frappe.logger("vishuddhi").warning(
+            f"Opening stock skipped for template item {item.name}. "
+            "Set opening stock on the child variant instead."
+        )
+
+    elif opening_qty > 0:
         if not item.get("is_stock_item"):
             frappe.throw(
-                f"{item.name} is not configured as a stock item."
+                f"{item.name} must have Maintain Stock enabled "
+                "before opening stock can be created."
             )
 
-        # Prefer the item's configured company.
         company = frappe.db.get_value(
             "Item Default",
             {"parent": item.name},
@@ -131,37 +134,33 @@ def create_item_records(item_code):
                 f"Warehouse '{warehouse}' does not exist."
             )
 
-        # Check for an existing submitted opening-stock receipt
-        # for this item before creating another one.
-        existing_stock_entry = frappe.db.sql(
+        opening_reference = f"Opening stock for {item.name}"
+
+        # Check submitted or draft receipts for this exact item,
+        # company and opening-stock reference.
+        existing_entry = frappe.db.sql(
             """
             SELECT DISTINCT se.name
             FROM `tabStock Entry` se
             INNER JOIN `tabStock Entry Detail` sed
                 ON sed.parent = se.name
-            WHERE se.docstatus = 1
-                AND se.purpose = 'Material Receipt'
-                AND se.company = %s
-                AND se.remarks LIKE %s
-                AND sed.item_code = %s
+            WHERE se.docstatus IN (0, 1)
+              AND se.purpose = 'Material Receipt'
+              AND se.company = %s
+              AND se.remarks = %s
+              AND sed.item_code = %s
             LIMIT 1
             """,
-            (
-                company,
-                f"%Opening stock for {item.name}%",
-                item.name,
-            ),
+            (company, opening_reference, item.name),
             as_dict=True,
         )
 
-        if not existing_stock_entry:
+        if not existing_entry:
             stock_entry = frappe.new_doc("Stock Entry")
             stock_entry.stock_entry_type = "Material Receipt"
             stock_entry.company = company
             stock_entry.set_posting_time = 1
-            stock_entry.remarks = (
-                f"Opening stock for {item.name}"
-            )
+            stock_entry.remarks = opening_reference
 
             stock_entry.append(
                 "items",
@@ -169,27 +168,24 @@ def create_item_records(item_code):
                     "item_code": item.name,
                     "qty": opening_qty,
                     "t_warehouse": warehouse,
-                    "basic_rate": flt(
-                        item.get("valuation_rate")
-                    ),
+                    "basic_rate": valuation_rate,
                 },
             )
 
             stock_entry.insert(ignore_permissions=True)
             stock_entry.submit()
 
-    # Do not commit here.
-    # Frappe manages the transaction for the document hook.
-
     return {
         "status": "success",
         "item_code": item.name,
+        "valuation_rate": valuation_rate,
         "message": "Item records processed successfully.",
     }
 
 
+@frappe.whitelist()
 def create_item_records_from_hook(doc, method=None):
     """
-    Called automatically when an Item is saved.
+    Hook called when an Item is inserted or updated.
     """
-    create_item_records(doc.name)
+    return create_item_records(doc.name)
