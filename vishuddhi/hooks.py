@@ -81,6 +81,12 @@ website_route_rules = [
 web_include_js = [
     "/assets/vishuddhi/js/vishuddhi_variant_autoselect.js"
 ]
+
+doc_events = {
+    "Item": {
+        "on_update": "vishuddhi.api.website_item.sync_website_item"
+    }
+}
 # Generators
 # ----------
 
