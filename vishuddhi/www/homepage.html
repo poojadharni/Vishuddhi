@@ -247,7 +247,7 @@ html {
 ========================================================= */
 
 .hero {
-    min-height: 480px;
+    min-height: 490px;
     position: relative;
     background-size: cover;
     background-position: center;
@@ -282,7 +282,7 @@ html {
 
 .hero-small {
     color: #3e7864;
-    font-size: 12px;
+    font-size: 13px;
     font-weight: 700;
     letter-spacing: 3px;
     margin-bottom: 18px;
@@ -1042,11 +1042,11 @@ html {
 }
 
 .slider-prev {
-    left: -17px;
+    left: 5px;
 }
 
 .slider-next {
-    right: -17px;
+    right: 5px;
 }
 
 .slider-dots {
@@ -1328,6 +1328,7 @@ html {
         padding: 5px 0;
     }
 .hero {
+    margin-top: 68px;
     min-height: 530px;
 }
     .vishuddhi-header {
@@ -1466,9 +1467,7 @@ html {
     .header-actions {
         gap: 10px;
     }
-.hero {
-    min-height: 530px;
-}
+
     .hero h1 {
         font-size: 39px;
     }
@@ -1594,52 +1593,406 @@ html {
    TESTIMONIAL SLIDER
 ========================================================= */
 
-.testimonial-card {
+
+/* =========================================================
+   VISHUDDHI TESTIMONIAL SLIDER
+   FULL RESPONSIVE CSS
+   ========================================================= */
+
+.testimonial-section {
+    width: 100%;
+    padding: 55px 16px;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.testimonial-section *,
+.testimonial-section *::before,
+.testimonial-section *::after {
+    box-sizing: border-box;
+}
+
+.testimonial-section .vishuddhi-container {
+    width: 100%;
+    max-width: 900px;
+    margin: 0 auto;
     position: relative;
 }
 
+/* =========================================================
+   HEADING
+   ========================================================= */
+
+.testimonial-heading {
+    text-align: center;
+    margin-bottom: 28px;
+}
+
+.testimonial-heading .eyebrow {
+    color: #276b46;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+}
+
+.testimonial-heading h2 {
+    font-size: clamp(24px, 4vw, 36px);
+    margin: 0 0 10px;
+    color: #173d2b;
+    line-height: 1.3;
+}
+
+.testimonial-heading p {
+    margin: 0;
+    color: #666;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+/* =========================================================
+   TESTIMONIAL CARD
+   ========================================================= */
+
+/* .testimonial-card {
+    position: relative;
+    width: 100%;
+    max-width: 760px;
+    min-height: 250px;
+    margin: 0 auto;
+    padding: 32px 48px;
+    background: #ffffff;
+    border-radius: 18px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    overflow: visible;
+} */
+
+/* =========================================================
+   TESTIMONIAL ITEMS
+   ========================================================= */
+
 .testimonial-item {
     display: none;
-    width: 100%;
+    animation: testimonialFade 0.3s ease;
 }
 
 .testimonial-item.active {
     display: block;
 }
 
+.testimonial-name {
+    font-size: 20px;
+    font-weight: 700;
+    color: #173d2b;
+    margin-bottom: 5px;
+    line-height: 1.4;
+}
+
+.testimonial-location {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 12px;
+}
+
+.testimonial-item .stars {
+    color: #f4b400;
+    font-size: 21px;
+    letter-spacing: 2px;
+    margin-bottom: 15px;
+    line-height: 1.4;
+}
+
+.testimonial-text {
+    color: #444;
+    font-size: 16px;
+    line-height: 1.8;
+    overflow-wrap: anywhere;
+    word-break: normal;
+}
 
 /* =========================================================
-   TESTIMONIAL DOTS
-========================================================= */
+   PREVIOUS / NEXT BUTTONS
+   VERTICALLY CENTERED ON THE CARD
+   ========================================================= */
+
+.testimonial-arrow {
+    position: absolute !important;
+
+    /* Center relative to the testimonial card */
+    top: 50% !important;
+    bottom: auto !important;
+    transform: translateY(-50%) !important;
+
+    width: 42px;
+    height: 42px;
+    min-width: 42px;
+    min-height: 42px;
+
+    padding: 0;
+    margin: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: none;
+    border-radius: 50%;
+
+    background: #003d1f;
+    color: #ffffff;
+
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 1;
+
+    cursor: pointer;
+    z-index: 5;
+
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+    transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.testimonial-arrow:hover {
+    background: #17683d;
+    box-shadow: 0 5px 14px rgba(0, 0, 0, 0.2);
+}
+
+.testimonial-arrow:focus-visible {
+    outline: 2px solid #276b46;
+    outline-offset: 3px;
+}
+
+.testimonial-arrow.left {
+    left: 50px !important;
+    right: auto !important;
+}
+
+.testimonial-arrow.right {
+    right: 50px !important;
+    left: auto !important;
+}
+
+/* =========================================================
+   NAVIGATION DOTS
+   ========================================================= */
 
 .testimonial-dots {
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 8px;
-    margin-top: 22px;
+    gap: 10px;
+    margin-top: 24px;
 }
 
 .testimonial-dot {
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
+    min-width: 10px;
+    min-height: 10px;
 
     padding: 0;
-
     border: none;
     border-radius: 50%;
 
-    background: #cfd8d2;
-
+    background: #c9d5cd;
     cursor: pointer;
 
-    transition: all 0.25s ease;
+    transition: background 0.2s ease, transform 0.2s ease;
 }
 
 .testimonial-dot.active {
-    width: 22px;
-    border-radius: 10px;
     background: #003d1f;
+    transform: scale(1.2);
+}
+
+.testimonial-dot:focus-visible {
+    outline: 2px solid #276b46;
+    outline-offset: 3px;
+}
+
+/* =========================================================
+   FADE ANIMATION
+   ========================================================= */
+
+@keyframes testimonialFade {
+    from {
+        opacity: 0;
+        transform: translateX(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .testimonial-section {
+        padding: 48px 28px;
+    }
+
+    .testimonial-card {
+        max-width: 720px;
+        padding: 30px 44px;
+    }
+
+    .testimonial-arrow.left {
+        left: -12px !important;
+    }
+
+    .testimonial-arrow.right {
+        right: -12px !important;
+    }
+}
+
+/* =========================================================
+   MOBILE
+   BUTTONS STAY IN THE MIDDLE OF THE CARD
+   ========================================================= */
+
+@media (max-width: 768px) {
+    .testimonial-section {
+        padding: 36px 12px;
+    }
+
+    .testimonial-section .vishuddhi-container {
+        width: 100%;
+    }
+
+    .testimonial-heading {
+        margin-bottom: 22px;
+    }
+
+    .testimonial-heading h2 {
+        font-size: 26px;
+    }
+
+    .testimonial-heading p {
+        font-size: 14px;
+    }
+
+    .testimonial-card {
+        width: 100%;
+        max-width: 100%;
+        min-height: 0;
+
+        padding: 24px 42px;
+        margin: 0 auto;
+
+        border-radius: 14px;
+        overflow: visible;
+    }
+
+    .testimonial-name {
+        font-size: 18px;
+    }
+
+    .testimonial-location {
+        font-size: 13px;
+    }
+
+    .testimonial-item .stars {
+        font-size: 19px;
+        margin-bottom: 12px;
+    }
+
+    .testimonial-text {
+        font-size: 14px;
+        line-height: 1.75;
+    }
+
+    /* Arrows remain vertically centered */
+    .testimonial-arrow {
+        top: 50% !important;
+        bottom: auto !important;
+        transform: translateY(-50%) !important;
+
+        width: 32px;
+        height: 32px;
+        min-width: 32px;
+        min-height: 32px;
+
+        font-size: 20px;
+    }
+
+    .testimonial-arrow.left {
+        left: 3px !important;
+        right: auto !important;
+    }
+
+    .testimonial-arrow.right {
+        right: 3px !important;
+        left: auto !important;
+    }
+
+    .testimonial-dots {
+        margin-top: 20px;
+        min-height: 24px;
+        padding: 0;
+        gap: 10px;
+    }
+}
+
+/* =========================================================
+   SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 380px) {
+    .testimonial-section {
+        padding: 30px 10px;
+    }
+
+    .testimonial-heading h2 {
+        font-size: 23px;
+    }
+
+    .testimonial-card {
+        padding: 22px 36px;
+    }
+
+    .testimonial-name {
+        font-size: 16px;
+    }
+
+    .testimonial-text {
+        font-size: 13px;
+        line-height: 1.7;
+    }
+
+    .testimonial-arrow {
+        width: 28px;
+        height: 28px;
+        min-width: 28px;
+        min-height: 28px;
+        font-size: 19px;
+    }
+
+    .testimonial-arrow.left {
+        left: 2px !important;
+    }
+
+    .testimonial-arrow.right {
+        right: 2px !important;
+    }
+}
+
+/* =========================================================
+   REDUCED MOTION ACCESSIBILITY
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    .testimonial-item {
+        animation: none;
+    }
+
+    .testimonial-arrow,
+    .testimonial-dot {
+        transition: none;
+    }
 }
 /* =========================================================
    VISHUDDHI HOMEPAGE
@@ -2988,7 +3341,7 @@ MOBILE
     Follow Us &nbsp;
 
     <!-- Facebook -->
-    <a href="https://www.facebook.com/manoshawn/videos/visit-vishuddhi-home-garden-nri-layout-ramurthynagarsurinam-cherrymanila-cherry-/1017866434566146/"
+    <a href="https://www.facebook.com/people/Vishuddhi-Home-Garden/100089248405195/"
        target="_blank"
        rel="noopener noreferrer"
        aria-label="Vishuddhi Facebook"
@@ -3239,14 +3592,6 @@ MOBILE
 
                 <div class="testimonial-text">
                     "Excellent place for all types of plants. You wont get thier price anywhere in NRI layout. They are very polite and once you visit there you will never go anywhere else to buy plants. I am one of their regular happy customer."
-                </div>
-
-                <div class="testimonial-name">
-                    Harshitha
-                </div>
-
-                <div class="testimonial-location">
-                    Bangalore
                 </div>
 
             </div>
@@ -3648,77 +3993,105 @@ function formatPrice(value) {
    TESTIMONIAL SLIDER
    ========================================================= */
 
-let currentTestimonial = 0;
 
-const testimonialItems =
-    document.querySelectorAll(
+/* =========================================
+   TESTIMONIAL SLIDER
+   Desktop buttons + mobile swipe
+   ========================================= */
+
+(function () {
+    let currentTestimonial = 0;
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    const testimonialItems = document.querySelectorAll(
         ".testimonial-item"
     );
 
-const testimonialDots =
-    document.querySelectorAll(
+    const testimonialDots = document.querySelectorAll(
         ".testimonial-dot"
     );
 
+    const testimonialCard = document.querySelector(
+        ".testimonial-card"
+    );
 
-function showTestimonial(index) {
+    function showTestimonial(index) {
+        if (!testimonialItems.length) return;
 
-    if (!testimonialItems.length) {
-        return;
-    }
+        if (index < 0) {
+            index = testimonialItems.length - 1;
+        }
 
-    if (index < 0) {
-        index =
-            testimonialItems.length - 1;
-    }
+        if (index >= testimonialItems.length) {
+            index = 0;
+        }
 
-    if (index >= testimonialItems.length) {
-        index = 0;
-    }
+        currentTestimonial = index;
 
-    currentTestimonial = index;
-
-    testimonialItems.forEach(
-        function(item, i) {
-
+        testimonialItems.forEach(function (item, i) {
             item.classList.toggle(
                 "active",
                 i === currentTestimonial
             );
+        });
 
-        }
-    );
-
-    testimonialDots.forEach(
-        function(dot, i) {
-
+        testimonialDots.forEach(function (dot, i) {
             dot.classList.toggle(
                 "active",
                 i === currentTestimonial
             );
+        });
+    }
 
-        }
-    );
+    function nextTestimonial() {
+        showTestimonial(currentTestimonial + 1);
+    }
 
-}
+    function previousTestimonial() {
+        showTestimonial(currentTestimonial - 1);
+    }
 
+    /* Keep existing HTML onclick functions working */
+    window.showTestimonial = showTestimonial;
+    window.nextTestimonial = nextTestimonial;
+    window.previousTestimonial = previousTestimonial;
 
-function nextTestimonial() {
+    /* Mobile touch swipe support */
+    if (testimonialCard) {
+        testimonialCard.addEventListener(
+            "touchstart",
+            function (event) {
+                touchStartX = event.changedTouches[0].screenX;
+            },
+            { passive: true }
+        );
 
-    showTestimonial(
-        currentTestimonial + 1
-    );
+        testimonialCard.addEventListener(
+            "touchend",
+            function (event) {
+                touchEndX = event.changedTouches[0].screenX;
 
-}
+                const swipeDistance = touchEndX - touchStartX;
+                const minimumSwipe = 45;
 
+                if (Math.abs(swipeDistance) < minimumSwipe) {
+                    return;
+                }
 
-function previousTestimonial() {
+                if (swipeDistance < 0) {
+                    nextTestimonial();
+                } else {
+                    previousTestimonial();
+                }
+            },
+            { passive: true }
+        );
+    }
 
-    showTestimonial(
-        currentTestimonial - 1
-    );
-
-}
+    /* Initialize the first testimonial */
+    showTestimonial(0);
+})();
 
 
 /* =========================================================
@@ -4394,37 +4767,49 @@ function createProductCard(product) {
         </div>
 
     `;
+    
+/* =====================================================
+   CART BUTTON
+   REDIRECT GUEST USERS TO LOGIN
+   ===================================================== */
 
+const cartButton = card.querySelector(".add-cart");
 
-    /* =====================================================
-       CART BUTTON
-       ===================================================== */
+if (cartButton) {
 
-    const cartButton =
-        card.querySelector(
-            ".add-cart"
+    cartButton.addEventListener("click", function(event) {
+
+        event.preventDefault();
+        event.stopPropagation();
+
+        // Check whether the user is logged in
+        if (
+            typeof frappe === "undefined" ||
+            !frappe.session ||
+            frappe.session.user === "Guest"
+        ) {
+
+            const currentPage =
+                window.location.pathname +
+                window.location.search;
+
+            window.location.href =
+                "/login?redirect-to=" +
+                encodeURIComponent(currentPage);
+
+            return;
+        }
+
+        // Logged-in user: add product normally
+        addProductToCart(
+            product.name,
+            productName,
+            cartButton
         );
 
+    });
 
-    if (cartButton) {
-
-        cartButton.addEventListener(
-            "click",
-            function(event) {
-
-                event.preventDefault();
-                event.stopPropagation();
-
-                addProductToCart(
-                    product.name,
-                    productName,
-                    cartButton
-                );
-
-            }
-        );
-
-    }
+}
 
 
     /* =====================================================
@@ -4695,97 +5080,58 @@ function applyPlantFilters() {
 
     const attributeFilters = {};
 
-
-    if (
-        plantFilters.Category.length > 0
-    ) {
-
-        attributeFilters.Category =
-            [
-                ...plantFilters.Category
-            ];
-
+    if (plantFilters.Category.length > 0) {
+        attributeFilters.Category = [...plantFilters.Category];
     }
 
-
-    if (
-        plantFilters.Sunlight.length > 0
-    ) {
-
-        attributeFilters.Sunlight =
-            [
-                ...plantFilters.Sunlight
-            ];
-
+    if (plantFilters.Sunlight.length > 0) {
+        attributeFilters.Sunlight = [...plantFilters.Sunlight];
     }
 
-
-    if (
-        plantFilters.Care.length > 0
-    ) {
-
-        attributeFilters.Care =
-            [
-                ...plantFilters.Care
-            ];
-
+    if (plantFilters.Care.length > 0) {
+        attributeFilters.Care = [...plantFilters.Care];
     }
 
-
-    if (
-        plantFilters.Purpose.length > 0
-    ) {
-
-        attributeFilters.Purpose =
-            [
-                ...plantFilters.Purpose
-            ];
-
+    if (plantFilters.Purpose.length > 0) {
+        attributeFilters.Purpose = [...plantFilters.Purpose];
     }
 
-
-    /* =====================================================
-       NO FILTERS
-       ===================================================== */
-
-    if (
-        Object.keys(
-            attributeFilters
-        ).length === 0
-    ) {
-
-        window.location.href =
-            "/all-products";
-
-        return;
-
-    }
-
-
-    const filterJSON =
-        JSON.stringify(
-            attributeFilters
+    /*
+     * Save the discovery preferences before navigating to the product list.
+     * The product detail page reads this same key and preselects matching
+     * variant attributes in the Select Variant popup.
+     */
+    try {
+        localStorage.setItem(
+            "vishuddhiPlantDiscoveryPrefs",
+            JSON.stringify({
+                Category: plantFilters.Category.slice(),
+                Sunlight: plantFilters.Sunlight.slice(),
+                Care: plantFilters.Care.slice(),
+                Purpose: plantFilters.Purpose.slice(),
+                savedAt: Date.now()
+            })
         );
+    } catch (error) {
+        console.warn(
+            "Could not save Smart Plant Discovery preferences:",
+            error
+        );
+    }
 
+    /* No filters selected: keep the original all-products behavior. */
+    if (Object.keys(attributeFilters).length === 0) {
+        window.location.href = "/all-products";
+        return;
+    }
 
-    console.log(
-        "Native Webshop attribute filters:",
-        filterJSON
+    const encodedFilters = encodeURIComponent(
+        JSON.stringify(attributeFilters)
     );
 
-
-    const encodedFilters =
-        encodeURIComponent(
-            filterJSON
-        );
-
-
     window.location.href =
-        "/all-products?attribute_filters=" +
-        encodedFilters;
-
+        "/all-products?attribute_filters=" + encodedFilters;
 }
-
 
 /* =========================================================
    RESET SMART FILTERS

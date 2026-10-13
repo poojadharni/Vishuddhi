@@ -77,6 +77,10 @@ website_route_rules = [
         "to_route": "vishuddhi_login",
     },
 ]
+
+web_include_js = [
+    "/assets/vishuddhi/js/vishuddhi_variant_autoselect.js"
+]
 # Generators
 # ----------
 

@@ -310,36 +310,139 @@ def _prepare_product(item, bestseller_field=None):
 # COMMON PRODUCT QUERY
 # ============================================================
 
-def _get_products(filters=None, limit=100):
+def _get_products(filters=None, limit=100, include_templates=False):
+    """
+    Fetch enabled Items.
 
-    item_filters = {
-        "disabled": 0,
-        "has_variants": 0
+    include_templates=True:
+        Include parent template Items (has_variants=1) and normal Items.
+        Used by All Products and category listings.
+
+    include_templates=False:
+        Keep the previous behavior for bestseller listings by excluding
+        parent templates.
+    """
+
+    item_filters = {"disabled": 0}
+
+    if not include_templates:
+        item_filters["has_variants"] = 0
+
+    discovery_checkbox_fields = {
+        "indoor", "outdoor", "flowering", "pots",
+        "garden_essentials", "seeds", "terrace", "garden",
+        "low", "medium", "high", "easy", "moderate", "advanced",
+        "air_purifying", "decorative", "fruit", "vegetable",
+        "low_maintenance",
     }
 
+    # When templates are included, discovery/category flags may live only
+    # on their variants. Apply these filters after merging variant flags.
+    deferred_filters = {}
     if filters:
-        item_filters.update(filters)
+        for key, value in filters.items():
+            if include_templates and key in discovery_checkbox_fields:
+                deferred_filters[key] = value
+            else:
+                item_filters[key] = value
 
     fields = _get_item_fields()
+    meta = frappe.get_meta("Item")
+
+    for field in ("has_variants", "variant_of"):
+        if meta.has_field(field) and field not in fields:
+            fields.append(field)
 
     products = frappe.get_all(
         "Item",
         filters=item_filters,
         fields=fields,
         order_by="creation desc",
-        limit_page_length=limit
+        # Fetch enough rows before applying deferred filters so a template
+        # is not omitted just because its own checkbox is empty.
+        limit_page_length=0 if deferred_filters else limit,
     )
+
+    # Template Items often have no discovery checkboxes of their own.
+    # Merge checkbox values from their enabled variants so Smart Discover
+    # can match and display the parent template too.
+    if include_templates:
+        _merge_variant_discovery_data(products, fields)
+
+    if deferred_filters:
+        products = [
+            item for item in products
+            if all(item.get(field) == value for field, value in deferred_filters.items())
+        ]
+        if limit:
+            products = products[:limit]
 
     bestseller_field = _get_bestseller_field()
 
     for item in products:
-
-        _prepare_product(
-            item,
-            bestseller_field
-        )
+        _prepare_product(item, bestseller_field)
 
     return products
+
+
+def _merge_variant_discovery_data(products, item_fields=None):
+    """Merge discovery/category checkbox values from variants into templates."""
+
+    if not products:
+        return
+
+    template_names = [
+        item.get("name")
+        for item in products
+        if item.get("has_variants")
+    ]
+
+    if not template_names:
+        return
+
+    meta = frappe.get_meta("Item")
+    checkbox_fields = [
+        field for field in (
+            "indoor", "outdoor", "flowering", "pots",
+            "garden_essentials", "seeds",
+            "terrace", "garden",
+            "low", "medium", "high",
+            "easy", "moderate", "advanced",
+            "air_purifying", "decorative", "fruit",
+            "vegetable", "low_maintenance",
+        )
+        if meta.has_field(field)
+    ]
+
+    if not checkbox_fields:
+        return
+
+    variant_fields = ["name", "variant_of"] + checkbox_fields
+
+    variants = frappe.get_all(
+        "Item",
+        filters={
+            "disabled": 0,
+            "variant_of": ["in", template_names],
+        },
+        fields=variant_fields,
+        limit_page_length=0,
+    )
+
+    templates_by_name = {
+        item.get("name"): item
+        for item in products
+        if item.get("has_variants")
+    }
+
+    for variant in variants:
+        template = templates_by_name.get(variant.get("variant_of"))
+        if not template:
+            continue
+
+        for field in checkbox_fields:
+            if variant.get(field):
+                template[field] = 1
 
 
 # ============================================================
@@ -348,9 +451,10 @@ def _get_products(filters=None, limit=100):
 
 @frappe.whitelist(allow_guest=True)
 def get_products():
-
+    """Return regular Items and parent templates for the All Products page."""
     return _get_products(
-        limit=100
+        limit=1000,
+        include_templates=True,
     )
 
 
@@ -463,7 +567,8 @@ def get_products_by_category(category=None):
         filters={
             fieldname: 1
         },
-        limit=100
+        limit=1000,
+        include_templates=True,
     )
 
 
@@ -592,5 +697,6 @@ def get_products_by_item_group(item_group=None):
         filters={
             "item_group": item_group
         },
-        limit=100
+        limit=1000,
+        include_templates=True,
     )
