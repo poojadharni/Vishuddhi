@@ -6,8 +6,8 @@ from frappe.utils import flt
 @frappe.whitelist()
 def create_item_records(item_code):
     """
-    Create/update Website Item and Item Price.
-    Create opening Stock Entry when opening stock is supplied.
+    Create or update Website Item and Item Price.
+    Create an opening Stock Entry when opening stock is supplied.
     """
 
     if not item_code:
@@ -16,7 +16,7 @@ def create_item_records(item_code):
     item = frappe.get_doc("Item", item_code)
 
     # --------------------------------------------------
-    # 1. CREATE WEBSITE ITEM
+    # 1. CREATE OR UPDATE WEBSITE ITEM
     # --------------------------------------------------
     if item.get("published_in_website"):
         website_item_name = frappe.db.get_value(
@@ -33,11 +33,24 @@ def create_item_records(item_code):
             website_item = frappe.new_doc("Website Item")
 
         website_item.item_code = item.name
+        website_item.web_item_name = (
+            item.get("item_name") or item.name
+        )
         website_item.published = 1
+
+        if item.get("item_group"):
+            website_item.item_group = item.item_group
+
+        if item.get("stock_uom"):
+            website_item.stock_uom = item.stock_uom
+
+        if item.get("description"):
+            website_item.description = item.description
+
         website_item.save(ignore_permissions=True)
 
     # --------------------------------------------------
-    # 2. CREATE ITEM PRICE
+    # 2. CREATE OR UPDATE ITEM PRICE
     # --------------------------------------------------
     selling_rate = flt(item.get("custom_selling_rate"))
 
@@ -60,7 +73,9 @@ def create_item_records(item_code):
         )
 
         if existing_price:
-            price = frappe.get_doc("Item Price", existing_price)
+            price = frappe.get_doc(
+                "Item Price", existing_price
+            )
         else:
             price = frappe.new_doc("Item Price")
             price.item_code = item.name
@@ -76,31 +91,67 @@ def create_item_records(item_code):
     opening_qty = flt(item.get("opening_stock"))
 
     if opening_qty > 0:
-        company = frappe.defaults.get_user_default("Company")
+        if not item.get("is_stock_item"):
+            frappe.throw(
+                f"{item.name} is not configured as a stock item."
+            )
 
-        warehouse = frappe.db.get_value(
+        # Prefer the item's configured company.
+        company = frappe.db.get_value(
             "Item Default",
-            {"parent": item.name, "company": company},
-            "default_warehouse",
+            {"parent": item.name},
+            "company",
         )
 
         if not company:
-            frappe.throw("Set a default Company before creating stock.")
+            company = frappe.defaults.get_user_default("Company")
+
+        if not company:
+            frappe.throw(
+                "Set a default Company before creating opening stock."
+            )
+
+        warehouse = frappe.db.get_value(
+            "Item Default",
+            {
+                "parent": item.name,
+                "company": company,
+            },
+            "default_warehouse",
+        )
 
         if not warehouse:
             frappe.throw(
                 f"Set Default Warehouse for {item.name} "
-                f"and company {company}."
+                f"under company {company} in Item Defaults."
             )
 
-        # Avoid receiving the same opening stock twice.
-        existing_stock_entry = frappe.db.exists(
-            "Stock Entry",
-            {
-                "docstatus": 1,
-                "purpose": "Material Receipt",
-                "remarks": ["like", f"%Opening stock for {item.name}%"],
-            },
+        if not frappe.db.exists("Warehouse", warehouse):
+            frappe.throw(
+                f"Warehouse '{warehouse}' does not exist."
+            )
+
+        # Check for an existing submitted opening-stock receipt
+        # for this item before creating another one.
+        existing_stock_entry = frappe.db.sql(
+            """
+            SELECT DISTINCT se.name
+            FROM `tabStock Entry` se
+            INNER JOIN `tabStock Entry Detail` sed
+                ON sed.parent = se.name
+            WHERE se.docstatus = 1
+                AND se.purpose = 'Material Receipt'
+                AND se.company = %s
+                AND se.remarks LIKE %s
+                AND sed.item_code = %s
+            LIMIT 1
+            """,
+            (
+                company,
+                f"%Opening stock for {item.name}%",
+                item.name,
+            ),
+            as_dict=True,
         )
 
         if not existing_stock_entry:
@@ -108,22 +159,37 @@ def create_item_records(item_code):
             stock_entry.stock_entry_type = "Material Receipt"
             stock_entry.company = company
             stock_entry.set_posting_time = 1
-            stock_entry.remarks = f"Opening stock for {item.name}"
+            stock_entry.remarks = (
+                f"Opening stock for {item.name}"
+            )
 
-            stock_entry.append("items", {
-                "item_code": item.name,
-                "qty": opening_qty,
-                "t_warehouse": warehouse,
-                "basic_rate": flt(item.get("valuation_rate")),
-            })
+            stock_entry.append(
+                "items",
+                {
+                    "item_code": item.name,
+                    "qty": opening_qty,
+                    "t_warehouse": warehouse,
+                    "basic_rate": flt(
+                        item.get("valuation_rate")
+                    ),
+                },
+            )
 
             stock_entry.insert(ignore_permissions=True)
             stock_entry.submit()
 
-    frappe.db.commit()
+    # Do not commit here.
+    # Frappe manages the transaction for the document hook.
 
     return {
         "status": "success",
         "item_code": item.name,
         "message": "Item records processed successfully.",
     }
+
+
+def create_item_records_from_hook(doc, method=None):
+    """
+    Called automatically when an Item is saved.
+    """
+    create_item_records(doc.name)

@@ -85,7 +85,10 @@ web_include_js = [
 
 doc_events = {
     "Item": {
-        "on_update": "vishuddhi.api.item_automation.create_item_records_from_hook"
+        "on_update": (
+            "vishuddhi.api.item_automation."
+            "create_item_records_from_hook"
+        )
     }
 }
 
