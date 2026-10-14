@@ -1,3 +1,4 @@
+
 import frappe
 
 
@@ -7,7 +8,6 @@ import frappe
 
 def _get_cart_count_from_quotation(quotation):
     """Return the total quantity of all items in the cart."""
-
     if not quotation:
         return 0
 
@@ -19,7 +19,6 @@ def _get_cart_count_from_quotation(quotation):
 
 def _get_current_cart():
     """Get the current Webshop cart quotation."""
-
     from webshop.webshop.shopping_cart.cart import (
         _get_cart_quotation,
         get_party,
@@ -35,14 +34,12 @@ def _get_current_cart():
 
 # ============================================================
 # ADD TO CART
-#
-# Use Webshop's standard update_cart method as the only
-# cart mutation path. Do not load and save a second copy of
-# the same Quotation here.
 # ============================================================
 
 @frappe.whitelist()
 def add_to_cart(item_code, qty=1):
+    """Add a product quantity using Webshop's standard cart API."""
+
     if frappe.session.user == "Guest":
         frappe.throw("Please login to add items to cart")
 
@@ -50,27 +47,60 @@ def add_to_cart(item_code, qty=1):
         frappe.throw("Item Code is required")
 
     try:
-        qty = int(qty)
+        qty = frappe.utils.flt(qty)
 
-        if qty < 1:
+        if qty <= 0:
             qty = 1
 
-        # Delegate cart mutation to the standard Webshop method.
-        from webshop.webshop.shopping_cart.cart import update_cart
-
-        result = update_cart(
-            item_code=item_code,
-            qty=qty,
-            cmd="add",
+        # Ensure the item is published on the website.
+        website_item = frappe.db.get_value(
+            "Website Item",
+            {
+                "item_code": item_code,
+                "published": 1,
+            },
+            "name",
         )
 
-        # Fetch the latest cart state after the update.
+        if not website_item:
+            frappe.throw(
+                "This product is not published on the website"
+            )
+
+        # Import the standard Webshop cart functions.
+        from webshop.webshop.shopping_cart.cart import (
+            update_cart,
+        )
+
+        # Read the current cart quantity for this item.
+        quotation = _get_current_cart()
+
+        current_qty = 0
+
+        if quotation:
+            for row in quotation.get("items") or []:
+                if row.item_code == item_code:
+                    current_qty += frappe.utils.flt(row.qty)
+
+        # Webshop update_cart sets the quantity; it does not
+        # increment it. Calculate the new total quantity first.
+        new_qty = current_qty + qty
+
+        # Use the correct Webshop v16 function signature.
+        result = update_cart(
+            item_code=item_code,
+            qty=new_qty,
+        )
+
+        # Fetch the latest cart after Webshop updates it.
         quotation = _get_current_cart()
         cart_count = _get_cart_count_from_quotation(quotation)
 
         return {
             "success": True,
             "message": "Item added to cart",
+            "item_code": item_code,
+            "item_qty": new_qty,
             "cart_count": cart_count,
             "cart": result,
         }
@@ -106,7 +136,6 @@ def get_cart_count():
 
 # ============================================================
 # GET EXISTING USER WISHLIST
-#
 # Does not create a Wishlist.
 # ============================================================
 
@@ -228,7 +257,7 @@ def add_to_wishlist(item_code):
 
         warehouse = website_item.get("website_warehouse")
 
-        # Update an existing wishlist row if needed.
+        # Do not add the same product twice.
         for row in wishlist.get("items") or []:
             if row.item_code != item_code:
                 continue
@@ -265,11 +294,13 @@ def add_to_wishlist(item_code):
                 "success": True,
                 "already_exists": True,
                 "message": "Item already in wishlist",
-                "wishlist_count": len(wishlist.get("items") or []),
+                "wishlist_count": len(
+                    wishlist.get("items") or []
+                ),
                 "warehouse": warehouse,
             }
 
-        # Add a new row to the existing wishlist.
+        # Append a new item to the existing Wishlist.
         wishlist.append(
             "items",
             {
@@ -297,7 +328,9 @@ def add_to_wishlist(item_code):
         return {
             "success": True,
             "message": "Added to wishlist",
-            "wishlist_count": len(wishlist.get("items") or []),
+            "wishlist_count": len(
+                wishlist.get("items") or []
+            ),
             "warehouse": warehouse,
         }
 
@@ -349,7 +382,9 @@ def remove_from_wishlist(item_code):
                 if item_found
                 else "Item was not in wishlist"
             ),
-            "wishlist_count": len(wishlist.get("items") or []),
+            "wishlist_count": len(
+                wishlist.get("items") or []
+            ),
         }
 
     except Exception:

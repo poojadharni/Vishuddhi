@@ -5,9 +5,9 @@ from frappe.utils import flt
 
 def create_item_records(item_code):
     """
-    Create or update Website Item and Item Price.
-    Use Item.valuation_rate for the Standard Selling Item Price.
-    Create opening stock only once per item and company.
+    Create/update Website Item and Item Price.
+    Create opening stock only when no Material Receipt already
+    contains this item for the selected company.
     """
 
     if not item_code:
@@ -48,7 +48,7 @@ def create_item_records(item_code):
         website_item.save(ignore_permissions=True)
 
     # --------------------------------------------------
-    # 2. CREATE OR UPDATE ITEM PRICE FROM VALUATION RATE
+    # 2. CREATE OR UPDATE ITEM PRICE USING VALUATION RATE
     # --------------------------------------------------
     valuation_rate = flt(item.get("valuation_rate"))
 
@@ -82,22 +82,21 @@ def create_item_records(item_code):
         price.save(ignore_permissions=True)
 
     # --------------------------------------------------
-    # 3. CREATE OPENING STOCK ONLY ONCE
+    # 3. CREATE OPENING STOCK ONLY FOR STOCK-BEARING ITEMS
     # --------------------------------------------------
     opening_qty = flt(item.get("opening_stock"))
 
-    # A template item is not a stock-bearing variant.
+    # Parent templates must not create opening Stock Entries.
     if opening_qty > 0 and item.get("has_variants"):
-        frappe.logger("vishuddhi").warning(
-            f"Opening stock skipped for template item {item.name}. "
-            "Set opening stock on the child variant instead."
+        frappe.logger("vishuddhi").info(
+            f"Skipped opening stock for template {item.name}"
         )
 
     elif opening_qty > 0:
         if not item.get("is_stock_item"):
             frappe.throw(
-                f"{item.name} must have Maintain Stock enabled "
-                "before opening stock can be created."
+                f"{item.name}: enable Maintain Stock before "
+                "creating opening stock."
             )
 
         company = frappe.db.get_value(
@@ -126,18 +125,13 @@ def create_item_records(item_code):
         if not warehouse:
             frappe.throw(
                 f"Set Default Warehouse for {item.name} "
-                f"under company {company} in Item Defaults."
+                f"under company {company}."
             )
 
-        if not frappe.db.exists("Warehouse", warehouse):
-            frappe.throw(
-                f"Warehouse '{warehouse}' does not exist."
-            )
-
-        opening_reference = f"Opening stock for {item.name}"
-
-        # Check submitted or draft receipts for this exact item,
-        # company and opening-stock reference.
+        # IMPORTANT:
+        # Any existing draft/submitted Material Receipt containing
+        # this item in this company prevents another receipt from
+        # being created by this automation.
         existing_entry = frappe.db.sql(
             """
             SELECT DISTINCT se.name
@@ -147,20 +141,26 @@ def create_item_records(item_code):
             WHERE se.docstatus IN (0, 1)
               AND se.purpose = 'Material Receipt'
               AND se.company = %s
-              AND se.remarks = %s
               AND sed.item_code = %s
             LIMIT 1
             """,
-            (company, opening_reference, item.name),
+            (company, item.name),
             as_dict=True,
         )
 
-        if not existing_entry:
+        if existing_entry:
+            frappe.logger("vishuddhi").info(
+                f"Opening stock skipped for {item.name}; "
+                f"existing Material Receipt: {existing_entry[0].name}"
+            )
+        else:
             stock_entry = frappe.new_doc("Stock Entry")
             stock_entry.stock_entry_type = "Material Receipt"
             stock_entry.company = company
             stock_entry.set_posting_time = 1
-            stock_entry.remarks = opening_reference
+            stock_entry.remarks = (
+                f"Opening stock for {item.name}"
+            )
 
             stock_entry.append(
                 "items",
@@ -183,9 +183,9 @@ def create_item_records(item_code):
     }
 
 
-@frappe.whitelist()
 def create_item_records_from_hook(doc, method=None):
     """
-    Hook called when an Item is inserted or updated.
+    Frappe Item document hook.
+    Runs when an Item is inserted or updated.
     """
     return create_item_records(doc.name)
